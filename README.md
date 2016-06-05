@@ -1,2 +1,2 @@
 # tpk
-Create your own custom character sheets for D&amp;D using special HTML
+Create your own custom character sheets for D&D using special HTML
