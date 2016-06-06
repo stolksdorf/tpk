@@ -10,6 +10,7 @@ if(typeof navigator !== 'undefined'){
 	//Language Modes
 	require('codemirror/mode/gfm/gfm.js'); //Github flavoured markdown
 	require('codemirror/mode/javascript/javascript.js');
+	require('codemirror/mode/jsx/jsx.js');
 }
 
 
@@ -38,7 +39,7 @@ var CodeEditor = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps){
-		if(this.codeMirror && nextProps.value !== undefined && this.codeMirror.getValue() != nextProps.value) {
+		if(this.codeMirror && nextProps.value && this.codeMirror.getValue() != nextProps.value) {
 			this.codeMirror.setValue(nextProps.value);
 		}
 	},

@@ -64,7 +64,16 @@ var TPK = React.createClass({
 			</Navbar>
 			<div className='content'>
 				<SplitPane onDragFinish={this.handleSplitMove} ref='pane'>
-					<SheetEditor value={this.state.sheetCode} onChange={this.handleCodeChange} ref='editor' />
+					<SheetEditor
+						ref='editor'
+
+						sheetValue={this.state.sheetCode}
+						onChangeSheet={this.handleCodeChange}
+
+						dataValue={this.state.sheetData}
+						onChangeData={this.handleDataChange}
+
+					/>
 					<SheetRenderer
 						code={this.state.sheetCode}
 						characterData={this.state.sheetData}

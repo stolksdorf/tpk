@@ -1,0 +1,18 @@
+- refresh the conflicted repo
+
+- new Parts
+ - Text area
+ - Sheet (move renderer to target this)
+ - New render for radio boxes, use font awesome
+ - Flexbox
+ - Make div content container for reg boxes
+ - width default to one
+ - height auto
+ - rows/columns progate down
+ - something in the utils was upgraded
+ - landscape mode sheets
+ - Renderer set to letter
+ - Added in bar for triple editor
+ - Add in character data editor
+ - get rid of subtitle on skills
+ - 

@@ -4,8 +4,8 @@ var _ = require('lodash');
 module.exports = {
 	id : function(){
 		if(this.props.id) return this.props.id;
-		if(this.props.label) return _.snakeCase(this.props.label);
 		if(this.props.title) return _.snakeCase(this.props.title);
+		if(this.props.label) return _.snakeCase(this.props.label);
 		return this.props.name;
 	},
 	data : function(){

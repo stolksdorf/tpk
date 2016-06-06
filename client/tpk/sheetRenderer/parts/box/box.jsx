@@ -5,7 +5,7 @@ var cx = require('classnames');
 var utils = require('../utils');
 
 var Box = React.createClass({
-	mixins : [utils],
+	//mixins : [utils],
 	getDefaultProps: function() {
 		return {
 			//name : 'box',
@@ -15,9 +15,20 @@ var Box = React.createClass({
 			title : '',
 			label : '',
 			shadow : false,
-			border : false
+			border : false,
+
+			//containerColumnCount : 1,
+			columns : 1,
+			width : 1,
+
+			rows : 1,
+			height : 0
 		};
 	},
+
+	id : utils.id,
+	data : utils.data,
+	updateData : utils.updateData,
 
 	handleChange : function(newData){
 		this.updateData(newData);
@@ -27,8 +38,11 @@ var Box = React.createClass({
 		return React.Children.map(this.props.children, (child)=>{
 			if(!React.isValidElement(child)) return null;
 			return React.cloneElement(child, {
-				onChange : this.handleChange,
-				data : this.data()
+				onChange : child.props.onChange || this.handleChange,
+				data : this.data(),
+
+				containerColumnCount : this.props.columns,
+				containerRowCount : this.props.rows
 			})
 		})
 	},
@@ -40,13 +54,25 @@ var Box = React.createClass({
 	},
 
 	render : function(){
+		var style = {};
+		if(this.props.containerColumnCount){
+			style.width = this.props.width/this.props.containerColumnCount*100 + '%';
+		}
+		if(this.props.containerRowCount && this.props.height){
+			style.height = this.props.height/this.props.containerRowCount*100 + '%';
+		}
+
+
 		return <div className={cx('box', this.props.className, {
 				shadow : this.props.shadow,
-				border : this.props.border
-			})}>
-			{this.renderTitle()}
-			{this.renderChildren()}
-			{this.renderLabel()}
+				border : this.props.border,
+				flex : this.props.columns !== 1
+			})} style={style}>
+			<div className='content'>
+				{this.renderTitle()}
+				{this.renderChildren()}
+				{this.renderLabel()}
+			</div>
 		</div>
 	}
 });

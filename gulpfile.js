@@ -6,7 +6,7 @@ var gulp = require("gulp");
 
 var gulp = vitreumTasks(gulp, {
 	entryPoints: [
-		'./client/tpk',
+		'./client/tpk'
 	],
 
 	DEV: true,
@@ -27,6 +27,7 @@ var gulp = vitreumTasks(gulp, {
 		"codemirror",
 		"codemirror/mode/gfm/gfm.js",
 		'codemirror/mode/javascript/javascript.js',
+		'codemirror/mode/jsx/jsx.js',
 
 		"moment",
 		"superagent",

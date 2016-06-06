@@ -11,7 +11,7 @@ var Navbar = React.createClass({
 				<Nav.item href='/tpk' className='tpkLogo'>
 					<div>Total Player Knolling</div>
 				</Nav.item>
-				<Nav.item>v0.0.0</Nav.item>
+				<Nav.item>v0.0.0 - super duper alpha</Nav.item>
 			</Nav.section>
 			{this.props.children}
 		</Nav.base>

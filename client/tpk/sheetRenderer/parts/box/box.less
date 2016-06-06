@@ -1,30 +1,50 @@
+
 .box{
-	position : relative;
-	padding : 10px;
-	margin: 10px;
+	position       : relative;
+	display : inline-block;
+	box-sizing     : border-box;
 
-	&.border{
-		border: 1px solid black;
-	}
-	&.shadow{
-		background-color: #ddd;
-	}
+	padding : 5px;
 
+	overflow: hidden;
 
-	h5{
-		text-transform: uppercase;
-		font-size : 0.6em;
-		text-align: center;
+	&>.content{
+		padding        : 10px;
+		box-sizing     : border-box;
+		position: relative;
 		width : 100%;
-		font-weight: 800;
+		height : 100%;
+	}
 
+
+	&.flex>.content{
+		display        : flex;
+		flex-direction : row;
+		flex-wrap      : wrap;
+	}
+
+
+	&.border>.content{
+		border : 1px solid black;
+		background-color: white;
+	}
+	&.shadow>.content{
+		background-color : #ddd;
+	}
+	h5{
+		width          : 100%;
+		font-size      : 0.5em;
+		font-weight    : 800;
+		text-align     : center;
+		text-transform : uppercase;
+		position: absolute;
 		&.title{
-			margin-top: -5px;
-			margin-bottom: 10px;
+			top : 2px;
+			left : 0px;
 		}
 		&.label{
-			margin-bottom: -5px;
-			margin-top: 10px;
+			bottom : 2px;
+			left : 0px;
 		}
 	}
 }

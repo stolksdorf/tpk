@@ -2,6 +2,7 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
+var Radio = require('../radio.jsx');
 var utils = require('../utils');
 
 var Skill = React.createClass({
@@ -11,13 +12,12 @@ var Skill = React.createClass({
 			defaultData : {
 				prof : false,
 				expert : false,
-				val : ''
+				mod : ''
 			},
 
 			id : '',
 			label : '',
-			sublabel : '',
-			showExpert : false
+			expert : false
 		};
 	},
 
@@ -30,30 +30,28 @@ var Skill = React.createClass({
 			prof : !this.data().prof
 		})
 	},
-	handleToggleExpert : function(){
+	handleToggleExpert : function(val){
 		this.updateData({
-			expert : !this.data().expert
+			expert : val
 		})
 	},
-	handleValChange : function(e){
-		console.log('yo');
+	handleModChange : function(e){
 		this.updateData({
-			val : e.target.value
+			mod : e.target.value
 		})
 	},
 	renderExpert : function(){
-		if(this.props.showExpert){
-			return <input type="radio" className='expertToggle' onChange={this.handleToggleExpert} checked={this.data().expert} />
-		}
+		if(!this.props.expert) return null;
+		return <Radio className='expert' value={this.data().expert} onChange={this.handleToggleExpert} />
 	},
 	render : function(){
 		return <div className='skill'>
 			{this.renderExpert()}
-			<input type="radio" className='skillToggle' onChange={this.handleToggleProf} checked={this.data().prof} />
-			<input type='text' onChange={this.handleValChange} value={this.data().val} />
+			<Radio className='prof' value={this.data().prof} onChange={this.handleToggleProf} />
+			<input type='text' onChange={this.handleModChange} value={this.data().mod} />
 			<label>
-				{this.props.label}
-				<small>{this.props.sublabel}</small>
+				{this.props.title}
+				<small>{this.props.label}</small>
 			</label>
 		</div>
 	}
