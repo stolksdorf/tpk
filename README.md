@@ -28,8 +28,12 @@ TextBox
 
 Pip
 * `label=` - Draws text beside the checkbox
-* `count=` - Draws multiple checkboxes linked
 * `star` - converts the checkbox style into lil' stars
+
+Pipbar
+* `label=` - Draws text beside the checkbox
+* `star` - converts the checkbox style into lil' stars
+* `count=` - Draws multiple checkboxes linked
 
 Table
 * `rows=` - How many rows to draw
@@ -51,6 +55,11 @@ Statbar
 * `label/title` - Filled in the box
 * `flip` - Flips the
 
+Marker
+* The little box that hangs to the side of a box, used for currencies
+
+* `label`
+* `flip` - Flipos it to the other side of the box
 
 
 ### Hybrid Components

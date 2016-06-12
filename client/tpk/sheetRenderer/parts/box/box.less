@@ -1,4 +1,7 @@
 
+@borderImage : url('/assets/tpk/sheetRenderer/parts/box/border.png');
+@shadowImage : url('/assets/tpk/sheetRenderer/parts/box/shadow.png');
+
 .box{
 	position       : relative;
 	display : inline-block;
@@ -25,11 +28,45 @@
 
 
 	&.border>.content{
-		border : 1px solid black;
-		background-color: white;
+		border              : initial;
+		border-style        : solid;
+		border-image-outset : 0px 0px;
+		border-image-repeat : round;
+		border-image-slice  : 50 60 50 60;
+		border-image-source : @borderImage;
+		border-image-width  : 20px;
+
+		&>h5{
+			&.title{
+				top : 2px;
+				left : 0px;
+			}
+			&.label{
+				bottom : 2px;
+				left : 0px;
+			}
+		}
 	}
 	&.shadow>.content{
-		background-color : #ddd;
+		border              : initial;
+		border-style        : solid;
+		border-image-outset : 0px 0px;
+		border-image-repeat : round;
+		border-image-slice  : 25 25 25 25;
+		border-image-source : @shadowImage;
+		border-image-width  : 15px;
+
+		background-color: #C3C2C2;
+		&>h5{
+			&.title{
+				top : 5px;
+				left : 0px;
+			}
+			&.label{
+				bottom : 5px;
+				left : 0px;
+			}
+		}
 	}
 	h5{
 		width          : 100%;
@@ -38,13 +75,6 @@
 		text-align     : center;
 		text-transform : uppercase;
 		position: absolute;
-		&.title{
-			top : 2px;
-			left : 0px;
-		}
-		&.label{
-			bottom : 2px;
-			left : 0px;
-		}
+
 	}
 }

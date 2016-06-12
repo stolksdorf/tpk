@@ -16,6 +16,18 @@ var SheetRenderer = React.createClass({
 		};
 	},
 
+	getInitialState: function() {
+		return {
+			height: 0
+		};
+	},
+
+	componentDidMount: function() {
+		this.setState({
+			height : this.refs.main.parentNode.clientHeight,
+		});
+	},
+
 	renderElement : function(node, key){
 		if(!node.tag) return null;
 
@@ -52,10 +64,7 @@ var SheetRenderer = React.createClass({
 
 
 	render : function(){
-		return <div className='sheetRenderer'>
-
-			<h2>Character Sheet</h2>
-
+		return <div className='sheetRenderer' ref='main' style={{height:this.state.height}}>
 			<div className='sheetContainer' ref='sheetContainer'>
 				{this.renderSheet()}
 
@@ -67,13 +76,3 @@ var SheetRenderer = React.createClass({
 
 
 module.exports = SheetRenderer;
-
-
-/*
-
-<Temp text="cool">yo test  <a href="google.com">link</a> </Temp>
-
-
-
-
-*/

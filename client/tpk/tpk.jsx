@@ -54,31 +54,33 @@ var TPK = React.createClass({
 	},
 
 	render : function(){
-		return <div className='tpk page'>
-			<Navbar>
-				<Nav.section>
-					<Nav.item>
-						yo dawg
-					</Nav.item>
-				</Nav.section>
-			</Navbar>
-			<div className='content'>
-				<SplitPane onDragFinish={this.handleSplitMove} ref='pane'>
-					<SheetEditor
-						ref='editor'
+		return <div className='tpk'>
+			<div className='page'>
+				<Navbar>
+					<Nav.section>
+						<Nav.item>
+							yo dawg
+						</Nav.item>
+					</Nav.section>
+				</Navbar>
+				<div className='content'>
+					<SplitPane onDragFinish={this.handleSplitMove} ref='pane'>
+						<SheetEditor
+							ref='editor'
 
-						sheetValue={this.state.sheetCode}
-						onChangeSheet={this.handleCodeChange}
+							sheetValue={this.state.sheetCode}
+							onChangeSheet={this.handleCodeChange}
 
-						dataValue={this.state.sheetData}
-						onChangeData={this.handleDataChange}
+							dataValue={this.state.sheetData}
+							onChangeData={this.handleDataChange}
 
-					/>
-					<SheetRenderer
-						code={this.state.sheetCode}
-						characterData={this.state.sheetData}
-						onChange={this.handleDataChange} />
-				</SplitPane>
+						/>
+						<SheetRenderer
+							code={this.state.sheetCode}
+							characterData={this.state.sheetData}
+							onChange={this.handleDataChange} />
+					</SplitPane>
+				</div>
 			</div>
 		</div>
 	}
