@@ -11,10 +11,14 @@ var StatBox = React.createClass({
 			name : 'statBox',
 			defaultData : {
 				value : '',
-				mod : ''
+				mod : '',
+				alt : '',
 			},
 
-			mod : false
+			mod : false,
+			alt : false,
+
+			border : true,
 		};
 	},
 
@@ -25,26 +29,40 @@ var StatBox = React.createClass({
 	handleValueChange : function(e){
 		this.updateData({
 			value : e.target.value
+		});
+	},
+
+	handleModChange : function(e){
+		this.updateData({
+			mod : e.target.value
+		});
+	},
+
+	handleAltChange : function(e){
+		this.updateData({
+			alt : e.target.value
 		})
 	},
 
-	handleModChange : function(){
-		this.updateData({
-			mod : e.target.value
-		})
+	renderAlt : function(){
+		if(!this.props.alt) return null;
+		return <div className='alt'>
+			<input type='text' onChange={this.handleAltChange} value={this.data().alt} />
+		</div>
 	},
 
 	renderMod : function(){
 		if(!this.props.mod) return null;
-
-		return <input className='mod' type='text' onChange={this.handleModChange} value={this.data().mod} />
+		return <div className='mod'>
+			<input type='text' onChange={this.handleModChange} value={this.data().mod} />
+		</div>
 	},
 
 	render : function(){
-		return <Box className={cx('statBox', {mod : this.props.mod})} {...this.props}>
+		return <Box className={cx('statBox', {mod : this.props.mod, alt : this.props.alt})} {...this.props}>
 			{this.renderMod()}
-			<input type='text' value={this.data().value} onChange={this.handleValueChange} />
-			}
+			<input className='value' type='text' value={this.data().value} onChange={this.handleValueChange} />
+			{this.renderAlt()}
 		</Box>
 	}
 });

@@ -3,7 +3,10 @@ module.exports = {
 
 	TextInput : require('./textInput/textInput.jsx'),
 	TextBox : require('./textBox/textBox.jsx'),
+	Textbox : require('./textBox/textBox.jsx'),
+
 	StatBox : require('./statBox/statBox.jsx'),
+	Statbox : require('./statBox/statBox.jsx'),
 
 
 	PlayerInfo : require('./playerInfo/playerInfo.jsx'),
