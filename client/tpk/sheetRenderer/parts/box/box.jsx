@@ -68,7 +68,7 @@ var Box = React.createClass({
 				border : this.props.border,
 				flex : this.props.columns !== 1
 			})} style={style}>
-			<div className='content'>
+			<div className={cx('content', {expand : this.props.height || this.props.rows>1})}>
 				{this.renderTitle()}
 				{this.renderChildren()}
 				{this.renderLabel()}

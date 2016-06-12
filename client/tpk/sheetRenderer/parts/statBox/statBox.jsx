@@ -18,6 +18,8 @@ var StatBox = React.createClass({
 			mod : false,
 			alt : false,
 
+			width : false,
+
 			border : true,
 		};
 	},

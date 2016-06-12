@@ -14,21 +14,27 @@
 		text-align  : center;
 		border      : none;
 	}
+
+	.mod>input, .alt>input{
+		display          : block;
+		margin           : 0 auto;
+		background-color : transparent;
+		background-size  : cover;
+		text-align       : center;
+		border           : none;
+		font-weight: 800;
+		font-size: 0.75em;
+	}
+
 	.mod{
 		position : absolute;
 		top   : -8px;
 		left     : 0px;
 		width    : 100%;
 		input{
-			display          : block;
 			height           : 20px;
 			width            : 43px;
-			margin           : 0 auto;
-			background-color : transparent;
 			background-image : @modBackground;
-			background-size  : cover;
-			text-align       : center;
-			border           : none;
 		}
 	}
 	.alt{
@@ -37,37 +43,9 @@
 		left     : 0px;
 		width    : 100%;
 		input{
-			display          : block;
 			height           : 23px;
 			width            : 47px;
-			margin           : 0 auto;
-			background-color : transparent;
 			background-image : @altBackground;
-			background-size  : cover;
-			text-align       : center;
-			border           : none;
 		}
 	}
 }
-/*
-
-.alt{
-	position: absolute;
-	bottom : -10px;
-	left : 0px;
-	width : 100%;
-
-	input{
-		background-color: white;
-		width : 30px;
-		padding : 2px;
-		text-align: center;
-		margin: 0 auto;
-		display: block;
-		background-color: white;
-		border-radius : 100%;
-		border : 2px solid black;
-	}
-}
-
-*/
