@@ -5,9 +5,7 @@ var cx = require('classnames');
 var utils = require('../utils');
 
 var Pip = React.createClass({
-
 	getDefaultProps: function() {
-		console.log(this.handleChange);
 		return {
 			name : 'pip',
 			defaultData : false,
@@ -16,8 +14,7 @@ var Pip = React.createClass({
 			title : '',
 			label : '',
 
-			star : false,
-			//onChange : false
+			alt : false,
 		};
 	},
 
@@ -29,7 +26,6 @@ var Pip = React.createClass({
 	handleChange : function(){
 		this.updateData(!this.data());
 	},
-
 	renderTitle : function(){
 		if(!this.props.title) return;
 		return <span className='title'>{this.props.title}</span>
@@ -42,11 +38,11 @@ var Pip = React.createClass({
 	render : function(){
 		return <div className='pip' onClick={this.handleChange}>
 			{this.renderTitle()}
-			<i className={cx('fa', {
-				'fa-circle-o' : !this.data() && !this.props.star,
-				'fa-circle' : this.data()  && !this.props.star,
-				'fa-star-o' : !this.data() && this.props.star,
-				'fa-star' : this.data()  && this.props.star,
+			<i className={cx('fa', 'fa-fw', {
+				'fa-circle-o' : !this.data() && !this.props.alt,
+				'fa-circle' : this.data()  && !this.props.alt,
+				'fa-square-o' : !this.data() && this.props.alt,
+				'fa-square' : this.data()  && this.props.alt,
 			})}/>
 			{this.renderLabel()}
 		</div>

@@ -9,7 +9,6 @@ var Parts = require('./parts');
 
 var SheetRenderer = React.createClass({
 	getDefaultProps: function() {
-		console.log(this);
 		return {
 			code : '',
 			characterData : {},
@@ -60,9 +59,6 @@ var SheetRenderer = React.createClass({
 			return <div>Error bruh {e.toString()}</div>
 		}
 	},
-
-
-
 
 	render : function(){
 		return <div className='sheetRenderer' ref='main' style={{height:this.state.height}}>

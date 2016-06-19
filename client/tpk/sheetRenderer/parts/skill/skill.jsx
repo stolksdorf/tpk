@@ -2,7 +2,6 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
-var Radio = require('../radio.jsx');
 var utils = require('../utils');
 
 var Skill = React.createClass({
@@ -42,12 +41,12 @@ var Skill = React.createClass({
 	},
 	renderExpert : function(){
 		if(!this.props.expert) return null;
-		return <Radio className='expert' value={this.data().expert} onChange={this.handleToggleExpert} />
+		//return <Radio className='expert' value={this.data().expert} onChange={this.handleToggleExpert} />
 	},
 	render : function(){
 		return <div className='skill'>
 			{this.renderExpert()}
-			<Radio className='prof' value={this.data().prof} onChange={this.handleToggleProf} />
+
 			<input type='text' onChange={this.handleModChange} value={this.data().mod} />
 			<label>
 				{this.props.title}
@@ -58,3 +57,6 @@ var Skill = React.createClass({
 });
 
 module.exports = Skill;
+
+
+//<Radio className='prof' value={this.data().prof} onChange={this.handleToggleProf} />

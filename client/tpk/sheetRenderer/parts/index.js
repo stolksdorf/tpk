@@ -9,6 +9,8 @@ module.exports = {
 	Statbox : require('./statBox/statBox.jsx'),
 
 	Pip : require('./pip/pip.jsx'),
+	Pipbar : require('./pipBar/pipBar.jsx'),
+	PipBar : require('./pipBar/pipBar.jsx'),
 
 
 	PlayerInfo : require('./playerInfo/playerInfo.jsx'),

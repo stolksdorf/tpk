@@ -1,6 +1,24 @@
 # tpk
 Create your own custom character sheets for D&D using special HTML
 
+### Todo
+- Add a style generator to the utils.js
+	- Analyzes props and makes a pre-gened style for width, height, and fontsize
+	- Interpret `w` and `h` as width and height
+- Only add min-height to shadow/border boxes
+- figure out default data
+- Add reset to the sheet data
+- start to separate the data structures of the sheet and character
+-
+
+### Style
+- width
+- height
+- fontsize
+- center
+- right
+
+
 
 ### Components
 
@@ -14,9 +32,8 @@ Box
 * `rows` - number of 'grid rows' this box has, used with `height`
 * `columns` - number of 'grid columns' this box has, used with `width`
 
-Text
-* `line` draws a line under the text field
-* `fontsize=` sets the font size
+TextField
+* `line` draws a line under the text field (default true)
 * `label=` - Writes text beside the field
 * `title=` - Writes text below the field
 * `shadow` - Draws a background color on the textfield
@@ -27,22 +44,17 @@ TextBox
 * Takes up as much height as possible by default
 
 Pip
-* `label=` - Draws text beside the checkbox
-* `star` - converts the checkbox style into lil' stars
+* `label`
+* `alt` - converts the checkbox style into lil' diamonds
 
 Pipbar
-* `label=` - Draws text beside the checkbox
-* `star` - converts the checkbox style into lil' stars
+* `alt` - converts the checkbox style into lil' diamonds
 * `count=` - Draws multiple checkboxes linked
 
 Table
 * `rows=` - How many rows to draw
-
-Column
-* `title` - Draws text at the top of the column
-* `width=1` - Relative widths between columns
-* Only goes within tables
-* The children within the column gets repeated for each row
+* `headers=[]` - Array forcolumn titles
+* Repeasts children n times
 
 Statbox
 * `mod` - Draws an additional field above statbox as a trapezoid
@@ -52,15 +64,17 @@ Statbox
 * `label` - bottom
 
 Statbar
-* `label/title` - Filled in the box
+* `label` - Filled in the box
 * `flip` - Flips the
 
 Marker
 * The little box that hangs to the side of a box, used for currencies
-
 * `label`
 * `flip` - Flipos it to the other side of the box
 
+Label
+* Children is just text
+* has standard styling
 
 ### Hybrid Components
 
