@@ -18,6 +18,8 @@ var TextBox = React.createClass({
 		};
 	},
 
+	TEST : 'YO DAWG',
+
 	id : utils.id,
 	data : utils.data,
 	updateData : utils.updateData,
@@ -32,5 +34,7 @@ var TextBox = React.createClass({
 		</Box>
 	}
 });
+
+console.log(TextBox.defaultProps.defaultData);
 
 module.exports = TextBox;

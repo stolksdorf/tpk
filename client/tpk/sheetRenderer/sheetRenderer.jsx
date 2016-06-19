@@ -18,9 +18,14 @@ var SheetRenderer = React.createClass({
 
 	getInitialState: function() {
 		return {
-			height: 0
+			height: 0,
+
+			errors : null
 		};
 	},
+
+	lastSheet : <div />,
+	errors : null,
 
 	componentDidMount: function() {
 		this.setState({
@@ -28,10 +33,31 @@ var SheetRenderer = React.createClass({
 		});
 	},
 
+	////////////
+	getDefaultSheetData  : function(sheets){
+		return _.map(sheets, (sheet)=>{
+			return this.getDefaultNodeData(sheet);
+		});
+	},
+
+	getDefaultNodeData  : function(node){
+		var res = JSON.parse(JSON.stringify(Parts[node.tag].defaultProps.defaultData || {})) ;
+		_.each(node.children, (child)=>{
+			var name = Parts[child.tag].defaultProps.name
+			var id = child.props.id || child.props.title || child.props.label || name;
+			res[id] = this.getDefaultNodeData(child);
+		})
+		return res;
+	},
+	//////////////////
+
+
+
 	renderElement : function(node, key){
 		if(!node.tag) return null;
 
-		if(!Parts[node.tag]) throw 'Could Not Find Element: ' + node.tag
+		if(!Parts[node.tag]) throw 'Could Not Find Element: ' + node.tag;
+
 
 		return React.createElement(
 			Parts[node.tag],
@@ -45,8 +71,17 @@ var SheetRenderer = React.createClass({
 		})
 	},
 	renderSheet : function(){
+		this.errors = null;
+		var sheet;
 		try{
 			var nodes = jsx2json(this.props.code);
+
+			console.log(this.getDefaultSheetData(nodes));
+
+			//get default data architecture
+			//compare to current character data and clean up
+
+
 			nodes = _.map(nodes, (node)=>{
 				node.props.data = this.props.characterData;
 				node.props.onChange = (newData)=>{
@@ -54,19 +89,27 @@ var SheetRenderer = React.createClass({
 				}
 				return node
 			})
-			return this.renderChildren(nodes);
+			sheet = this.renderChildren(nodes);
+			this.lastSheet = sheet;
+
+			return sheet;
 		}catch(e){
-			return <div>Error bruh {e.toString()}</div>
+			this.errors = e;
+			return this.lastSheet
 		}
+	},
+
+	renderErrors : function(){
+		if(!this.errors) return;
+		return <div className='errors'>{this.errors.toString()}</div>
 	},
 
 	render : function(){
 		return <div className='sheetRenderer' ref='main' style={{height:this.state.height}}>
 			<div className='sheetContainer' ref='sheetContainer'>
 				{this.renderSheet()}
-
 			</div>
-
+			{this.renderErrors()}
 		</div>
 	}
 });
