@@ -8,6 +8,8 @@ module.exports = {
 	StatBox : require('./statBox/statBox.jsx'),
 	Statbox : require('./statBox/statBox.jsx'),
 
+	Pip : require('./pip/pip.jsx'),
+
 
 	PlayerInfo : require('./playerInfo/playerInfo.jsx'),
 

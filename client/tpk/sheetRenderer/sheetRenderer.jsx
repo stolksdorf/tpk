@@ -9,6 +9,7 @@ var Parts = require('./parts');
 
 var SheetRenderer = React.createClass({
 	getDefaultProps: function() {
+		console.log(this);
 		return {
 			code : '',
 			characterData : {},
