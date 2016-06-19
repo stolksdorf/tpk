@@ -13,7 +13,7 @@ var SheetEditor = React.createClass({
 			dataValue : {},
 			onChangeData : function(){},
 
-
+			sheetLogic : '',
 			onChangeLogic : function(){}
 		};
 	},
@@ -29,6 +29,10 @@ var SheetEditor = React.createClass({
 	},
 
 	componentDidMount: function() {
+		this.fixEditorHeight();
+	},
+
+	fixEditorHeight : function(){
 		var paneHeight = this.refs.main.parentNode.clientHeight;
 		paneHeight -= this.refs.bar.clientHeight + 1;
 		this.refs.codeEditor.codeMirror.setSize(null, paneHeight);
@@ -45,6 +49,8 @@ var SheetEditor = React.createClass({
 				alert('json error')
 			}
 
+		}else if(this.state.editorType == 'logic'){
+			this.props.onChangeLogic(text);
 		}
 	},
 	handleCursorActivty : function(curpos){
@@ -85,6 +91,7 @@ var SheetEditor = React.createClass({
 	renderEditor : function(){
 		if(this.state.editorType == 'sheet'){
 			return <CodeEditor
+				key='sheet'
 				ref='codeEditor'
 				wrap={true}
 				language='jsx'
@@ -93,6 +100,7 @@ var SheetEditor = React.createClass({
 				onCursorActivity={this.handleCursorActivty} />
 		}else if(this.state.editorType == 'data'){
 			return <CodeEditor
+				key='data'
 				ref='codeEditor'
 				wrap={true}
 				language='javascript'
@@ -101,16 +109,16 @@ var SheetEditor = React.createClass({
 				onCursorActivity={this.handleCursorActivty} />
 
 		}else if(this.state.editorType == 'logic'){
-			/*
 			return <CodeEditor
+				key='logic'
 				ref='codeEditor'
 				wrap={true}
 				language='javascript'
-				value={this.props.value}
+				value={this.props.sheetLogic}
 				onChange={this.handleTextChange.bind(null, 'logic')}
 				onCursorActivity={this.handleCursorActivty} />
-			*/
 		}
+		this.fixEditorHeight();
 	},
 
 

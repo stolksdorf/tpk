@@ -10,7 +10,12 @@ var SheetEditor = require('./sheetEditor/sheetEditor.jsx');
 var SheetRenderer = require('./sheetRenderer/sheetRenderer.jsx');
 
 
-const SPLATSHEET_TEMPLATE = 'splatsheet_template';
+var Process = require('./process.js');
+
+
+const TPK_TEMPLATE = 'tpk_template';
+const TPK_LOGIC = 'tpk_logic';
+
 const SPLATSHEET_DATA = 'splatsheet_data';
 
 
@@ -22,15 +27,29 @@ var TPK = React.createClass({
 		return {
 			sheetCode: "<Box>\n\t<TextInput label='test' />\n</Box>",
 
-			sheetData : {}
+			sheetData : {},
+
+			sheetLogic : '',
+
+
+			processedData : {},
+			logicErrors : null
 		};
 	},
 
 	//remove later
 	componentDidMount: function() {
+		var data = JSON.parse(localStorage.getItem(SPLATSHEET_DATA)) || this.state.sheetData;
+		var logic = localStorage.getItem(TPK_LOGIC) || this.state.sheetLogic
+
+
 		this.setState({
-			sheetCode : localStorage.getItem(SPLATSHEET_TEMPLATE) || this.state.sheetCode,
-			sheetData : JSON.parse(localStorage.getItem(SPLATSHEET_DATA)) || this.state.sheetData
+			sheetCode : localStorage.getItem(TPK_TEMPLATE) || this.state.sheetCode,
+			sheetLogic : logic,
+
+			sheetData : data,
+
+			processedData : this.processData(data, logic)
 		})
 	},
 
@@ -43,15 +62,45 @@ var TPK = React.createClass({
 			sheetCode : code
 		});
 
-		localStorage.setItem(SPLATSHEET_TEMPLATE, code);
+		localStorage.setItem(TPK_TEMPLATE, code);
+	},
+
+	handleLogicChange : function(code){
+		this.setState({
+			sheetLogic : code,
+
+			processedData : this.processData(this.state.sheetData, code)
+		});
+
+		localStorage.setItem(TPK_LOGIC, code);
 	},
 
 	handleDataChange : function(data){
 		this.setState({
 			sheetData : JSON.parse(JSON.stringify(data)),
+
+			processedData : this.processData(data, this.state.sheetLogic)
 		});
 		localStorage.setItem(SPLATSHEET_DATA, JSON.stringify(data));
 	},
+
+
+	processData : function(sheetData, sheetLogic){
+
+		var res = sheetData;
+		try{
+			var code = `(function(){'use strict';var data = ${JSON.stringify(sheetData)}; ${sheetLogic};return data;})();`;
+			res = eval(code)
+		}catch(e){
+			console.log('err', e.toString());
+		}
+
+		return res;
+	},
+
+
+
+
 
 	render : function(){
 		return <div className='tpk'>
@@ -74,10 +123,13 @@ var TPK = React.createClass({
 							dataValue={this.state.sheetData}
 							onChangeData={this.handleDataChange}
 
+							sheetLogic={this.state.sheetLogic}
+							onChangeLogic={this.handleLogicChange}
+
 						/>
 						<SheetRenderer
 							code={this.state.sheetCode}
-							characterData={this.state.sheetData}
+							characterData={this.state.processedData}
 							onChange={this.handleDataChange} />
 					</SplitPane>
 				</div>

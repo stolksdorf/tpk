@@ -1,0 +1,37 @@
+<Sheet columns=3 rows=10>
+
+    <Box shadow id='background' rows=4>
+    <TextBox height=1 border title='personality trits'/>
+    <TextBox height=1 border label='ideals'/>
+    <TextBox height=1 border label='bonds'/>
+    <TextBox height=1 border label='flaws'/>
+  </Box>
+
+	<Box shadow >
+    	<Statbox title='strength' alt />
+      	<Statbox label='coolness' mod />
+	</Box>
+
+  <Box shadow columns=6 height=5 label='info'>
+    <StatBox width=2 label='armor class'/>
+    <StatBox width=2 label='initiative'/>
+    <StatBox width=2 border label='speed'/>
+
+    <TextBox width=6 border title='current hit points'/>
+    <TextBox width=6 border title='temporary hit points'/>
+
+    <Box width=3  label='hit dice'/>
+    <TextBox width=3 border label='death saves'/>
+
+  </Box>
+
+
+
+  <Box shadow id='background' rows=4 height=6>
+    <TextBox height=1 border title='personality traits'/>
+    <TextBox height=1 border label='ideals'/>
+    <TextBox height=1 border label='bonds'/>
+    <TextBox height=1 border label='flaws'/>
+  </Box>
+
+</Sheet>
