@@ -14,9 +14,11 @@ var Skill = React.createClass({
 				mod : ''
 			},
 
-			id : '',
-			label : '',
-			expert : false
+			//id : '',
+			//label : '',
+
+			expert : false,
+			alt : false
 		};
 	},
 
@@ -31,7 +33,7 @@ var Skill = React.createClass({
 	},
 	handleToggleExpert : function(val){
 		this.updateData({
-			expert : val
+			expert : !this.data().expert
 		})
 	},
 	handleModChange : function(e){
@@ -41,12 +43,25 @@ var Skill = React.createClass({
 	},
 	renderExpert : function(){
 		if(!this.props.expert) return null;
-		//return <Radio className='expert' value={this.data().expert} onChange={this.handleToggleExpert} />
+		return <i onClick={this.handleToggleExpert} className={cx('expert', 'fa', 'fa-fw', {
+			'fa-circle-o' : !this.data().expert && !this.props.alt,
+			'fa-circle' : this.data().expert  && !this.props.alt,
+			'fa-square-o' : !this.data().expert && this.props.alt,
+			'fa-square' : this.data().expert  && this.props.alt,
+		})}/>
+	},
+	renderProf : function(){
+		return <i onClick={this.handleToggleProf} className={cx('prof', 'fa', 'fa-fw', {
+			'fa-circle-o' : !this.data().prof && !this.props.alt,
+			'fa-circle' : this.data().prof  && !this.props.alt,
+			'fa-square-o' : !this.data().prof && this.props.alt,
+			'fa-square' : this.data().prof  && this.props.alt,
+		})}/>
 	},
 	render : function(){
 		return <div className='skill'>
 			{this.renderExpert()}
-
+			{this.renderProf()}
 			<input type='text' onChange={this.handleModChange} value={this.data().mod} />
 			<label>
 				{this.props.title}

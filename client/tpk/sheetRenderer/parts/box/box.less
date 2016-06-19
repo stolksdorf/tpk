@@ -5,12 +5,13 @@
 	position   : relative;
 	display    : inline-block;
 	box-sizing : border-box;
-	padding    : 5px 3px;
+	//padding : 9px 7px;
+
 	&>.content{
 		position   : relative;
 		box-sizing : border-box;
 		min-height : 58px;
-		padding    : 8px 6px;
+		//padding    : 8px 6px;
 
 		&.expand{
 			height: 100%;
@@ -34,6 +35,7 @@
 			border-image-slice  : 50 60 50 60;
 			border-image-source : @borderImage;
 			border-image-width  : 20px;
+			padding    : 8px 6px;
 			&>h5{
 				&.title{
 					top : -2px;
@@ -44,21 +46,25 @@
 			}
 		}
 	}
-	&.shadow>.content{
-		background-color    : #C3C2C2;
-		border              : initial;
-		border-style        : solid;
-		border-image-outset : 0px 0px;
-		border-image-repeat : round;
-		border-image-slice  : 25 25 25 25;
-		border-image-source : @shadowImage;
-		border-image-width  : 15px;
-		&>h5{
-			&.title{
-				top : 5px;
-			}
-			&.label{
-				bottom : 5px;
+	&.shadow{
+		padding    : 5px 3px;
+		&>.content{
+			background-color    : #C3C2C2;
+			border              : initial;
+			border-style        : solid;
+			border-image-outset : 0px 0px;
+			border-image-repeat : round;
+			border-image-slice  : 25 25 25 25;
+			border-image-source : @shadowImage;
+			border-image-width  : 15px;
+			padding    : 8px 6px;
+			&>h5{
+				&.title{
+					top : 5px;
+				}
+				&.label{
+					bottom : 5px;
+				}
 			}
 		}
 	}

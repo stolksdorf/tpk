@@ -36,7 +36,7 @@ var PipBar = React.createClass({
 					'fa-square-o' : !this.data()[n] && this.props.alt,
 					'fa-square' : this.data()[n]  && this.props.alt,
 				})}/>,
-				<hr />
+				<hr key={n + 'hr'}/>
 			]
 		}).flatten().value();
 		pips.pop();
