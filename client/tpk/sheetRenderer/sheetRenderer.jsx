@@ -35,6 +35,8 @@ var SheetRenderer = React.createClass({
 
 	////////////
 	getDefaultSheetData  : function(sheets){
+
+		//TODO: Don't do a map, character data isn't limited to one sheet
 		return _.map(sheets, (sheet)=>{
 			return this.getDefaultNodeData(sheet);
 		});
@@ -76,7 +78,6 @@ var SheetRenderer = React.createClass({
 		try{
 			var nodes = jsx2json(this.props.code);
 
-			console.log(this.getDefaultSheetData(nodes));
 
 			//get default data architecture
 			//compare to current character data and clean up

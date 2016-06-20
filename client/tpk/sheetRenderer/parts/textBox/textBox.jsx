@@ -35,6 +35,5 @@ var TextBox = React.createClass({
 	}
 });
 
-console.log(TextBox.defaultProps.defaultData);
 
 module.exports = TextBox;

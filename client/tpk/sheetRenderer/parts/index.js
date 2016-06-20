@@ -13,6 +13,9 @@ module.exports = {
 	PipBar : require('./pipBar/pipBar.jsx'),
 
 
+	StatBar : require('./statBar/statBar.jsx'),
+	Statbar : require('./statBar/statBar.jsx'),
+
 	PlayerInfo : require('./playerInfo/playerInfo.jsx'),
 
 	//SkillList : require('./skillList/skillList.jsx'),
