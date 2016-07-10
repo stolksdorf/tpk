@@ -1,0 +1,45 @@
+
+.skill{
+	position      : relative;
+	margin-bottom : -3px;
+	padding-left  : 0.7em;
+	i{
+		margin    : 0px -2px;
+		cursor    : pointer;
+		font-size : 0.7em;
+		&.expert{
+			position : absolute;
+			top      : 5px;
+			left     : 0px;
+		}
+	}
+	.fa-square-o,.fa-square{
+		-webkit-transform : rotate(45deg);
+		-moz-transform    : rotate(45deg);
+		transform         : rotate(45deg);
+	}
+	input[type="text"]{
+		width            : 1.8em;
+		margin-right     : 0.4em;
+		margin-left      : 0.2em;
+		background-color : transparent;
+		font-size        : 0.6em;
+		text-align       : center;
+		border           : none;
+		border-bottom    : 1px solid black;
+		outline          : none;
+		&:focus{
+			background-color : #ddd;
+		}
+	}
+	label{
+		font-size      : 0.6em;
+		text-transform : uppercase;
+		small{
+			margin-left    : 5px;
+			font-size      : 0.8em;
+			color          : #000;
+			text-transform : uppercase;
+		}
+	}
+}

@@ -2,26 +2,33 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
-var jsx2json = require('naturalcrit/jsx-parser');
+var jsx2json = require('tpk/jsx-parser');
+var Parts = require('tpk/parts');
 
-var Parts = require('./parts');
+var Store = require('tpk/store.js');
+var Actions = require('tpk/actions.js');
 
 
 var SheetRenderer = React.createClass({
-	getDefaultProps: function() {
+	mixins : [Store.mixin()],
+	getInitialState: function() {
 		return {
-			code : '',
-			characterData : {},
-			onChange : function(){},
+			template : Store.getTemplate(),
+			logic : Store.getLogic(),
+			characterData : Store.getProcessedData(),
+
+
+			height: 0,
+			errors : null
 		};
 	},
 
-	getInitialState: function() {
-		return {
-			height: 0,
-
-			errors : null
-		};
+	onStoreChange : function(){
+		this.setState({
+			template : Store.getTemplate(),
+			logic : Store.getLogic(),
+			characterData : Store.getProcessedData(),
+		})
 	},
 
 	lastSheet : <div />,
@@ -33,34 +40,14 @@ var SheetRenderer = React.createClass({
 		});
 	},
 
-	////////////
-	getDefaultSheetData  : function(sheets){
-
-		//TODO: Don't do a map, character data isn't limited to one sheet
-		return _.map(sheets, (sheet)=>{
-			return this.getDefaultNodeData(sheet);
-		});
+	handleCharacterDataChange : function(charData){
+		Actions.changeCharacterData(charData);
 	},
-
-	getDefaultNodeData  : function(node){
-		var res = JSON.parse(JSON.stringify(Parts[node.tag].defaultProps.defaultData || {})) ;
-		_.each(node.children, (child)=>{
-			var name = Parts[child.tag].defaultProps.name
-			var id = child.props.id || child.props.title || child.props.label || name;
-			res[id] = this.getDefaultNodeData(child);
-		})
-		return res;
-	},
-	//////////////////
-
 
 
 	renderElement : function(node, key){
 		if(!node.tag) return null;
-
 		if(!Parts[node.tag]) throw 'Could Not Find Element: ' + node.tag;
-
-
 		return React.createElement(
 			Parts[node.tag],
 			{key : key, ...node.props},
@@ -76,17 +63,12 @@ var SheetRenderer = React.createClass({
 		this.errors = null;
 		var sheet;
 		try{
-			var nodes = jsx2json(this.props.code);
-
-
-			//get default data architecture
-			//compare to current character data and clean up
-
+			var nodes = jsx2json(this.state.template);
 
 			nodes = _.map(nodes, (node)=>{
-				node.props.data = this.props.characterData;
+				node.props.data = this.state.characterData;
 				node.props.onChange = (newData)=>{
-					this.props.onChange(_.extend(this.props.characterData, newData));
+					this.handleCharacterDataChange(_.extend(this.state.characterData, newData));
 				}
 				return node
 			})

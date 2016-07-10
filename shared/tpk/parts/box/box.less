@@ -1,0 +1,88 @@
+
+@borderImage : url('/assets/tpk/sheetRenderer/parts/box/border.png');
+@shadowImage : url('/assets/tpk/sheetRenderer/parts/box/shadow.png');
+.box{
+	position   : relative;
+	display    : inline-block;
+	box-sizing : border-box;
+	//padding : 9px 7px;
+
+	&>.content{
+		position   : relative;
+		box-sizing : border-box;
+		min-height : 58px;
+		//padding    : 8px 6px;
+
+		&.expand{
+			height: 100%;
+		}
+	}
+	&.flex>.content{
+		display        : flex;
+		flex-direction : row;
+		flex-wrap      : wrap;
+		align-items: flex-start;
+	}
+	&.border{
+		padding : 9px 7px;
+		&>.content{
+			min-height          : 54px;
+			background-color    : white;
+			border              : initial;
+			border-style        : solid;
+			border-image-outset : 4px;
+			border-image-repeat : round;
+			border-image-slice  : 50 60 50 60;
+			border-image-source : @borderImage;
+			border-image-width  : 20px;
+			padding    : 8px 6px;
+			&>h5{
+				&.title{
+					top : -2px;
+				}
+				&.label{
+					bottom : -2px;
+				}
+			}
+		}
+	}
+	&.shadow{
+		padding    : 5px 3px;
+		&>.content{
+			background-color    : #C3C2C2;
+			border              : initial;
+			border-style        : solid;
+			border-image-outset : 0px 0px;
+			border-image-repeat : round;
+			border-image-slice  : 25 25 25 25;
+			border-image-source : @shadowImage;
+			border-image-width  : 15px;
+			padding    : 8px 6px;
+			&>h5{
+				&.title{
+					top : 5px;
+				}
+				&.label{
+					bottom : 5px;
+				}
+			}
+		}
+	}
+	&>.content>h5{
+		position       : absolute;
+		left           : 0px;
+		box-sizing     : border-box;
+		width          : 100%;
+		padding        : 0px 5px;
+		font-size      : 0.5em;
+		font-weight    : 800;
+		text-align     : center;
+		text-transform : uppercase;
+		&.title{
+			top : 2px;
+		}
+		&.label{
+			bottom : 2px;
+		}
+	}
+}

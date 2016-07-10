@@ -10,6 +10,10 @@ app.use(bodyParser.json({limit: '25mb'}));
 
 
 
+var baseTemplate = require('fs').readFileSync('./sample_sheet.txt', 'utf8');
+
+console.log(baseTemplate);
+
 
 app.get('*', function (req, res) {
 	vitreumRender({
@@ -18,6 +22,7 @@ app.get('*', function (req, res) {
 		prerenderWith : './client/tpk/tpk.jsx',
 		initialProps: {
 			url: req.originalUrl,
+			base_template : baseTemplate
 		},
 		clearRequireCache : !process.env.PRODUCTION,
 	}, function (err, page) {
