@@ -77,12 +77,6 @@ var getDefaultSheetData = function(){
 
 
 
-
-
-
-
-
-
 const TPKStore = flux.createStore({
 
 	INIT : function(){

@@ -1,4 +1,8 @@
-- refresh the conflicted repo
+
+
+
+
+
 
 - new Parts
  - Text area
@@ -15,4 +19,4 @@
  - Added in bar for triple editor
  - Add in character data editor
  - get rid of subtitle on skills
- - 
+ -
