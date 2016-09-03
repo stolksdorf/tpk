@@ -1,0 +1,58 @@
+<Sheet columns=3 rows=10>
+
+  <Box border id='abilities' columns=10>
+
+    <Statbar width=10 label='inspiration' />
+        <Statbar label='inspiration' />
+  	<Statbox label='strength' mod width=4/>
+    <Box width=6>
+      <Skill  title='saving throws' />
+      <Skill title='athletics' />
+    </Box>
+
+    <Statbox label='dexerity' mod width=4/>
+    <Box width=6>
+      <Skill title='saving throws' alt/>
+      <Skill title='acrobatics' />
+      <Skill expert title='sleight of hand' />
+      <Skill title='stealth' label='(wis)' />
+    </Box>
+
+
+    <Statbox title='dex' border=false shadow alt />
+    <Statbox title='con' alt />
+    <Statbox title='int' alt />
+    <Statbox title='wis' alt readOnly />
+    <Statbox title='cha' alt />
+  </Box>
+
+  <Box shadow columns=6 label='info'>
+    <StatBox width=2 label='armor class'/>
+    <StatBox width=2 label='initiative'/>
+    <StatBox width=2 border label='speed'/>
+
+    <TextBox width=6 border title='current hit points'/>
+    <TextBox width=6 border title='temporary hit points'/>
+
+    <Box width=3 border label='hit dice'/>
+    <Box width=3 border label='death saves'>
+      <PipBar count=3 alt />
+      <PipBar count=3 />
+    </Box>
+
+  </Box>
+
+
+
+  <Box shadow id='background' rows=4 height=6>
+    <TextBox height=1 border  title='personality traits'/>
+    <TextBox height=1 border lines label='ideals'/>
+    <TextBox height=1 border label='bonds'/>
+    <TextBox height=1 border label='flaws'/>
+  </Box>
+
+  <Box title='tst'>
+    <Statbox shadow mod label='neat' />
+  </Box>
+
+</Sheet>

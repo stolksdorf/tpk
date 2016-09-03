@@ -37,12 +37,19 @@ var SheetEditor = React.createClass({
 		});
 	},
 
-	/*
-	cursorPosition : {
-		line : 0,
-		ch : 0
+	componentDidMount: function() {
+		this.updateEditorSize();
+		window.addEventListener("resize", this.updateEditorSize);
 	},
-	*/
+	componentWillUnmount: function() {
+		window.removeEventListener("resize", this.updateEditorSize);
+	},
+	updateEditorSize : function() {
+		var paneHeight = this.refs.main.parentNode.clientHeight;
+		paneHeight -= this.refs.bar.clientHeight + 1;
+		this.refs.codeEditor.codeMirror.setSize(null, paneHeight);
+	},
+
 
 
 	handleTemplateChange : function(template){

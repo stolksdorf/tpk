@@ -9,13 +9,25 @@ var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
 var SheetEditor = require('../sheetEditor/sheetEditor.jsx');
 var SheetRenderer = require('../sheetRenderer/sheetRenderer.jsx');
 
+var Editor = require('../editor/editor.jsx');
+var Actions = require('tpk/actions.js');
+
+
 
 
 var CharacterPage = React.createClass({
 
 	getInitialState: function() {
-		return {};
+		return {
+			dividerColor : '#ddd',
+
+		};
 	},
+
+	componentDidMount: function() {
+		Actions.loadFromLocalStorage('TEMP_ID');
+	},
+
 
 
 
@@ -23,6 +35,12 @@ var CharacterPage = React.createClass({
 		//this.refs.editor.update();
 	},
 
+	handleEditorTypeChange : function(type, color){
+
+		this.setState({
+			dividerColor : color
+		})
+	},
 
 
 
@@ -37,10 +55,10 @@ var CharacterPage = React.createClass({
 			</Navbar>
 
 			<div className='content'>
-				<SplitPane onDragFinish={this.handleSplitMove} ref='pane'>
-					<SheetEditor
+				<SplitPane onDragFinish={this.handleSplitMove} ref='pane' color={this.state.dividerColor}>
+					<Editor
 						ref='editor'
-
+						onEditorTypeChange={this.handleEditorTypeChange}
 					/>
 					<SheetRenderer
 					/>

@@ -6,8 +6,8 @@ var SplitPane = React.createClass({
 	getDefaultProps: function() {
 		return {
 			storageKey : 'naturalcrit-pane-split',
-			onDragFinish : function(){} //fires when dragging
-
+			onDragFinish : function(){}, //fires when dragging
+			color : '#ddd'
 		};
 	},
 	getInitialState: function() {
@@ -52,7 +52,7 @@ var SplitPane = React.createClass({
 	},
 */
 	renderDivider : function(){
-		return <div className='divider' onMouseDown={this.handleDown}>
+		return <div className='divider' onMouseDown={this.handleDown} style={{backgroundColor : this.props.color}}>
 			<div className='dots'>
 				<i className='fa fa-circle' />
 				<i className='fa fa-circle' />

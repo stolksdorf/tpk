@@ -88,7 +88,7 @@ const TPKStore = flux.createStore({
 		State.sheet.logic    = localStorage.getItem(`${id}|LOGIC`) || '';
 		State.character.data = JSON.parse(localStorage.getItem(`${id}|DATA`) || '{}');
 
-		State.character.data = _.merge(getDefaultSheetData(), State.character.data);
+		//State.character.data = _.merge(getDefaultSheetData(), State.character.data);
 
 		processCharacterData();
 	},
@@ -138,7 +138,8 @@ const TPKStore = flux.createStore({
 	getData : function(){
 		return State.character.data;
 	},
-	getCharacterData : function(){
+	getCharacterData : function(asString = false){
+		if(asString) return JSON.stringify(State.character.data, null, '  ');
 		return State.character.data;
 	},
 	getProcessedData : function(){
