@@ -2,8 +2,8 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
-var jsx2json = require('tpk/jsx-parser');
 var Parts = require('tpk/parts');
+var ProcessSheet = require('tpk/processSheet.js');
 
 
 var Renderer = React.createClass({
@@ -26,6 +26,9 @@ var Renderer = React.createClass({
 
 	//TODO : Split this off into another file
 	lastSheet : <div />,
+
+
+	//Errors should be handled above
 	errors : null,
 
 	componentDidMount: function() {
@@ -38,45 +41,44 @@ var Renderer = React.createClass({
 		console.log('charData', charData);
 
 		this.props.onChange(_.assign({}, this.props.sheet, {
-			data : charData
+			data : _.assign({}, this.props.sheet.data, charData)
 		}));
 
 	},
 
-
-	renderElement : function(node, key){
-		if(!node.tag) return null;
-		if(!Parts[node.tag]) throw 'Could Not Find Element: ' + node.tag;
-		return React.createElement(
-			Parts[node.tag],
-			{key : key, ...node.props},
-			...this.renderChildren(node.children))
-	},
-	renderChildren : function(nodes){
-		return _.map(nodes, (node, index)=>{
-			if(_.isString(node)) return node;
-			return this.renderElement(node, index);
-		})
-	},
 	renderSheet : function(){
-		this.errors = null;
-		var sheet;
-		//console.log('rendering sheet');
-		try{
-			var nodes = jsx2json(this.props.sheet.template);
-			//console.log(nodes);
+		var renderChildren = (nodes) => {
+			return _.map(nodes, (node, index)=>{
+				if(_.isString(node)) return node;
+				return renderElement(node, index);
+			})
+		};
+		var renderElement = (node, key)=>{
+			if(!node.tag) return null;
+			if(!Parts[node.tag]) throw 'Could Not Find Element: ' + node.tag;
+			return React.createElement(
+				Parts[node.tag],
+				{key : key, ...node.props},
+				...renderChildren(node.children))
+		};
 
-			nodes = _.map(nodes, (node)=>{
-				node.props.data = this.props.sheet.data;
+		this.errors = null;
+		try{
+			var sheetStructure = ProcessSheet.getSheetStucture(this.props.sheet.template);
+			var processedData = ProcessSheet.runLogic(this.props.sheet.logic,this.props.sheet.data);
+
+			//Add data and handlers to structure
+			sheetStructure = _.map(sheetStructure, (node)=>{
+				node.props.data = processedData;
 				node.props.onChange = (newData)=>{
 					this.handleCharacterDataChange(newData);
 				}
 				return node;
 			})
-			sheet = this.renderChildren(nodes);
-			this.lastSheet = sheet;
+			var renderedSheet = renderChildren(sheetStructure);
+			this.lastSheet = renderedSheet;
 
-			return sheet;
+			return renderedSheet;
 		}catch(e){
 			this.errors = e;
 			return this.lastSheet;
@@ -89,6 +91,7 @@ var Renderer = React.createClass({
 	},
 
 	render : function(){
+
 		return <div className='renderer' ref='renderer' style={{height:this.state.height}}>
 			<div className='sheetContainer' ref='sheetContainer'>
 				{this.renderSheet()}

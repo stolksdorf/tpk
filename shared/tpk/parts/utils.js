@@ -16,6 +16,7 @@ module.exports = {
 	},
 
 
+/*
 
 	//DEPRICATE
 	id : function(){
@@ -45,5 +46,5 @@ module.exports = {
 			//If the box has no id, don't add it to the chain
 			this.props.onChange(newVal)
 		}
-	}
+	}*/
 }
