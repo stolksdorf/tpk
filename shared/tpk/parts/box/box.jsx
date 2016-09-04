@@ -42,6 +42,9 @@ var Box = React.createClass({
 	//mixins : [utils],
 	getDefaultProps: function() {
 		return {
+			is_box : true,
+
+
 			shadow : false,
 			border : false,
 
