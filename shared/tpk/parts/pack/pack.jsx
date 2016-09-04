@@ -19,20 +19,12 @@ var get = {
 }
 
 
-
-
 var Pack = React.createClass({
 
 	getDefaultProps: function() {
 		return {
 			data : {},
-
-			/////
 			style : {},
-			//columns : 1,
-			//rows : 1,
-			//width : 1,
-			//height : 1,
 		};
 	},
 
@@ -49,8 +41,6 @@ var Pack = React.createClass({
 		var id = get.id(child.props);
 
 		var onChange = (val) => {
-			console.log('cahnge', id, val);
-
 			if(id){
 				this.props.onChange(_.assign({}, this.props.data, {
 					[id] : val
@@ -64,11 +54,8 @@ var Pack = React.createClass({
 
 		return React.cloneElement(child, {
 			onChange : onChange,
-
 			data : (id ? this.props.data[id] : this.props.data),
 
-
-			//May have to override display and positioning here
 			style : _.assign({}, child.props.style, {
 				position : 'absolute',
 
@@ -83,7 +70,10 @@ var Pack = React.createClass({
 
 	renderChildren : function(){
 		var validChildren = _.filter(React.Children.toArray(this.props.children), (child)=>{
-			return React.isValidElement(child) && child.props.is_box;
+			if(React.isValidElement(child)){
+				if(!child.props.is_box) console.log('Attempting to render a non box', child);
+				return child.props.is_box;;
+			}
 		});
 
 		if(!validChildren.length) return [];
@@ -95,7 +85,6 @@ var Pack = React.createClass({
 		}
 		*/
 
-
 		var coords = BinPack(this.getContainerDimensions(), _.map(validChildren, (child)=>{
 			return {
 				w : get.width(child.props),
@@ -103,14 +92,13 @@ var Pack = React.createClass({
 			}
 		}));
 
-
 		return _.map(validChildren, (child, idx) => {
 			return this.renderChild(child, coords[idx]);
 		});
 	},
 
 	render : function(){
-		return <div className='pack'>
+		return <div className='pack' style={this.props.style}>
 			{this.renderChildren()}
 		</div>
 	}

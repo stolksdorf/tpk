@@ -8,6 +8,7 @@ var Sheet = React.createClass({
 	getDefaultProps: function() {
 		return {
 			landscape : false,
+			iso : false,
 			author : '',
 			version : ''
 		};
@@ -15,7 +16,9 @@ var Sheet = React.createClass({
 
 	render : function(){
 		return <Box className={cx('sheet', {
-				landscape : this.props.landscape
+				landscape : this.props.landscape,
+				iso : this.props.iso,
+				letter : !this.props.iso
 			})} {...this.props}>
 			{this.props.children}
 		</Box>

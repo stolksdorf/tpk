@@ -1,23 +1,26 @@
-.sheet{
-	position          : relative;
-	z-index           : 15;
-	box-sizing        : border-box;
-	overflow          : hidden;
-	display: block;
-	background-color  : white;
-	height            : 279.4mm;
-	width             : 215.9mm;
-	padding           : 1.0cm 1.0cm;
-	padding-bottom    : 1.5cm;
 
-	&.landscape{
-		width            : 279.4mm;
-		height             : 215.9mm;
-		padding           : 1.0cm 1.0cm;
+.sheet{
+	position         : relative;
+	display          : block;
+	z-index          : 15;
+	box-sizing       : border-box;
+	overflow         : hidden;
+	padding          : 1.0cm 1.0cm;
+	background-color : white;
+	&.letter{
+		height : 279.4mm;
+		width  : 215.9mm;
+		&.landscape{
+			height : 215.9mm;
+			width  : 279.4mm;
+		}
 	}
-/*
-	&>.content{
-		flex-direction : column;
+	&.iso{
+		height : 297mm;
+		width  : 210mm;
+		&.landscape{
+			height : 210mm;
+			width  : 297mm;
+		}
 	}
-*/
 }

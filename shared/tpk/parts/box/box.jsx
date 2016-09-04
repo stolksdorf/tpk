@@ -18,26 +18,15 @@ var get = {
 }
 
 var Box = React.createClass({
-	//mixins : [utils],
 	getDefaultProps: function() {
 		return {
 			is_box : true,
-
 
 			shadow : false,
 			border : false,
 
 			data : {},
-
-
-			/////
 			style : {},
-			/*
-			columns : 1,
-			rows : 1,
-			width : 1,
-			height : 1,
-			*/
 		};
 	},
 
@@ -79,7 +68,6 @@ var Box = React.createClass({
 	},
 
 	render : function(){
-
 		return <div className={cx('box', this.props.className, {
 				shadow : this.props.shadow,
 				border : this.props.border,
