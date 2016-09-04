@@ -2,21 +2,8 @@ var React = require('react');
 var _     = require('lodash');
 var cx    = require('classnames');
 
-
+var get = require('../utils.js').get;
 var BinPack = require('tpk/greedyrow.binpack.js');
-
-
-var get = {
-	id : (props) => {
-		return _.snakeCase(props.id || props.title || props.label || props.name);
-	},
-
-	width   : (props, def=1) => { return props.width || props.w || def },
-	height  : (props, def=1) => { return props.height || props.h || def },
-
-	rows    : (props, def=1) => { return props.rows || props.r || def },
-	columns : (props, def=1) => { return props.columns || props.cols || props.c || def },
-}
 
 
 var Pack = React.createClass({

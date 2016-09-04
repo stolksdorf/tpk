@@ -2,6 +2,22 @@ var _ = require('lodash');
 
 
 module.exports = {
+
+	get : {
+		id : (props) => {
+			return _.snakeCase(props.id || props.title || props.label || props.name);
+		},
+
+		width   : (props, def=1) => { return props.width || props.w || def },
+		height  : (props, def=1) => { return props.height || props.h || def },
+
+		rows    : (props, def=1) => { return props.rows || props.r || def },
+		columns : (props, def=1) => { return props.columns || props.cols || props.c || def },
+	},
+
+
+
+	//DEPRICATE
 	id : function(){
 		if(this.props.id) return this.props.id;
 		if(this.props.title) return _.snakeCase(this.props.title);

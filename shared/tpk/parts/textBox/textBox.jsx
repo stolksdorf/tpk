@@ -8,10 +8,12 @@ var TextBox = React.createClass({
 	getDefaultProps: function() {
 		return {
 			name : 'textbox',
-			data: ' ',
+			data: '',
 
 			fontSize : '',
-			lines : false
+			lines : false,
+			title : '',
+			label : ''
 		};
 	},
 

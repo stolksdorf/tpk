@@ -1,0 +1,50 @@
+
+@dragonImage : url('/assets/tpk/parts/header/dragon.png');
+.header{
+	position : relative;
+	height   : 145px;
+	width    : 100%;
+	.background{
+		@overlap            : 25px;
+		content             : '';
+		position            : absolute;
+		top                 : 0px;
+		left                : -@overlap;
+		height              : 100%;
+		width               : 100%;
+		padding-right       : @overlap;
+		background-image    : @dragonImage;
+		background-position : top right;
+		background-repeat   : no-repeat;
+		background-size     : contain;
+	}
+	.title{
+		position   : absolute;
+		top        : 20px;
+		left       : 108px;
+		width      : 180px;
+		text-align : center;
+	}
+	.label{
+		position : absolute;
+		top      : 103px;
+		left     : 51px;
+	}
+	input.banner{
+		position    : absolute;
+		top         : 54px;
+		left        : 19px;
+		width       : 275px;
+		padding     : 10px 0px;
+		font-size   : 1.1em;
+		font-weight : 800;
+		text-align  : center;
+	}
+	&>.content{
+		position : absolute;
+		top      : 28.5%;
+		right    : 32px;
+		height   : 70px;
+		width    : 54.5%;
+	}
+}
