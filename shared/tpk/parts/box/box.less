@@ -25,6 +25,13 @@
 	}
 	*/
 
+	width : 100%;
+
+
+	&.expand{
+		//flex-grow: 1;
+		//height : 100%;
+	}
 
 
 	&>.content{
@@ -33,9 +40,13 @@
 		//min-height : 58px;
 		//padding    : 8px 6px;
 
+		height: 100%;
+
+		/*
 		&.expand{
 			height: 100%;
 		}
+		*/
 	}
 	&.flex>.content{
 		display        : flex;
@@ -47,7 +58,7 @@
 	&.border{
 		padding : 9px 7px;
 		&>.content{
-			min-height          : 54px;
+			//min-height          : 54px;
 			background-color    : white;
 			border              : initial;
 			border-style        : solid;

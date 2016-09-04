@@ -40,14 +40,16 @@ var Box = React.createClass({
 				}
 			};
 
+			var style = {};
+
+			if(get.width(child.props, 1)) style.width = `${get.width(child.props, 1) / get.columns(this.props) * 100}%`;
+			if(get.height(child.props, false)) style.height = `${get.height(child.props) / get.rows(this.props) * 100}%`;
+
 			return React.cloneElement(child, {
 				onChange : onChange,
 				data : (id ? this.props.data[id] : this.props.data),
 
-				style : _.assign({}, child.props.style, {
-					width  : `${get.width(child.props) / get.columns(this.props) * 100}%`,
-					height : `${get.height(child.props) / get.rows(this.props) * 100}%`,
-				}),
+				style : _.assign({}, child.props.style, style),
 
 			})
 		})
@@ -63,9 +65,12 @@ var Box = React.createClass({
 		return <div className={cx('box', this.props.className, {
 				shadow : this.props.shadow,
 				border : this.props.border,
+				expand : !get.rows(this.props, false),
+
+				//I think always have this on?
 				flex : get.columns(this.props) !== 1
 			})} style={this.props.style}>
-			<div className={cx('content', {expand : get.height(this.props) || get.rows(this.props)>1})}>
+			<div className={cx('content', /*{expand : get.height(this.props) || get.rows(this.props)>1} */)}>
 				{this.renderTitle()}
 				{this.renderChildren()}
 				{this.renderLabel()}

@@ -31,6 +31,9 @@ module.exports = {
 	TextBox : require('./textBox/textBox.jsx'),
 	Textbox : require('./textBox/textBox.jsx'),
 
+	Textfield : require('./textField/textField.jsx'),
+	TextField : require('./textField/textField.jsx'),
+
 
 	Header : require('./header/header.jsx'),
 
