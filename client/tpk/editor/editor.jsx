@@ -33,10 +33,10 @@ var Editor = React.createClass({
 				},
 				language : 'jsx'
 			},
-			character : {
+			data : {
 				color : '#FFDDBC',
 				get : ()=>{
-					return JSON.stringify(this.props.sheet.data, null, '  ')
+					return JSON.stringify(this.props.sheet.data, null, '\t')
 				},
 				set : (newData)=>{
 					this.props.onChange(_.assign(this.props.sheet, {
@@ -65,7 +65,7 @@ var Editor = React.createClass({
 
 	getInitialState: function(){
 		return {
-			editorType : 'template', //template, logic, character
+			editorType : 'template', //template, logic, data
 		};
 	},
 	componentDidMount: function(){
@@ -104,19 +104,19 @@ var Editor = React.createClass({
 				className={cx('editorButton template')}
 				style={{backgroundColor : this.config('template').color}}
 				onClick={this.changeEditorType.bind(null, 'template')}>
-				<i className='fa fa-file-o' /> Sheet Template
+				<i className='fa fa-file' /> Template
 			</div>
 			<div
-				className={cx('editorButton character')}
-				style={{backgroundColor : this.config('character').color}}
-				onClick={this.changeEditorType.bind(null, 'character')}>
-				<i className='fa fa-user' /> Character Data
+				className={cx('editorButton data')}
+				style={{backgroundColor : this.config('data').color}}
+				onClick={this.changeEditorType.bind(null, 'data')}>
+				<i className='fa fa-user' /> Data
 			</div>
 			<div
 				className={cx('editorButton logic')}
 				style={{backgroundColor : this.config('logic').color}}
 				onClick={this.changeEditorType.bind(null, 'logic')}>
-				<i className='fa fa-code' /> Sheet logic
+				<i className='fa fa-gear' /> Logic
 			</div>
 		</div>
 	},
