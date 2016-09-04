@@ -23,15 +23,17 @@ var gulp = vitreumTasks(gulp, {
 		"lodash",
 		"classnames",
 
+		"md5",
+
 		//From ./shared
 		"codemirror",
-		"codemirror/mode/gfm/gfm.js",
+		//"codemirror/mode/gfm/gfm.js",
 		'codemirror/mode/javascript/javascript.js',
 		'codemirror/mode/jsx/jsx.js',
 
-		"moment",
+		//"moment",
 		"superagent",
-		"pico-flux"
+		//"pico-flux"
 	],
 	clientLibs: [],
 });

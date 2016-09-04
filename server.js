@@ -9,9 +9,10 @@ app.use(express.static(__dirname + '/build'));
 app.use(bodyParser.json({limit: '25mb'}));
 
 
-
 var baseTemplate = require('fs').readFileSync('./sample_sheet.txt', 'utf8');
 
+//Load project version
+var projectVersion = require('./package.json').version;
 
 app.get('*', function (req, res) {
 	vitreumRender({
@@ -20,7 +21,8 @@ app.get('*', function (req, res) {
 		prerenderWith : './client/tpk/tpk.jsx',
 		initialProps: {
 			url: req.originalUrl,
-			base_template : baseTemplate
+			base_template : baseTemplate,
+			ver : projectVersion
 		},
 		clearRequireCache : !process.env.PRODUCTION,
 	}, function (err, page) {

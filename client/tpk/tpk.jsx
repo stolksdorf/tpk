@@ -30,7 +30,8 @@ var CharacterPage = require('./characterPage/characterPage.jsx');
 var TPK = React.createClass({
 	getDefaultProps: function() {
 		return {
-			base_template : ''
+			base_template : '',
+			ver : '0.0.0'
 		};
 	},
 
