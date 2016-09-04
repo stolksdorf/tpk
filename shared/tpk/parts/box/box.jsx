@@ -5,7 +5,6 @@ var cx = require('classnames');
 var BinPack = require('tpk/greedyrow.binpack.js');
 
 
-
 var get = {
 	id : (props) => {
 		return _.snakeCase(props.id || props.title || props.label || props.name);
@@ -33,10 +32,12 @@ var Box = React.createClass({
 
 			/////
 			style : {},
+			/*
 			columns : 1,
 			rows : 1,
 			width : 1,
 			height : 1,
+			*/
 		};
 	},
 
@@ -47,7 +48,6 @@ var Box = React.createClass({
 			var id = get.id(child.props);
 
 			var onChange = (val) => {
-
 				if(id){
 					this.props.data[id] = val;
 					this.props.onChange(this.props.data);
