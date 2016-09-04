@@ -5,7 +5,6 @@ var cx = require('classnames');
 var Parts = require('tpk/parts');
 var ProcessSheet = require('tpk/processSheet.js');
 
-
 var Renderer = React.createClass({
 	getDefaultProps: function() {
 		return {
