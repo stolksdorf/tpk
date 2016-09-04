@@ -25,5 +25,8 @@ module.exports = {
 	//BorderBox : require('./borderBox/borderBox.jsx'),
 
 
+	Pack : require('./pack/pack.jsx'),
+
+
 	Box : require('./box/box.jsx')
 }

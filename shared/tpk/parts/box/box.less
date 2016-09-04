@@ -7,6 +7,26 @@
 	box-sizing : border-box;
 	//padding : 9px 7px;
 
+	/*
+	&:nth-child(1){
+		border : 1px solid grey;
+	}
+	&:nth-child(2){
+		border : 1px solid blue;
+	}
+	&:nth-child(3){
+		border : 1px solid green;
+	}
+	&:nth-child(4){
+		border : 1px solid red;
+	}
+	&:nth-child(5){
+		border : 1px solid purple;
+	}
+	*/
+
+
+
 	&>.content{
 		position   : relative;
 		box-sizing : border-box;
@@ -20,8 +40,9 @@
 	&.flex>.content{
 		display        : flex;
 		flex-direction : row;
+		justify-content: flex-start;
 		flex-wrap      : wrap;
-		align-items: flex-start;
+		align-content: flex-start;
 	}
 	&.border{
 		padding : 9px 7px;

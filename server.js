@@ -12,8 +12,6 @@ app.use(bodyParser.json({limit: '25mb'}));
 
 var baseTemplate = require('fs').readFileSync('./sample_sheet.txt', 'utf8');
 
-console.log(baseTemplate);
-
 
 app.get('*', function (req, res) {
 	vitreumRender({

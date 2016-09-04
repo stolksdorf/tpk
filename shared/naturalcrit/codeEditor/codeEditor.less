@@ -1,5 +1,20 @@
 @import (less) 'codemirror/lib/codemirror.css';
 
 .codeEditor{
+	.cm-tab{
+		position: relative;
+		//width:20px;
+		&:after{
+			position: absolute;
+			left: 0;
+			top: 50%;
+			height: 1px;
+			background: #ddd;
+			content: "";
+			width: 80%;
+			display: block;
+		}
+
+	}
 
 }

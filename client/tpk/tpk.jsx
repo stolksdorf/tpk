@@ -3,7 +3,7 @@ var _ = require('lodash');
 var cx = require('classnames');
 
 
-var Actions = require('tpk/actions.js');
+//var Actions = require('tpk/actions.js');
 
 /*
 
@@ -35,11 +35,24 @@ var TPK = React.createClass({
 	},
 
 	componentDidMount: function() {
+
+		/*
 		Actions.setDefaults({
 			template : this.props.base_template
 		});
+		*/
 
+		document.addEventListener('keydown', this.preventSaveShortcut);
+	},
+	componentWillUnmount: function() {
+		document.removeEventListener('keydown', this.preventSaveShortcut);
+	},
 
+	preventSaveShortcut : function(e){
+		if(e.keyCode == 83 && (e.metaKey || e.ctrlKey)){
+			e.stopPropagation();
+			e.preventDefault();
+		}
 	},
 
 

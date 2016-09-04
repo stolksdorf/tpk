@@ -5,32 +5,26 @@ var cx = require('classnames');
 var jsx2json = require('tpk/jsx-parser');
 var Parts = require('tpk/parts');
 
-var Store = require('tpk/store.js');
-var Actions = require('tpk/actions.js');
-
 
 var SheetRenderer = React.createClass({
-	mixins : [Store.mixin()],
+	getDefaultProps: function() {
+		return {
+			sheet : {
+				template : '',
+				data : {},
+				logic : ''
+			},
+			onChange : ()=>{}
+		};
+	},
 	getInitialState: function() {
 		return {
-			template : Store.getTemplate(),
-			logic : Store.getLogic(),
-			characterData : Store.getProcessedData(),
-
-
 			height: 0,
 			errors : null
 		};
 	},
 
-	onStoreChange : function(){
-		this.setState({
-			template : Store.getTemplate(),
-			logic : Store.getLogic(),
-			characterData : Store.getProcessedData(),
-		})
-	},
-
+	//TODO : Split this off into another file
 	lastSheet : <div />,
 	errors : null,
 
@@ -41,7 +35,12 @@ var SheetRenderer = React.createClass({
 	},
 
 	handleCharacterDataChange : function(charData){
-		Actions.changeCharacterData(charData);
+		console.log('charData', charData);
+
+		this.props.onChange(_.assign({}, this.props.sheet, {
+			data : charData
+		}));
+
 	},
 
 
@@ -62,15 +61,17 @@ var SheetRenderer = React.createClass({
 	renderSheet : function(){
 		this.errors = null;
 		var sheet;
+		//console.log('rendering sheet');
 		try{
-			var nodes = jsx2json(this.state.template);
+			var nodes = jsx2json(this.props.sheet.template);
+			//console.log(nodes);
 
 			nodes = _.map(nodes, (node)=>{
-				node.props.data = this.state.characterData;
+				node.props.data = this.props.sheet.data;
 				node.props.onChange = (newData)=>{
-					this.handleCharacterDataChange(_.extend(this.state.characterData, newData));
+					this.handleCharacterDataChange(newData);
 				}
-				return node
+				return node;
 			})
 			sheet = this.renderChildren(nodes);
 			this.lastSheet = sheet;
@@ -78,7 +79,7 @@ var SheetRenderer = React.createClass({
 			return sheet;
 		}catch(e){
 			this.errors = e;
-			return this.lastSheet
+			return this.lastSheet;
 		}
 	},
 

@@ -30,7 +30,11 @@ var CodeEditor = React.createClass({
 			value : this.props.value,
 			lineNumbers: true,
 			lineWrapping : this.props.wrap,
-			mode : this.props.language
+			mode : this.props.language,
+
+
+			indentWithTabs : true,
+			tabSize : 2
 		});
 
 		this.codeMirror.on('change', this.handleChange);
@@ -39,7 +43,7 @@ var CodeEditor = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps){
-		if(this.codeMirror && nextProps.value && this.codeMirror.getValue() != nextProps.value) {
+		if(this.codeMirror && _.isString(nextProps.value) && this.codeMirror.getValue() != nextProps.value) {
 			this.codeMirror.setValue(nextProps.value);
 		}
 	},

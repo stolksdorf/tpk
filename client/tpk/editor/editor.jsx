@@ -4,62 +4,68 @@ var cx = require('classnames');
 
 var CodeEditor = require('naturalcrit/codeEditor/codeEditor.jsx');
 
-var Store = require('tpk/store.js');
-var Actions = require('tpk/actions.js');
-
-
-
-
 var Editor = React.createClass({
-	config : {
-		template : {
-			color : '#ddd',
-			get : Store.getTemplate,
-			set : Actions.changeTemplate,
-			language : 'jsx'
-		},
-		character : {
-			color : '#FFDDBC',
-			get : Store.getCharacterData.bind(null, true),
-			set : Actions.changeCharacterData,
-			language : 'javascript'
-		},
-		logic : {
-			color : '#9EDDDD',
-			get : Store.getLogic,
-			set : Actions.changeLogic,
-			language : 'javascript'
-		},
-	},
-
-
-	mixins : [Store.mixin()],
 	getDefaultProps: function() {
 		return {
-			onEditorTypeChange : ()=>{}
+			sheet : {
+				template : '',
+				data : {},
+				logic : ''
+			},
+
+			onDividerColorChange : ()=>{},
+			onChange : ()=>{}
 		}
 	},
 
+
+	config : function(val){
+		var config = {
+			template : {
+				get : ()=>{
+					return this.props.sheet.template
+				},
+				set : (newTemplate)=>{
+					this.props.onChange(_.assign(this.props.sheet, {
+						template : newTemplate
+					}));
+				},
+				language : 'jsx'
+			},
+			data : {
+				get : ()=>{
+					return JSON.stringify(this.props.sheet.data, null, '\t')
+				},
+				set : (newData)=>{
+					this.props.onChange(_.assign(this.props.sheet, {
+						data : JSON.parse(newData)
+					}));
+				},
+				language : 'javascript'
+			},
+			logic : {
+				get : ()=>{
+					return this.props.sheet.logic
+				},
+				set : (newLogic)=>{
+					this.props.onChange(_.assign(this.props.sheet, {
+						logic : newLogic
+					}));
+				},
+				language : 'javascript'
+			},
+		};
+		return config[val || this.state.editorType];
+	},
+
+
+
 	getInitialState: function(){
-
-
 		return {
-			editorType : 'template', //template, logic, character
-			value : Store.getTemplate(),
+			editorType : 'template', //template, logic, data
 		};
 	},
-	onStoreChange : function(){
-
-		this.setState({
-			value : this.getConfig().get(),
-		});
-	},
-
 	componentDidMount: function(){
-		//
-
-		console.log('LOADING');
-
 		this.updateEditorSize();
 		window.addEventListener("resize", this.updateEditorSize);
 	},
@@ -69,28 +75,18 @@ var Editor = React.createClass({
 	updateEditorSize : function(){
 		var paneHeight = this.refs.editor.parentNode.clientHeight;
 		paneHeight -= this.refs.editorBar.clientHeight + 1;
-
-
 		this.refs.codeEditor.codeMirror.setSize(null, paneHeight);
 	},
 
-	getConfig : function(){
-		return this.config[this.state.editorType];
-	},
 
 	handleChange : function(text){
-
-		console.log('firing a change');
-
-		this.getConfig().set(text)
-
+		this.config().set(text);
 	},
-	changeEditorType : function(type){
+	changeEditorType : function(type, color){
 		this.setState({
 			editorType : type,
-			value : this.config[type].get()
 		});
-		this.props.onEditorTypeChange(type, this.config[type].color);
+		this.props.onDividerColorChange(color);
 	},
 
 	//Called when there are changes to the editor's dimensions
@@ -100,54 +96,47 @@ var Editor = React.createClass({
 
 	renderBar : function(){
 
-		return <div className='editorBar' ref='editorBar' style={{backgroundColor : this.getConfig().color}}>
+		var colors= {
+			template : '#ddd',
+			data : '#FFDDBC',
+			logic : '#9EDDDD',
+		};
+
+		return <div className='editorBar' ref='editorBar' style={{backgroundColor : colors[this.state.editorType]}}>
 			<div
 				className={cx('editorButton template')}
-				style={{backgroundColor : this.config.template.color}}
-				onClick={this.changeEditorType.bind(null, 'template')}>
-				<i className='fa fa-file-o' /> Sheet Template
+				style={{backgroundColor : colors.template}}
+				onClick={this.changeEditorType.bind(null, 'template', colors.template)}>
+				<i className='fa fa-file' /> Template
 			</div>
 			<div
-				className={cx('editorButton character')}
-				style={{backgroundColor : this.config.character.color}}
-				onClick={this.changeEditorType.bind(null, 'character')}>
-				<i className='fa fa-user' /> Character Data
+				className={cx('editorButton data')}
+				style={{backgroundColor : colors.data}}
+				onClick={this.changeEditorType.bind(null, 'data', colors.data)}>
+				<i className='fa fa-user' /> Data
 			</div>
 			<div
 				className={cx('editorButton logic')}
-				style={{backgroundColor : this.config.logic.color}}
-				onClick={this.changeEditorType.bind(null, 'logic')}>
-				<i className='fa fa-code' /> Sheet logic
+				style={{backgroundColor : colors.logic}}
+				onClick={this.changeEditorType.bind(null, 'logic', colors.logic)}>
+				<i className='fa fa-gear' /> Logic
 			</div>
 		</div>
 	},
 
 
 	render : function(){
-
-		console.log(this.state.value);
-
 		return <div className='editor' ref='editor'>
 			{this.renderBar()}
-
-
 			<CodeEditor
 				ref='codeEditor'
 				wrap={true}
-				language={this.getConfig().language}
-				value={this.state.value}
+				language={this.config().language}
+				value={this.config().get()}
 				onChange={this.handleChange}
 				onCursorActivity={this.handleCursorActivty} />
-
-
 		</div>
 	}
 });
 
 module.exports = Editor;
-
-
-/*
-
-
-*/
