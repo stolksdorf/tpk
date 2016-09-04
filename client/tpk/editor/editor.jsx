@@ -126,9 +126,6 @@ var Editor = React.createClass({
 
 
 	render : function(){
-		console.log(this.config(), this.config().get());
-
-
 		return <div className='editor' ref='editor'>
 			{this.renderBar()}
 			<CodeEditor

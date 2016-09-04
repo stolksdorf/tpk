@@ -44,13 +44,13 @@ var Box = React.createClass({
 	renderChildren : function(){
 		return React.Children.map(this.props.children, (child)=>{
 			if(!React.isValidElement(child)) return null;
-
 			var id = get.id(child.props);
 
 			var onChange = (val) => {
 				if(id){
-					this.props.data[id] = val;
-					this.props.onChange(this.props.data);
+					this.props.onChange(_.assign({}, this.props.data, {
+						[id] : val
+					}));
 				}else if(child.props.onChange){
 					return child.props.onChange(val);
 

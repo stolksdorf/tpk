@@ -29,8 +29,8 @@ var Pack = React.createClass({
 
 			/////
 			style : {},
-			columns : 1,
-			rows : 1,
+			//columns : 1,
+			//rows : 1,
 			//width : 1,
 			//height : 1,
 		};
@@ -45,12 +45,16 @@ var Pack = React.createClass({
 
 
 	renderChild : function(child, coords){
+		if(!coords) return;
 		var id = get.id(child.props);
 
 		var onChange = (val) => {
+			console.log('cahnge', id, val);
+
 			if(id){
-				this.props.data[id] = val;
-				this.props.onChange(this.props.data);
+				this.props.onChange(_.assign({}, this.props.data, {
+					[id] : val
+				}));
 			}else if(child.props.onChange){
 				child.props.onChange(val);
 			}else{
@@ -98,6 +102,7 @@ var Pack = React.createClass({
 				h : get.height(child.props),
 			}
 		}));
+
 
 		return _.map(validChildren, (child, idx) => {
 			return this.renderChild(child, coords[idx]);
