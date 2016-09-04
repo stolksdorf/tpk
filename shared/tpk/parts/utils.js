@@ -5,7 +5,7 @@ module.exports = {
 
 	get : {
 		id : (props) => {
-			return _.snakeCase(props.id || props.title || props.label || props.name);
+			return _.snakeCase(props.id || props.title || props.label || props.label || props.base_name);
 		},
 
 		width   : (props, def=1) => { return props.width || props.w || def },

@@ -19,7 +19,7 @@ var Box = require('../box/box.jsx');
 var Header = React.createClass({
 	getDefaultProps: function() {
 		return {
-			name : 'header',
+			base_name : 'header',
 			data: {
 				banner : '',
 				content : {}

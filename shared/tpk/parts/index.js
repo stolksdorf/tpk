@@ -1,9 +1,8 @@
 module.exports = {
-	Sheet : require('./sheet/sheet.jsx'),
+
 
 	TextInput : require('./textInput/textInput.jsx'),
-	TextBox : require('./textBox/textBox.jsx'),
-	Textbox : require('./textBox/textBox.jsx'),
+
 
 	StatBox : require('./statBox/statBox.jsx'),
 	Statbox : require('./statBox/statBox.jsx'),
@@ -24,6 +23,13 @@ module.exports = {
 	//ShadowBox : require('./shadowBox/shadowBox.jsx'),
 	//BorderBox : require('./borderBox/borderBox.jsx'),
 
+
+//////////Finished
+	Sheet : require('./sheet/sheet.jsx'),
+
+
+	TextBox : require('./textBox/textBox.jsx'),
+	Textbox : require('./textBox/textBox.jsx'),
 
 
 	Header : require('./header/header.jsx'),

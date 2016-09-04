@@ -6,12 +6,9 @@ var get = require('../utils.js').get;
 var BinPack = require('tpk/greedyrow.binpack.js');
 
 
-
-
 var Box = React.createClass({
 	getDefaultProps: function() {
 		return {
-			is_box : true,
 			data : {},
 			style : {},
 
@@ -19,7 +16,9 @@ var Box = React.createClass({
 			shadow : false,
 			border : false,
 			label : '',
-			title : ''
+			title : '',
+
+			is_box : true
 		};
 	},
 

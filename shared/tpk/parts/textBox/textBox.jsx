@@ -7,13 +7,15 @@ var Box = require('../box/box.jsx');
 var TextBox = React.createClass({
 	getDefaultProps: function() {
 		return {
-			name : 'textbox',
+			base_name : 'textbox',
 			data: '',
 
 			fontSize : '',
 			lines : false,
 			title : '',
-			label : ''
+			label : '',
+
+			is_box : true
 		};
 	},
 
