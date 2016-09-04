@@ -23,7 +23,7 @@ var gulp = vitreumTasks(gulp, {
 		"lodash",
 		"classnames",
 
-		"md5",
+		//"md5",
 
 		//From ./shared
 		"codemirror",
