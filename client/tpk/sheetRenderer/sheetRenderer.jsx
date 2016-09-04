@@ -15,7 +15,10 @@ var SheetRenderer = React.createClass({
 		return {
 			template : Store.getTemplate(),
 			logic : Store.getLogic(),
-			characterData : Store.getProcessedData(),
+			characterData : {
+
+
+			},
 
 
 			height: 0,
@@ -27,7 +30,7 @@ var SheetRenderer = React.createClass({
 		this.setState({
 			template : Store.getTemplate(),
 			logic : Store.getLogic(),
-			characterData : Store.getProcessedData(),
+			//characterData : Store.getProcessedData(),
 		})
 	},
 
@@ -41,7 +44,15 @@ var SheetRenderer = React.createClass({
 	},
 
 	handleCharacterDataChange : function(charData){
-		Actions.changeCharacterData(charData);
+		console.log('charData', charData);
+
+
+		//Actions.changeCharacterData(charData);
+
+		this.setState({
+			characterData : charData
+		});
+
 	},
 
 
@@ -62,13 +73,15 @@ var SheetRenderer = React.createClass({
 	renderSheet : function(){
 		this.errors = null;
 		var sheet;
+		//console.log('rendering sheet');
 		try{
 			var nodes = jsx2json(this.state.template);
+			//console.log(nodes);
 
 			nodes = _.map(nodes, (node)=>{
 				node.props.data = this.state.characterData;
 				node.props.onChange = (newData)=>{
-					this.handleCharacterDataChange(_.extend(this.state.characterData, newData));
+					this.handleCharacterDataChange(newData);
 				}
 				return node
 			})

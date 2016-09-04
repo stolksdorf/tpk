@@ -1,5 +1,15 @@
 
 
+Saturday, 03/09/2016
+- Allow for w,h, and cols as box params
+- Clean up the box rendering
+- Add a drawGrids toggle on the template
+- Add a tool bar for the snippets
+- Depricate the store for now, move everything into TPK state
+- Build an efficient sheet processor (does md5 hasing on template and calc'd data)
+- Remove the `utils.js` from the parts
+- Rename sheetRender -> renderer
+
 
 
 

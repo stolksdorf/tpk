@@ -21,11 +21,17 @@ var CharacterPage = React.createClass({
 		return {
 			dividerColor : '#ddd',
 
+			sheet : {
+				template : '',
+				data : {},
+				logic : ''
+			}
+
 		};
 	},
 
 	componentDidMount: function() {
-		Actions.loadFromLocalStorage('TEMP_ID');
+		//Actions.loadFromLocalStorage('TEMP_ID');
 	},
 
 

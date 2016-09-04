@@ -12,7 +12,7 @@ var gulp = vitreumTasks(gulp, {
 	DEV: true,
 	buildPath: "./build/",
 	pageTemplate: "./client/template.dot",
-	projectModules: ["./shared/naturalcrit","./shared/codemirror"],
+	projectModules: ["./shared/naturalcrit","./shared/codemirror","./shared/tpk"],
 	additionalRequirePaths : ['./shared', './node_modules'],
 	assetExts: ["*.svg", "*.png", "*.jpg", "*.pdf", "*.eot", "*.otf", "*.woff", "*.woff2", "*.ico", "*.ttf"],
 	serverWatchPaths: ["server"],

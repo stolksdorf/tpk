@@ -8,27 +8,37 @@ var utils = require('../utils');
 var TextBox = React.createClass({
 	getDefaultProps: function() {
 		return {
-			name : 'textbox',
-			defaultData : ' ',
 
 			id : '',
 			label : '',
 
+			onChange : ()=> {},
+
+			name : 'textbox',
+			data: ' ',
+
+			fontSize : '',
 			lines : false
 		};
 	},
+
 
 	id : utils.id,
 	data : utils.data,
 	updateData : utils.updateData,
 
+
+
 	handleChange : function(e){
-		this.updateData(e.target.value);
+		this.props.onChange(e.target.value)
 	},
 
 	render : function(){
-		return <Box className={cx('textBox', {lines : this.props.lines})} {...this.props}>
-			<textarea value={this.data()} onChange={this.handleChange} />
+		console.log('textbox', this.props.data);
+
+
+		return <Box className={cx('box textBox', {lines : this.props.lines})} {...this.props}>
+			<textarea style={{fontSize : this.props.fontSize}} value={this.props.data} onChange={this.handleChange} />
 		</Box>
 	}
 });

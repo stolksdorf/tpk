@@ -56,9 +56,6 @@ var Editor = React.createClass({
 	},
 
 	componentDidMount: function(){
-		//
-
-		console.log('LOADING');
 
 		this.updateEditorSize();
 		window.addEventListener("resize", this.updateEditorSize);
@@ -79,11 +76,8 @@ var Editor = React.createClass({
 	},
 
 	handleChange : function(text){
-
-		console.log('firing a change');
-
-		this.getConfig().set(text)
-
+		this.getConfig().set(text);
+		Actions.storeToLocal('TEMP_ID')
 	},
 	changeEditorType : function(type){
 		this.setState({
@@ -124,9 +118,6 @@ var Editor = React.createClass({
 
 
 	render : function(){
-
-		console.log(this.state.value);
-
 		return <div className='editor' ref='editor'>
 			{this.renderBar()}
 

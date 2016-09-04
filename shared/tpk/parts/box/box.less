@@ -2,10 +2,29 @@
 @borderImage : url('/assets/tpk/sheetRenderer/parts/box/border.png');
 @shadowImage : url('/assets/tpk/sheetRenderer/parts/box/shadow.png');
 .box{
-	position   : relative;
+	position   : absolute;
 	display    : inline-block;
 	box-sizing : border-box;
 	//padding : 9px 7px;
+
+	&:nth-child(1){
+		border : 1px solid grey;
+	}
+	&:nth-child(2){
+		border : 1px solid blue;
+	}
+	&:nth-child(3){
+		border : 1px solid green;
+	}
+	&:nth-child(4){
+		border : 1px solid red;
+	}
+	&:nth-child(5){
+		border : 1px solid purple;
+	}
+
+
+
 
 	&>.content{
 		position   : relative;
@@ -17,12 +36,14 @@
 			height: 100%;
 		}
 	}
+	/*
 	&.flex>.content{
 		display        : flex;
 		flex-direction : row;
 		flex-wrap      : wrap;
 		align-items: flex-start;
 	}
+	*/
 	&.border{
 		padding : 9px 7px;
 		&>.content{

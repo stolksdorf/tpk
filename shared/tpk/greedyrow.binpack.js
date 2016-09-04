@@ -2,10 +2,7 @@
 
 var _ = require('lodash');
 
-
-var container = {w:6, h:6};
-
-var pack = (width, height, boxes) => {
+module.exports = (width, height, boxes) => {
 	var currentRow = 0;
 	var map = _.times(height, ()=>{
 		return _.repeat('*', width);
@@ -24,16 +21,20 @@ var pack = (width, height, boxes) => {
 		_.times(box.h, (row)=>{
 			map[currentRow + row] = splice(map[currentRow + row], index, inject);
 		});
-		return {x:index, y : currentRow};
+		return {
+			x : index,
+			y : currentRow,
+			w : box.w,
+			h : box.h
+		};
 	};
 	var res = _.map(boxes, (box, idx) => {
 		return fit(box, idx);
 	});
-	console.log(map.join('\n'));
-	console.log('\n');
 	return res;
 }
 
+/*
 
 pack(6,6,[
 	{w:2,h:2},
@@ -70,3 +71,4 @@ pack(6,6,[
 	{w:2,h:1},
 	{w:2,h:1},
 ]);
+*/
