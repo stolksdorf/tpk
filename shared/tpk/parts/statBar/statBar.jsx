@@ -1,26 +1,39 @@
 var React = require('react');
-var _ = require('lodash');
-var cx = require('classnames');
+var _     = require('lodash');
+var cx    = require('classnames');
 
 var StatBar = React.createClass({
 	getDefaultProps: function() {
 		return {
-			name : 'statbar',
+			base_name : 'statbar',
 
-			defaultData : {
-
-			},
+			data : '',
 
 			label : '',
-			flip : false
+			title : '',
 		};
 	},
 
+	handleChange : function(e){
+		this.props.onChange(e.target.value);
+	},
+
+	renderTitle : function(){
+		if(this.props.title) return <div className='title'>{this.props.title}</div>
+	},
+	renderLabel : function(){
+		if(this.props.label) return <div className='label'>{this.props.label}</div>
+	},
+
 	render : function(){
-		return <div className='statBar'>
+		return <div className={cx('statBar', {
+			hasTitle : this.props.title,
+			hasLabel : !this.props.title
+		})} style={this.props.style}>
 			<div className='content'>
-				<input type='text' />
-				<div className='label'>{this.props.label}</div>
+				{this.renderTitle()}
+				<input type='text' value={this.props.data} onChange={this.handleChange} />
+				{this.renderLabel()}
 			</div>
 		</div>
 	}

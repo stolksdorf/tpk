@@ -12,8 +12,7 @@ module.exports = {
 	PipBar : require('./pipBar/pipBar.jsx'),
 
 
-	StatBar : require('./statBar/statBar.jsx'),
-	Statbar : require('./statBar/statBar.jsx'),
+
 
 	PlayerInfo : require('./playerInfo/playerInfo.jsx'),
 
@@ -26,6 +25,9 @@ module.exports = {
 
 //////////Finished
 	Sheet : require('./sheet/sheet.jsx'),
+
+	StatBar : require('./statBar/statBar.jsx'),
+	Statbar : require('./statBar/statBar.jsx'),
 
 
 	TextBox : require('./textBox/textBox.jsx'),

@@ -40,7 +40,7 @@ var TextField = React.createClass({
 		};
 
 		return <div className={cx('textField', {
-			tag    : !!this.props.tag,
+			hasTag    : !!this.props.tag,
 			shadow : !!this.props.shadow,
 			line   : !!this.props.line && !this.props.shadow,
 		})} style={style}>
