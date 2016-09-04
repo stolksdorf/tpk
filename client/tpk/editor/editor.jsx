@@ -22,7 +22,6 @@ var Editor = React.createClass({
 	config : function(val){
 		var config = {
 			template : {
-				color : '#ddd',
 				get : ()=>{
 					return this.props.sheet.template
 				},
@@ -34,7 +33,6 @@ var Editor = React.createClass({
 				language : 'jsx'
 			},
 			data : {
-				color : '#FFDDBC',
 				get : ()=>{
 					return JSON.stringify(this.props.sheet.data, null, '\t')
 				},
@@ -46,7 +44,6 @@ var Editor = React.createClass({
 				language : 'javascript'
 			},
 			logic : {
-				color : '#9EDDDD',
 				get : ()=>{
 					return this.props.sheet.logic
 				},
@@ -85,11 +82,11 @@ var Editor = React.createClass({
 	handleChange : function(text){
 		this.config().set(text);
 	},
-	changeEditorType : function(type){
+	changeEditorType : function(type, color){
 		this.setState({
 			editorType : type,
 		});
-		this.props.onDividerColorChange(this.config(type).color);
+		this.props.onDividerColorChange(color);
 	},
 
 	//Called when there are changes to the editor's dimensions
@@ -99,23 +96,29 @@ var Editor = React.createClass({
 
 	renderBar : function(){
 
-		return <div className='editorBar' ref='editorBar' style={{backgroundColor : this.config().color}}>
+		var colors= {
+			template : '#ddd',
+			data : '#FFDDBC',
+			logic : '#9EDDDD',
+		};
+
+		return <div className='editorBar' ref='editorBar' style={{backgroundColor : colors[this.state.editorType]}}>
 			<div
 				className={cx('editorButton template')}
-				style={{backgroundColor : this.config('template').color}}
-				onClick={this.changeEditorType.bind(null, 'template')}>
+				style={{backgroundColor : colors.template}}
+				onClick={this.changeEditorType.bind(null, 'template', colors.template)}>
 				<i className='fa fa-file' /> Template
 			</div>
 			<div
 				className={cx('editorButton data')}
-				style={{backgroundColor : this.config('data').color}}
-				onClick={this.changeEditorType.bind(null, 'data')}>
+				style={{backgroundColor : colors.data}}
+				onClick={this.changeEditorType.bind(null, 'data', colors.data)}>
 				<i className='fa fa-user' /> Data
 			</div>
 			<div
 				className={cx('editorButton logic')}
-				style={{backgroundColor : this.config('logic').color}}
-				onClick={this.changeEditorType.bind(null, 'logic')}>
+				style={{backgroundColor : colors.logic}}
+				onClick={this.changeEditorType.bind(null, 'logic', colors.logic)}>
 				<i className='fa fa-gear' /> Logic
 			</div>
 		</div>
@@ -123,6 +126,9 @@ var Editor = React.createClass({
 
 
 	render : function(){
+		console.log(this.config(), this.config().get());
+
+
 		return <div className='editor' ref='editor'>
 			{this.renderBar()}
 			<CodeEditor

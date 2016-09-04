@@ -43,7 +43,7 @@ var CodeEditor = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps){
-		if(this.codeMirror && nextProps.value && this.codeMirror.getValue() != nextProps.value) {
+		if(this.codeMirror && _.isString(nextProps.value) && this.codeMirror.getValue() != nextProps.value) {
 			this.codeMirror.setValue(nextProps.value);
 		}
 	},
