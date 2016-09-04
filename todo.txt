@@ -9,6 +9,21 @@ Saturday, 03/09/2016
 - Build an efficient sheet processor (does md5 hasing on template and calc'd data)
 - Remove the `utils.js` from the parts
 - Rename sheetRender -> renderer
+- Figure out how to do statically height assets (I think just center them)
+-
+
+
+
+
+### QoL Improvemetns
+- Add code folding in editor
+
+
+
+### New Parts
+- TextField
+- Header
+-
 
 
 

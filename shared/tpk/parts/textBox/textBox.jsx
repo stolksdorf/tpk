@@ -34,8 +34,6 @@ var TextBox = React.createClass({
 	},
 
 	render : function(){
-		console.log('textbox', this.props.data);
-
 
 		return <Box className={cx('box textBox', {lines : this.props.lines})} {...this.props}>
 			<textarea style={{fontSize : this.props.fontSize}} value={this.props.data} onChange={this.handleChange} />

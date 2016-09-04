@@ -1,17 +1,16 @@
 // Greedy row bin packing
 
 var _ = require('lodash');
-
-module.exports = (width, height, boxes) => {
+module.exports = (container, boxes) => {
 	var currentRow = 0;
-	var map = _.times(height, ()=>{
-		return _.repeat('*', width);
+	var map = _.times(container.h, ()=>{
+		return _.repeat('*', container.w);
 	});
 	var splice = (str, idx, add) => {
 		return str.slice(0, idx) + add + str.slice(idx + add.length);
 	}
 	var fit = (box, id) =>{
-		if(currentRow + box.h > height) return false;
+		if(currentRow + box.h > container.h) return false;
 		var index = map[currentRow].indexOf(_.repeat('*', box.w));
 		if(index == -1){
 			currentRow += 1;
@@ -36,7 +35,7 @@ module.exports = (width, height, boxes) => {
 
 /*
 
-pack(6,6,[
+pack({w:6,h:6},[
 	{w:2,h:2},
 	{w:1,h:3},
 	{w:3,h:2},
@@ -47,7 +46,7 @@ pack(6,6,[
 	{w:1,h:1},
 ]);
 
-pack(6,6,[
+pack({w:6,h:6},[
 	{w:3,h:2},
 	{w:3,h:1},
 	{w:3,h:2},
@@ -55,13 +54,13 @@ pack(6,6,[
 	{w:3,h:2},
 ]);
 
-pack(6,6,[
+pack({w:6,h:6},[
 	{w:2,h:4},
 	{w:2,h:2},
 	{w:4,h:1},
 ]);
 
-pack(6,6,[
+pack({w:6,h:6},[
 	{w:1,h:1},
 	{w:1,h:3},
 	{w:1,h:4},
