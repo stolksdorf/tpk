@@ -65,7 +65,6 @@ var Pack = React.createClass({
 
 
 			//May have to override display and positioning here
-
 			style : _.assign({}, child.props.style, {
 				position : 'absolute',
 

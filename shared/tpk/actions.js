@@ -1,3 +1,5 @@
+//DEPRICATE
+
 var dispatch = require('pico-flux').dispatch;
 
 var Store = require('./store.js');

@@ -2,7 +2,7 @@
 @borderImage : url('/assets/tpk/sheetRenderer/parts/box/border.png');
 @shadowImage : url('/assets/tpk/sheetRenderer/parts/box/shadow.png');
 .box{
-	position   : absolute;
+	position   : relative;
 	display    : inline-block;
 	box-sizing : border-box;
 	//padding : 9px 7px;
@@ -36,14 +36,12 @@
 			height: 100%;
 		}
 	}
-	/*
 	&.flex>.content{
 		display        : flex;
 		flex-direction : row;
 		flex-wrap      : wrap;
 		align-items: flex-start;
 	}
-	*/
 	&.border{
 		padding : 9px 7px;
 		&>.content{

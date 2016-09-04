@@ -10,7 +10,6 @@ var SheetEditor = require('../sheetEditor/sheetEditor.jsx');
 var SheetRenderer = require('../sheetRenderer/sheetRenderer.jsx');
 
 var Editor = require('../editor/editor.jsx');
-var Actions = require('tpk/actions.js');
 
 
 
@@ -31,24 +30,33 @@ var CharacterPage = React.createClass({
 	},
 
 	componentDidMount: function() {
-		//Actions.loadFromLocalStorage('TEMP_ID');
+		try{
+			var sheet = localStorage.getItem('SHEET');
+			this.setState({
+				sheet : _.assign({
+					template : '',
+					data : {},
+					logic : ''
+				}, JSON.parse(sheet))
+			});
+		}catch(e){
+
+		}
 	},
 
 
-
-
-	handleSplitMove : function(){
-		//this.refs.editor.update();
+	handleSheetUpdate : function(newSheet){
+		this.setState({
+			sheet : newSheet
+		})
+		localStorage.setItem('SHEET', JSON.stringify(newSheet));
 	},
 
-	handleEditorTypeChange : function(type, color){
-
+	handleDividerColorChange : function(color){
 		this.setState({
 			dividerColor : color
 		})
 	},
-
-
 
 	render : function(){
 		return <div className='page characterPage'>
@@ -61,16 +69,17 @@ var CharacterPage = React.createClass({
 			</Navbar>
 
 			<div className='content'>
-				<SplitPane onDragFinish={this.handleSplitMove} ref='pane' color={this.state.dividerColor}>
+				<SplitPane ref='pane' color={this.state.dividerColor}>
 					<Editor
-						ref='editor'
-						onEditorTypeChange={this.handleEditorTypeChange}
+						sheet={this.state.sheet}
+						onDividerColorChange={this.handleDividerColorChange}
+						onChange={this.handleSheetUpdate}
 					/>
 					<SheetRenderer
+						sheet={this.state.sheet}
+						onChange={this.handleSheetUpdate}
 					/>
 				</SplitPane>
-
-
 			</div>
 		</div>
 	}
