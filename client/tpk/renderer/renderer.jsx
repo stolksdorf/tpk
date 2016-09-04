@@ -6,7 +6,7 @@ var jsx2json = require('tpk/jsx-parser');
 var Parts = require('tpk/parts');
 
 
-var SheetRenderer = React.createClass({
+var Renderer = React.createClass({
 	getDefaultProps: function() {
 		return {
 			sheet : {
@@ -30,7 +30,7 @@ var SheetRenderer = React.createClass({
 
 	componentDidMount: function() {
 		this.setState({
-			height : this.refs.main.parentNode.clientHeight,
+			height : this.refs.renderer.parentNode.clientHeight,
 		});
 	},
 
@@ -89,7 +89,7 @@ var SheetRenderer = React.createClass({
 	},
 
 	render : function(){
-		return <div className='sheetRenderer' ref='main' style={{height:this.state.height}}>
+		return <div className='renderer' ref='renderer' style={{height:this.state.height}}>
 			<div className='sheetContainer' ref='sheetContainer'>
 				{this.renderSheet()}
 			</div>
@@ -99,4 +99,4 @@ var SheetRenderer = React.createClass({
 });
 
 
-module.exports = SheetRenderer;
+module.exports = Renderer;

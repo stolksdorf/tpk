@@ -6,12 +6,8 @@ var Nav = require('naturalcrit/nav/nav.jsx');
 var Navbar = require('../navbar/navbar.jsx');
 
 var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
-var SheetEditor = require('../sheetEditor/sheetEditor.jsx');
-var SheetRenderer = require('../sheetRenderer/sheetRenderer.jsx');
-
+var Renderer = require('../renderer/renderer.jsx');
 var Editor = require('../editor/editor.jsx');
-
-
 
 
 var CharacterPage = React.createClass({
@@ -75,7 +71,7 @@ var CharacterPage = React.createClass({
 						onDividerColorChange={this.handleDividerColorChange}
 						onChange={this.handleSheetUpdate}
 					/>
-					<SheetRenderer
+					<Renderer
 						sheet={this.state.sheet}
 						onChange={this.handleSheetUpdate}
 					/>
