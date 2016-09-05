@@ -60,6 +60,7 @@ var StatBox = React.createClass({
 				label={this.props.label}
 				title={this.props.title}
 				style={this.props.style}
+				is_internal={false}
 				>
 			{this.renderMod()}
 			<input className='value' type='text' value={this.props.data.value} onChange={this.handleValueChange} />

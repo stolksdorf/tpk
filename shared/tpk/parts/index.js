@@ -4,8 +4,7 @@ module.exports = {
 	TextInput : require('./textInput/textInput.jsx'),
 
 
-	StatBox : require('./statBox/statBox.jsx'),
-	Statbox : require('./statBox/statBox.jsx'),
+
 
 	Pip : require('./pip/pip.jsx'),
 	Pipbar : require('./pipBar/pipBar.jsx'),
@@ -17,7 +16,6 @@ module.exports = {
 	PlayerInfo : require('./playerInfo/playerInfo.jsx'),
 
 	//SkillList : require('./skillList/skillList.jsx'),
-	Skill : require('./skill/skill.jsx'),
 
 	//ShadowBox : require('./shadowBox/shadowBox.jsx'),
 	//BorderBox : require('./borderBox/borderBox.jsx'),
@@ -29,12 +27,17 @@ module.exports = {
 	StatBar : require('./statBar/statBar.jsx'),
 	Statbar : require('./statBar/statBar.jsx'),
 
+	StatBox : require('./statBox/statBox.jsx'),
+	Statbox : require('./statBox/statBox.jsx'),
 
 	TextBox : require('./textBox/textBox.jsx'),
 	Textbox : require('./textBox/textBox.jsx'),
 
 	Textfield : require('./textField/textField.jsx'),
 	TextField : require('./textField/textField.jsx'),
+
+	Skill : require('./skill/skill.jsx'),
+
 
 
 	Header : require('./header/header.jsx'),

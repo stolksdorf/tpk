@@ -25,12 +25,13 @@
 	}
 	*/
 
-	width : 100%;
+	//width : 100%;
+
+	//flex : 1;
 
 
 	&.expand{
-		//flex-grow: 1;
-		//height : 100%;
+		flex-grow: 1;
 	}
 
 
@@ -41,24 +42,21 @@
 		//padding    : 8px 6px;
 
 		height: 100%;
-
-		/*
-		&.expand{
-			height: 100%;
-		}
-		*/
-	}
-	&.flex>.content{
+		width : 100%;
 		display        : flex;
 		flex-direction : row;
 		justify-content: flex-start;
 		flex-wrap      : wrap;
 		align-content: flex-start;
+
+	}
+	&.vertical>.content{
+		flex-direction : column;
 	}
 	&.border{
-		padding : 9px 7px;
+		padding: 6px 7px;
+
 		&>.content{
-			//min-height          : 54px;
 			background-color    : white;
 			border              : initial;
 			border-style        : solid;
@@ -67,7 +65,7 @@
 			border-image-slice  : 50 60 50 60;
 			border-image-source : @borderImage;
 			border-image-width  : 20px;
-			padding    : 8px 6px;
+			padding    : 0px 2px;
 			&>h5{
 				&.title{
 					top : -2px;
@@ -77,9 +75,17 @@
 				}
 			}
 		}
+
+		&.hasTitle>.content{
+			padding-top : 3px;
+		}
+		&.hasLabel>.content{
+			padding-bottom : 6px;
+		}
 	}
 	&.shadow{
-		padding    : 5px 3px;
+		padding: 3px 3px;
+
 		&>.content{
 			background-color    : #C3C2C2;
 			border              : initial;
@@ -88,8 +94,8 @@
 			border-image-repeat : round;
 			border-image-slice  : 25 25 25 25;
 			border-image-source : @shadowImage;
-			border-image-width  : 15px;
-			padding    : 8px 6px;
+			border-image-width  : 10px;
+			padding    : 2px 4px;
 			&>h5{
 				&.title{
 					top : 5px;
@@ -99,13 +105,18 @@
 				}
 			}
 		}
+		&.hasTitle>.content{
+			padding-top : 4px;
+		}
+		&.hasLabel>.content{
+			padding-bottom : 4px;
+		}
 	}
 	&>.content>h5{
 		position       : absolute;
 		left           : 0px;
 		box-sizing     : border-box;
 		width          : 100%;
-		padding        : 0px 5px;
 
 		text-align     : center;
 		text-transform : uppercase;

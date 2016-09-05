@@ -12,6 +12,8 @@ var Pack = React.createClass({
 		return {
 			data : {},
 			style : {},
+
+			onChange: ()=>{}
 		};
 	},
 
@@ -57,10 +59,13 @@ var Pack = React.createClass({
 
 	renderChildren : function(){
 		var validChildren = _.filter(React.Children.toArray(this.props.children), (child)=>{
-			if(React.isValidElement(child)){
-				if(!child.props.is_box) console.log('Attempting to render a non box', child);
-				return child.props.is_box;;
+			/*
+			if(!get.width(child.props) || !get.height(child.props)){
+				console.error('Element does not have a set width or height', get.id(child.props));
+				return false;
 			}
+			*/
+			return React.isValidElement(child);
 		});
 
 		if(!validChildren.length) return [];
@@ -74,10 +79,14 @@ var Pack = React.createClass({
 
 		var coords = BinPack(this.getContainerDimensions(), _.map(validChildren, (child)=>{
 			return {
-				w : get.width(child.props),
-				h : get.height(child.props),
+				w : get.width(child.props, 1),
+				h : get.height(child.props, 1),
 			}
 		}));
+
+
+		//TODO: Add an error handler if we couldn't draw an element
+
 
 		return _.map(validChildren, (child, idx) => {
 			return this.renderChild(child, coords[idx]);
@@ -85,7 +94,7 @@ var Pack = React.createClass({
 	},
 
 	render : function(){
-		return <div className='pack' style={this.props.style}>
+		return <div className={cx('pack', this.props.className)} style={this.props.style}>
 			{this.renderChildren()}
 		</div>
 	}

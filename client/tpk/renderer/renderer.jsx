@@ -37,7 +37,7 @@ var Renderer = React.createClass({
 	},
 
 	handleCharacterDataChange : function(charData){
-		console.log('charData', charData);
+		//console.log('charData', charData);
 
 		this.props.onChange(_.assign({}, this.props.sheet, {
 			data : _.assign({}, this.props.sheet.data, charData)

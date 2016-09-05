@@ -24,7 +24,8 @@ var TextBox = React.createClass({
 	},
 
 	render : function(){
-		return <Box className={cx('textBox', {lines : this.props.lines})} {...this.props}>
+		return <Box
+			className={cx('textBox', {lines : this.props.lines})} {...this.props} is_internal={true}>
 			<textarea style={{
 					fontSize : this.props.fontSize
 				}}

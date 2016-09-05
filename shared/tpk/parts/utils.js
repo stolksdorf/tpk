@@ -12,7 +12,7 @@ module.exports = {
 		height  : (props, def) => { return props.height || props.h || def },
 
 		rows    : (props, def=1) => { return props.rows || props.r || def },
-		columns : (props, def=1) => { return props.columns || props.cols || props.c || def },
+		columns : (props, def=1) => { return props.columns || props.cols || props.col || props.c || def },
 	},
 
 
