@@ -12,7 +12,7 @@ var Box = React.createClass({
 			data : {},
 			style : {},
 
-
+			space : false,
 			shadow : false,
 			border : false,
 			expand : false,
@@ -69,6 +69,7 @@ var Box = React.createClass({
 		return <div className={cx('box', this.props.className, {
 				shadow : this.props.shadow,
 				border : this.props.border,
+				space : this.props.space,
 
 				hasTitle : !!this.props.title,
 				hasLabel : !!this.props.label,

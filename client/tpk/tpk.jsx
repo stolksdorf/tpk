@@ -60,7 +60,7 @@ var TPK = React.createClass({
 
 	render : function(){
 		return <div className='tpk'>
-			<CharacterPage />
+			<CharacterPage {...this.props} />
 		</div>
 	}
 });

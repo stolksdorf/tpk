@@ -11,13 +11,19 @@ var Editor = require('../editor/editor.jsx');
 
 
 var CharacterPage = React.createClass({
+	getDefaultProps: function() {
+		return {
+			var : '',
+			base_template : ''
+		};
+	},
 
 	getInitialState: function() {
 		return {
 			dividerColor : '#ddd',
 
 			sheet : {
-				template : '',
+				template : this.props.base_template,
 				data : {},
 				logic : ''
 			}
@@ -29,11 +35,7 @@ var CharacterPage = React.createClass({
 		try{
 			var sheet = localStorage.getItem('SHEET');
 			this.setState({
-				sheet : _.assign({
-					template : '',
-					data : {},
-					logic : ''
-				}, JSON.parse(sheet))
+				sheet : _.assign({}, this.state.sheet, JSON.parse(sheet))
 			});
 		}catch(e){
 

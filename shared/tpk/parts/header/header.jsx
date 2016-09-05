@@ -68,6 +68,7 @@ var Header = React.createClass({
 				className='content'
 				onChange={this.handleContentChange}
 				data={this.props.data.content}
+				space={true}
 				rows={get.rows(this.props)}
 				columns={get.columns(this.props)}
 				>

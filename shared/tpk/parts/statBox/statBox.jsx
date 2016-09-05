@@ -55,7 +55,7 @@ var StatBox = React.createClass({
 
 	render : function(){
 		return <Box
-				className={cx('statBox', {mod : this.props.mod, alt : this.props.alt})}
+				className={cx('statBox', {hasMod : !!this.props.mod, hasAlt : !!this.props.alt})}
 				border={true}
 				label={this.props.label}
 				title={this.props.title}
