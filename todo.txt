@@ -1,5 +1,16 @@
 
 
+Wednesday, 07/09/2016
+- Add repeat element, for sure
+- Nested statboxes and boxes cover titles
+- TextFields don't support height
+- Label on textfields should not scale in size
+- Allow for `fontsize` as ewll as `fontSize`
+
+
+
+
+
 Saturday, 03/09/2016
 - Allow for w,h, and cols as box params
 - Clean up the box rendering
