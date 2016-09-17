@@ -1,48 +1,51 @@
-var React = require('react');
-var _ = require('lodash');
-var cx = require('classnames');
+const React = require('react');
+const _     = require('lodash');
+const cx    = require('classnames');
 
 
-//var Actions = require('tpk/actions.js');
-
-/*
-
-var Nav = require('naturalcrit/nav/nav.jsx');
-var Navbar = require('./navbar/navbar.jsx');
-
-var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
-var SheetEditor = require('./sheetEditor/sheetEditor.jsx');
-var SheetRenderer = require('./sheetRenderer/sheetRenderer.jsx');
+const CreateRouter = require('pico-router').createRouter;
 
 
-var Process = require('./process.js');
+//PAGES
+const HomePage = require('./homePage/homePage.jsx');
+const NewPage = require('./newPage/newPage.jsx');
 
 
-const TPK_TEMPLATE = 'tpk_template';
-const TPK_LOGIC = 'tpk_logic';
+const CharacterPage = require('./characterPage/characterPage.jsx');
 
-const SPLATSHEET_DATA = 'splatsheet_data';
-*/
-
-var CharacterPage = require('./characterPage/characterPage.jsx');
-
-
-var TPK = React.createClass({
+var Router;
+const TPK = React.createClass({
 	getDefaultProps: function() {
 		return {
-			base_template : '',
-			ver : '0.0.0'
+			url : '',
+			ver : '0.0.0',
+
+			sheet : {
+				editId : null,
+				shareId : null,
+				title : '',
+
+				template : '',
+				data : {},
+				logic : ''
+			}
 		};
 	},
 
-	componentDidMount: function() {
+	componentWillMount: function() {
+		Router = CreateRouter({
 
-		/*
-		Actions.setDefaults({
-			template : this.props.base_template
+
+
+
+			'/new' : (args) => {
+				return <NewPage ver={this.props.version} />
+			},
+			'*' : <HomePage ver={this.props.version} />,
 		});
-		*/
+	},
 
+	componentDidMount: function() {
 		document.addEventListener('keydown', this.preventSaveShortcut);
 	},
 	componentWillUnmount: function() {
@@ -60,7 +63,7 @@ var TPK = React.createClass({
 
 	render : function(){
 		return <div className='tpk'>
-			<CharacterPage {...this.props} />
+			<Router initialUrl={this.props.url}/>
 		</div>
 	}
 });

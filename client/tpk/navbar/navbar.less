@@ -13,4 +13,39 @@
 			color : @teal;
 		}
 	}
+
+
+	.editTitle.navItem{
+		padding : 2px 12px;
+		input{
+			width            : 250px;
+			margin           : 0;
+			padding          : 2px;
+			background-color : #444;
+			font-family      : 'Open Sans', sans-serif;
+			font-size        : 12px;
+			font-weight      : 800;
+			color            : white;
+			text-align       : center;
+			border           : 1px solid @blue;
+			outline          : none;
+		}
+		.charCount{
+			display        : inline-block;
+			vertical-align : bottom;
+			margin-left    : 8px;
+			color          : #666;
+			text-align     : right;
+			&.max{
+				color : @red;
+			}
+		}
+	}
+	.brewTitle.navItem{
+		font-size      : 12px;
+		font-weight    : 800;
+		color          : white;
+		text-align     : center;
+		text-transform : initial;
+	}
 }
