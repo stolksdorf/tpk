@@ -8,11 +8,28 @@ var app = express();
 app.use(express.static(__dirname + '/build'));
 app.use(bodyParser.json({limit: '25mb'}));
 
+//Mongoose
+var mongoose = require('mongoose');
+var mongoUri = process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/naturalcrit';
+mongoose.connect(mongoUri);
+mongoose.connection.on('error', function(){
+	console.log(">>>ERROR: Run Mongodb.exe ya goof!");
+});
+
 
 var baseTemplate = require('fs').readFileSync('./sample_sheet.txt', 'utf8');
 
 //Load project version
 var projectVersion = require('./package.json').version;
+
+
+
+
+//Populate tpk routes
+app = require('./server/tpk.api.js')(app);
+
+
+
 
 app.get('*', function (req, res) {
 	vitreumRender({

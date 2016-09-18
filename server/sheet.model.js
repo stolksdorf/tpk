@@ -6,9 +6,10 @@ const SheetSchema = mongoose.Schema({
 	shareId : {type : String, default: shortid.generate, index: { unique: true }},
 	editId : {type : String, default: shortid.generate, index: { unique: true }},
 
+	title : {type : String, default : ""},
 	template : {type : String, default : ""},
 	logic : {type : String, default : ""},
-	character : {type : Object, default : ""},
+	data : {type : Object, default : ""},
 
 	createdAt     : { type: Date, default: Date.now },
 	updatedAt   : { type: Date, default: Date.now},
