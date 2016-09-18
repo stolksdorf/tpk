@@ -13,6 +13,9 @@ var Renderer = require('../renderer/renderer.jsx');
 var Editor = require('../editor/editor.jsx');
 
 
+const KEY = 'SHEET';
+
+
 var NewPage = React.createClass({
 	getDefaultProps: function() {
 		return {
@@ -36,7 +39,7 @@ var NewPage = React.createClass({
 
 	componentDidMount: function() {
 		try{
-			var sheet = localStorage.getItem('SHEET');
+			var sheet = localStorage.getItem(KEY);
 			this.setState({
 				sheet : _.assign({}, this.state.sheet, JSON.parse(sheet))
 			});
@@ -53,12 +56,12 @@ var NewPage = React.createClass({
 		this.setState({
 			sheet : newSheet
 		})
-		localStorage.setItem('SHEET', JSON.stringify(newSheet));
+		localStorage.setItem(KEY, JSON.stringify(newSheet));
 	},
 
 	handleTitleChange : function(title){
 		this.setState({
-			title : title
+			sheet : _.assign({}, this.state.sheet, {title : title})
 		});
 	},
 
@@ -81,8 +84,8 @@ var NewPage = React.createClass({
 				}
 				window.onbeforeunload = function(){};
 				var sheet = res.body;
-				localStorage.removeItem(KEY);
-				window.location = '/edit/' + sheet.editId;
+				//localStorage.removeItem(KEY);
+				window.location = `/edit/${sheet.editId}/${_.snakeCase(sheet.title)}`;
 			})
 	},
 

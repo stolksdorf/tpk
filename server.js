@@ -30,7 +30,77 @@ app = require('./server/tpk.api.js')(app);
 
 
 
+const SheetModel = require('./server/sheet.model.js').model;
 
+
+app.get('/edit/:id*', (req, res, next) => {
+	SheetModel.find({editId : req.params.id}, (err, objs) => {
+		if(err || !objs.length){
+			return res.status(400).send(`Can't get that`);
+		}
+
+		req.sheet = objs[0].toJSON();
+		return next();
+	});
+});
+
+app.get('/share/:shareId*', (req, res, next) => {
+
+	req.sheet = req.params.editId;
+
+	return next();
+
+	//return res.status(200).send(req.params.editId);
+});
+
+
+app.get('/print/:id*', (req, res) => {
+	SheetModel.find({editId : req.params.id}, (err, objs) => {
+		if(err || !objs.length){
+			return res.status(400).send(`Can't get that`);
+		}
+		req.sheet = objs[0].toJSON();
+		vitreumRender({
+			page: './build/printPage/bundle.dot',
+			globals:{},
+			prerenderWith : './client/printPage/printPage.jsx',
+			initialProps: {
+				url: req.originalUrl,
+				sheet : req.sheet,
+			},
+			clearRequireCache : !process.env.PRODUCTION,
+		}, (err, page) => {
+			return res.send(page)
+		});
+	});
+});
+
+
+
+
+//Render Page
+app.use((req, res) => {
+	vitreumRender({
+		page: './build/tpk/bundle.dot',
+		globals:{},
+		prerenderWith : './client/tpk/tpk.jsx',
+		initialProps: {
+			url: req.originalUrl,
+			base_template : baseTemplate,
+
+			sheet : req.sheet,
+
+			ver : projectVersion
+		},
+		clearRequireCache : !process.env.PRODUCTION,
+	}, (err, page) => {
+		return res.send(page)
+	});
+});
+
+
+
+/*
 app.get('*', function (req, res) {
 	vitreumRender({
 		page: './build/tpk/bundle.dot',
@@ -46,7 +116,7 @@ app.get('*', function (req, res) {
 		return res.send(page)
 	});
 });
-
+*/
 
 
 

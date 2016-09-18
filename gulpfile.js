@@ -6,7 +6,8 @@ var gulp = require("gulp");
 
 var gulp = vitreumTasks(gulp, {
 	entryPoints: [
-		'./client/tpk'
+		'./client/tpk',
+		'./client/printPage'
 	],
 
 	DEV: true,

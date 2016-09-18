@@ -13,7 +13,8 @@ var Renderer = React.createClass({
 				data : {},
 				logic : ''
 			},
-			onChange : ()=>{}
+			onChange : ()=>{},
+			print : false
 		};
 	},
 	getInitialState: function() {
@@ -57,7 +58,7 @@ var Renderer = React.createClass({
 			if(!Parts[node.tag]) throw 'Could Not Find Element: ' + node.tag;
 			return React.createElement(
 				Parts[node.tag],
-				{key : key, ...node.props},
+				{key : key, print : this.props.print, ...node.props},
 				...renderChildren(node.children))
 		};
 

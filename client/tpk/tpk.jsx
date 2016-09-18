@@ -9,6 +9,7 @@ const CreateRouter = require('pico-router').createRouter;
 //PAGES
 const HomePage = require('./homePage/homePage.jsx');
 const NewPage = require('./newPage/newPage.jsx');
+var EditPage = require('./editPage/editPage.jsx');
 
 
 const CharacterPage = require('./characterPage/characterPage.jsx');
@@ -35,8 +36,18 @@ const TPK = React.createClass({
 	componentWillMount: function() {
 		Router = CreateRouter({
 
+			'/edit/:id*' : (args) => {
+				if(!this.props.sheet.editId){
+					console.log('Error!');
+					//return <ErrorPage ver={this.props.version} errorId={args.id}/>
+				}
 
+				return <EditPage
+					ver={this.props.version}
+					id={args.id}
+					sheet={this.props.sheet} />
 
+			},
 
 			'/new' : (args) => {
 				return <NewPage ver={this.props.version} />

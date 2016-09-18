@@ -14,7 +14,8 @@ var TextField = React.createClass({
 
 			shadow : false,
 			line : true,
-			fontSize : ''
+			fontSize : '',
+			print : false
 		};
 	},
 
@@ -32,7 +33,14 @@ var TextField = React.createClass({
 		if(this.props.tag) return <div className='tag'>{this.props.tag}</div>
 	},
 
+	renderField : function(){
+		if(this.props.print) return <div className='field'>{this.props.data}</div>
+		return <input className='field' type='text' value={this.props.data} onChange={this.handleChange} />
+	},
+
+
 	render : function(){
+
 		//conditionally add on style if w or height was set?
 		var style = {
 			width : this.props.style.width,
@@ -46,9 +54,14 @@ var TextField = React.createClass({
 		})} style={style}>
 			{this.renderTitle()}
 			{this.renderTag()}
-			<input type='text' value={this.props.data} onChange={this.handleChange} />
+			{this.renderField()}
 			{this.renderLabel()}
 		</div>
+	},
+
+
+	renderPrint : function(){
+		return <div>Print dog</div>
 	}
 });
 

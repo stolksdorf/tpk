@@ -15,7 +15,8 @@ var TextBox = React.createClass({
 			title : '',
 			label : '',
 
-			is_box : true
+			is_box : true,
+			print : false
 		};
 	},
 
