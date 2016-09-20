@@ -32,7 +32,9 @@ var StatBar = React.createClass({
 		})} style={this.props.style}>
 			<div className='content'>
 				{this.renderTitle()}
-				<input type='text' value={this.props.data} onChange={this.handleChange} />
+				<div className='field'>
+					<input type='text' value={this.props.data} onChange={this.handleChange} />
+				</div>
 				{this.renderLabel()}
 			</div>
 		</div>
