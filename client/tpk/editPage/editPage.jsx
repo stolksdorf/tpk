@@ -7,6 +7,7 @@ var Nav = require('naturalcrit/nav/nav.jsx');
 var Navbar = require('../navbar/navbar.jsx');
 var EditTitle = require('../navbar/editTitle.navitem.jsx');
 var IssueNavItem = require('../navbar/issue.navitem.jsx');
+var PrintNavItem = require('../navbar/print.navitem.jsx');
 
 var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
 var Renderer = require('../renderer/renderer.jsx');
@@ -32,7 +33,6 @@ var EditPage = React.createClass({
 	},
 
 	getInitialState: function() {
-		console.log(this.props.sheet);
 		return {
 			sheet : this.props.sheet,
 
@@ -105,7 +105,6 @@ var EditPage = React.createClass({
 			errors : null
 		});
 
-		console.log(this.state.sheet.template);
 
 		request
 			.put('/api/sheet/' + this.props.sheet.editId)
@@ -118,9 +117,6 @@ var EditPage = React.createClass({
 					})
 				}else{
 					this.savedSheet = res.body;
-
-					console.log(res.body.template);
-
 					this.setState({
 						isPending : false,
 						isSaving : false,
@@ -169,6 +165,7 @@ var EditPage = React.createClass({
 
 			<Nav.section>
 				{this.renderSaveButton()}
+				<PrintNavItem id={this.props.sheet.editId} />
 				<IssueNavItem />
 			</Nav.section>
 		</Navbar>
