@@ -41,16 +41,16 @@ var StatBox = React.createClass({
 
 	renderAlt : function(){
 		if(!this.props.alt) return null;
-		return <div className='alt'>
+		return <div className='alt'> <div>
 			<input type='text' onChange={this.handleAltChange} value={this.props.data.alt} />
-		</div>
+		</div></div>
 	},
 
 	renderMod : function(){
 		if(!this.props.mod) return null;
-		return <div className='mod'>
+		return <div className='mod'> <div>
 			<input type='text' onChange={this.handleModChange} value={this.props.data.mod} />
-		</div>
+		</div></div>
 	},
 
 	render : function(){
