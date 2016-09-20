@@ -32,6 +32,7 @@ var Renderer = React.createClass({
 	errors : null,
 
 	componentDidMount: function() {
+		if(this.props.print) return;
 		this.setState({
 			height : this.refs.renderer.parentNode.clientHeight,
 		});
@@ -92,7 +93,12 @@ var Renderer = React.createClass({
 
 	render : function(){
 
-		return <div className='renderer' ref='renderer' style={{height:this.state.height}}>
+		var style = null;
+		if(!this.props.print){
+			style = {height:this.state.height};
+		}
+
+		return <div className='renderer' ref='renderer' style={style}>
 			<div className='sheetContainer' ref='sheetContainer'>
 				{this.renderSheet()}
 			</div>

@@ -1,31 +1,25 @@
+
 @import 'naturalcrit/styles/core.less';
-
 @media print {
-input {
-border: none !important;
-background: transparent !important;
--webkit-box-shadow: none !important;
--moz-box-shadow: none !important;
-box-shadow: none !important;
+	input {
+		background         : transparent !important;
+		border             : none !important;
+		box-shadow         : none !important;
+		-webkit-box-shadow : none !important;
+		-moz-box-shadow    : none !important;
+	}
 }
-}
-
 .printPage{
 	height : 100%;
-
-
-
 	.renderer{
-
+		overflow-x : hidden;
+		overflow-y : auto;
 		.sheetContainer{
-			margin: 0;
-
+			margin : 0;
 			.sheet{
-
-				margin:0;
-				box-shadow: none;
+				margin     : 0;
+				box-shadow : none;
 			}
 		}
 	}
-
 }
