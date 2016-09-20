@@ -58,7 +58,9 @@ var Skill = React.createClass({
 		return <div className='skill'>
 			{this.renderExpert()}
 			{this.renderProf()}
-			<input type='text' onChange={this.handleModChange} value={this.props.data.mod} />
+			<div className='field'>
+				<input type='text' onChange={this.handleModChange} value={this.props.data.mod} />
+			</div>
 			<label>
 				{this.props.title}
 				<small>{this.props.label}</small>

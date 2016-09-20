@@ -54,7 +54,10 @@ var TextField = React.createClass({
 		})} style={style}>
 			{this.renderTitle()}
 			{this.renderTag()}
-			<input className='field' type='text' value={this.props.data} onChange={this.handleChange} />
+			<div className='field'>
+				<input className='field' type='text' value={this.props.data} onChange={this.handleChange} />
+			</div>
+
 			{this.renderLabel()}
 		</div>
 	},
