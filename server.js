@@ -1,5 +1,6 @@
 'use strict';
-var _ = require('lodash');
+const _ = require('lodash');
+const fs = require('fs');
 require('app-module-path').addPath('./shared');
 var vitreumRender = require('vitreum/render');
 var bodyParser = require('body-parser')
@@ -17,10 +18,18 @@ mongoose.connection.on('error', function(){
 });
 
 
-var baseTemplate = require('fs').readFileSync('./sample_sheet.txt', 'utf8');
+var baseTemplate = fs.readFileSync('./sample_sheet.txt', 'utf8');
 
 //Load project version
 var projectVersion = require('./package.json').version;
+
+
+//Load all base templates
+const baseTemplates = _.reduce(fs.readdirSync('./templates'), (r, file) => {
+	const template = require(`./templates/${file}`);
+	r[template.id] = template;
+	return r;
+}, {})
 
 
 
@@ -33,26 +42,8 @@ app = require('./server/tpk.api.js')(app);
 const SheetModel = require('./server/sheet.model.js').model;
 
 
-app.get('/edit/:id*', (req, res, next) => {
-	SheetModel.find({editId : req.params.id}, (err, objs) => {
-		if(err || !objs.length){
-			return res.status(400).send(`Can't get that`);
-		}
 
-		req.sheet = objs[0].toJSON();
-		return next();
-	});
-});
-
-app.get('/share/:shareId*', (req, res, next) => {
-
-	req.sheet = req.params.editId;
-
-	return next();
-
-	//return res.status(200).send(req.params.editId);
-});
-
+/* PRINT PAGE */
 
 app.get('/print/:id*', (req, res) => {
 	SheetModel.find({editId : req.params.id}, (err, objs) => {
@@ -73,6 +64,45 @@ app.get('/print/:id*', (req, res) => {
 			return res.send(page)
 		});
 	});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/edit/:id*', (req, res, next) => {
+	SheetModel.find({editId : req.params.id}, (err, objs) => {
+		if(err || !objs.length){
+			return res.status(400).send(`Can't get that`);
+		}
+
+		req.sheet = objs[0].toJSON();
+		return next();
+	});
+});
+
+app.get('/share/:shareId*', (req, res, next) => {
+
+	req.sheet = req.params.editId;
+
+	return next();
+});
+
+app.get('/template/:id*', (req, res, next) => {
+
+	req.sheet = baseTemplates[req.params.id];
+
+	return next();
 });
 
 
