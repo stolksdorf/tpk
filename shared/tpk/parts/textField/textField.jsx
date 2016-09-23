@@ -33,12 +33,6 @@ var TextField = React.createClass({
 		if(this.props.tag) return <div className='tag'>{this.props.tag}</div>
 	},
 
-	renderField : function(){
-		if(this.props.print) return <div className='field'>{this.props.data}</div>
-		return <input className='field' type='text' value={this.props.data} onChange={this.handleChange} />
-	},
-
-
 	render : function(){
 
 		//conditionally add on style if w or height was set?
@@ -54,10 +48,7 @@ var TextField = React.createClass({
 		})} style={style}>
 			{this.renderTitle()}
 			{this.renderTag()}
-			<div className='field'>
-				<input className='field' type='text' value={this.props.data} onChange={this.handleChange} />
-			</div>
-
+			<input type='text' value={this.props.data} onChange={this.handleChange} />
 			{this.renderLabel()}
 		</div>
 	},

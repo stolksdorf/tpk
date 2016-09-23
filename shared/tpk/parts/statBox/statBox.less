@@ -5,8 +5,6 @@
 	position  : relative;
 	min-width : 70px;
 
-	-webkit-print-color-adjust:exact;
-
 	&.hasMod{
 		padding-top: 13px;
 	}
@@ -28,22 +26,16 @@
 		border      : none;
 	}
 
-	.mod div, .alt div{
+	.mod>input, .alt>input{
 		display          : block;
 		margin           : 0 auto;
 		background-color : transparent;
 		background-size  : cover;
 		background-repeat: no-repeat;
-
-
-		input{
-			text-align       : center;
-			border           : none;
-			width : 100%;
-			font-weight: 800;
-			font-size: 0.75em;
-
-		}
+		text-align       : center;
+		border           : none;
+		font-weight: 800;
+		font-size: 0.75em;
 	}
 
 	.mod{
@@ -51,10 +43,10 @@
 		top   : -12px;
 		left     : 0px;
 		width    : 100%;
-		&>div{
-			background-image : @modBackground;
-			height           : 22px;
+		input{
+			height           : 20px;
 			width            : 43px;
+			background-image : @modBackground;
 		}
 	}
 	.alt{
@@ -62,14 +54,10 @@
 		bottom   : -10px;
 		left     : 0px;
 		width    : 100%;
-		&>div{
-			height: 24px;
-			width: 43px;
+		input{
+			height           : 23px;
+			width            : 47px;
 			background-image : @altBackground;
-			input{
-				padding-top: 4px;
-			}
 		}
-
 	}
 }

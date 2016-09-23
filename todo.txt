@@ -6,6 +6,14 @@ Wednesday, 07/09/2016
 - TextFields don't support height
 - Label on textfields should not scale in size
 - Allow for `fontsize` as ewll as `fontSize`
+- Extra padding for titles and labels for boxes in boxes
+- Add a general label elements, supports left,right, center
+- Add in an image element
+- Add sahdow to header elment.
+- Remove dragon element from header and add in others as a tag
+- fix lines not pdf printing
+- Lighten the shadow color (double check to make sure we're using a css variable everywhere)
+
 
 
 
