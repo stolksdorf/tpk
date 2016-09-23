@@ -1,7 +1,7 @@
 module.exports = {
 
 
-	TextInput : require('./textInput/textInput.jsx'),
+	//TextInput : require('./textInput/textInput.jsx'),
 
 
 
@@ -13,7 +13,7 @@ module.exports = {
 
 
 
-	PlayerInfo : require('./playerInfo/playerInfo.jsx'),
+	//PlayerInfo : require('./playerInfo/playerInfo.jsx'),
 
 	//SkillList : require('./skillList/skillList.jsx'),
 
@@ -38,6 +38,7 @@ module.exports = {
 
 	Skill : require('./skill/skill.jsx'),
 
+	Repeat : require('./repeat/repeat.jsx'),
 
 
 	Header : require('./header/header.jsx'),

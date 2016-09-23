@@ -4,8 +4,9 @@ var _ = require('lodash');
 module.exports = {
 
 	get : {
-		id : (props) => {
-			return _.snakeCase(props.id || props.title || props.label || props.tag || props.base_name);
+		id : (props, index = '') => {
+			return _.snakeCase(props.id || props.title || props.label || props.tag
+				|| props.base_name + index);
 		},
 
 		width   : (props, def) => { return props.width || props.w || def },
