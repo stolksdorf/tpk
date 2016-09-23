@@ -40,6 +40,7 @@ module.exports = {
 
 	Repeat : require('./repeat/repeat.jsx'),
 
+	Label : require('./label/label.jsx'),
 
 	Header : require('./header/header.jsx'),
 
