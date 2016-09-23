@@ -1,6 +1,11 @@
 # changelog
 
 
+### Friday, 23/09/2016 - v0.1.1
+- Sibling elements with the same base ID will now have their index part of the id.
+- Added in the Repeat element
+- Added in Label element
+
 
 ### Friday, 23/09/2016 - v0.1.0
 

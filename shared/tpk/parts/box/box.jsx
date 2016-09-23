@@ -29,9 +29,9 @@ var Box = React.createClass({
 	renderChildren : function(){
 		if(this.props.is_internal) return this.props.children;
 
-		return React.Children.map(this.props.children, (child)=>{
+		return React.Children.map(this.props.children, (child, index)=>{
 			if(!React.isValidElement(child)) return null;
-			var id = get.id(child.props);
+			var id = get.id(child.props, index);
 
 			var onChange = (val) => {
 				if(id){
@@ -55,6 +55,7 @@ var Box = React.createClass({
 				onChange : onChange,
 				data : (id ? this.props.data[id] : this.props.data),
 				style : _.assign({}, child.props.style, style),
+				parentProps : (child.props.needsParentProps? this.props : null)
 			})
 		})
 	},
