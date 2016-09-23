@@ -1,7 +1,7 @@
 {
   "name": "tpk",
   "description": "Create your own custom character sheets for D&D using special HTML",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "postinstall": "gulp prod",
     "start": "node server.js"
