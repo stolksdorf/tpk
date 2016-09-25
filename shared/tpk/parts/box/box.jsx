@@ -35,6 +35,7 @@ var Box = React.createClass({
 
 			var onChange = (val) => {
 				if(id){
+					console.log(this.props, child.props);
 					this.props.onChange(_.assign({}, this.props.data, {
 						[id] : val
 					}));

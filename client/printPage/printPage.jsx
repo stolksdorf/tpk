@@ -2,25 +2,31 @@ var React = require('react');
 var _     = require('lodash');
 var cx    = require('classnames');
 
-var Renderer = require('../tpk/renderer/renderer.jsx');
+var RenderSheet = require('tpk/renderSheet.js');
 
 var PrintPage = React.createClass({
 	getDefaultProps: function() {
 		return {
 			sheet : {
-				title : '',
 				template : '',
 				data : {},
 				logic : ''
-			}
+			},
+			query : {}
 		};
 	},
 
 	render : function(){
+		var sheet = this.props.sheet;
+
+		if(this.props.query.local){
+			try{
+				sheet = JSON.parse(localStorage.getItem(this.props.query.local));
+			}catch(e){}
+		}
+
 		return <div className='printPage'>
-			<Renderer
-				print={true}
-				sheet={this.props.sheet} />
+			{RenderSheet(sheet)}
 		</div>
 	}
 });

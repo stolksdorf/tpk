@@ -2,8 +2,7 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
-var Parts = require('tpk/parts');
-var ProcessSheet = require('tpk/processSheet.js');
+var RenderSheet = require('tpk/renderSheet.js');
 
 var Renderer = React.createClass({
 	getDefaultProps: function() {
@@ -13,78 +12,49 @@ var Renderer = React.createClass({
 				data : {},
 				logic : ''
 			},
-			onChange : ()=>{},
-			print : false
+			onDataChange : ()=>{},
+
+			showEditorState2 : null,
+			onEditorShowChange : ()=>{}
 		};
 	},
 	getInitialState: function() {
 		return {
 			height: 0,
-			errors : null
 		};
 	},
-
-	//TODO : Split this off into another file
-	lastSheet : <div />,
-
-
-	//Errors should be handled above
-	errors : null,
-
 	componentDidMount: function() {
-		if(this.props.print) return;
 		this.setState({
 			height : this.refs.renderer.parentNode.clientHeight,
 		});
 	},
 
-	handleCharacterDataChange : function(charData){
-		//console.log('charData', charData);
+	lastSheet : <div />,
+	errors : null,
 
-		this.props.onChange(_.assign({}, this.props.sheet, {
-			data : _.assign({}, this.props.sheet.data, charData)
-		}));
 
+	handleChange : function(newData){
+		this.props.onDataChange(newData);
 	},
 
-	renderSheet : function(){
-		var renderChildren = (nodes) => {
-			return _.map(nodes, (node, index)=>{
-				if(_.isString(node)) return node;
-				return renderElement(node, index);
-			})
-		};
-		var renderElement = (node, key)=>{
-			if(!node.tag) return null;
-			if(!Parts[node.tag]) throw 'Could Not Find Element: ' + node.tag;
-			return React.createElement(
-				Parts[node.tag],
-				{key : key, print : this.props.print, ...node.props},
-				...renderChildren(node.children))
-		};
+	renderEditorButton : function(){
+		if(_.isNull(this.props.showEditorState)) return null;
 
-		this.errors = null;
-		try{
-			var sheetStructure = ProcessSheet.getSheetStucture(this.props.sheet.template);
-			var processedData = ProcessSheet.runLogic(this.props.sheet.logic,this.props.sheet.data);
+		if(this.props.showEditorState){
+			return <div className='editorButton' onClick={this.props.onEditorShowChange.bind(this, false)}>
+				<i className='fa fa-chevron-left' />
+				<span className='text'> hide editor </span>
+			</div>
+		}
 
-			//Add data and handlers to structure
-			sheetStructure = _.map(sheetStructure, (node)=>{
-				node.props.data = processedData;
-				node.props.onChange = (newData)=>{
-					this.handleCharacterDataChange(newData);
-				}
-				return node;
-			})
-			var renderedSheet = renderChildren(sheetStructure);
-			this.lastSheet = renderedSheet;
-
-			return renderedSheet;
-		}catch(e){
-			this.errors = e;
-			return this.lastSheet;
+		if(!this.props.showEditorState){
+			return <div className='editorButton' onClick={this.props.onEditorShowChange.bind(this, true)}>
+				<i className='fa fa-pencil' />
+				<span className='text'> show editor </span>
+			</div>
 		}
 	},
+
 
 	renderErrors : function(){
 		if(!this.errors) return;
@@ -92,16 +62,20 @@ var Renderer = React.createClass({
 	},
 
 	render : function(){
+		this.errors = null;
 
-		var style = null;
-		if(!this.props.print){
-			style = {height:this.state.height};
+		var sheet;
+		try{
+			sheet = RenderSheet(this.props.sheet, this.handleChange);
+			this.lastSheet = sheet;
+		}catch(e){
+			this.errors = e;
+			sheet = this.lastSheet;
 		}
 
-		return <div className='renderer' ref='renderer' style={style}>
-			<div className='sheetContainer' ref='sheetContainer'>
-				{this.renderSheet()}
-			</div>
+		return <div className='renderer' ref='renderer' style={{height:this.state.height}}>
+			{this.renderEditorButton()}
+			<div className='sheets'>{sheet}</div>
 			{this.renderErrors()}
 		</div>
 	}

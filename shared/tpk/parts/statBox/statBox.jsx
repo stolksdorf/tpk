@@ -54,13 +54,14 @@ var StatBox = React.createClass({
 	},
 
 	render : function(){
+
 		return <Box
 				className={cx('statBox', {hasMod : !!this.props.mod, hasAlt : !!this.props.alt})}
 				border={true}
 				label={this.props.label}
 				title={this.props.title}
 				style={this.props.style}
-				is_internal={false}
+				is_internal={true}
 				>
 			{this.renderMod()}
 			<input className='value' type='text' value={this.props.data.value} onChange={this.handleValueChange} />

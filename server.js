@@ -45,12 +45,12 @@ const SheetModel = require('./server/sheet.model.js').model;
 
 /* PRINT PAGE */
 
-app.get('/print/:id*', (req, res) => {
+app.get('/print/:id?', (req, res) => {
 	SheetModel.find({editId : req.params.id}, (err, objs) => {
-		if(err || !objs.length){
-			return res.status(400).send(`Can't get that`);
+		if(objs.length){
+			req.sheet = objs[0].toJSON();
 		}
-		req.sheet = objs[0].toJSON();
+
 		vitreumRender({
 			page: './build/printPage/bundle.dot',
 			globals:{},
@@ -58,6 +58,7 @@ app.get('/print/:id*', (req, res) => {
 			initialProps: {
 				url: req.originalUrl,
 				sheet : req.sheet,
+				query : req.query
 			},
 			clearRequireCache : !process.env.PRODUCTION,
 		}, (err, page) => {

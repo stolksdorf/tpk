@@ -10,8 +10,6 @@ var Sheet = React.createClass({
 		return {
 			landscape : false,
 			iso : false,
-			author : '',
-			version : ''
 		};
 	},
 

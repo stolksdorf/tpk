@@ -6,6 +6,7 @@ var request = require('superagent');
 var Nav = require('naturalcrit/nav/nav.jsx');
 var Navbar = require('../navbar/navbar.jsx');
 var EditTitle = require('../navbar/editTitle.navitem.jsx');
+var PrintNavItem = require('../navbar/print.navitem.jsx');
 var IssueNavItem = require('../navbar/issue.navitem.jsx');
 
 var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
@@ -25,13 +26,25 @@ var NewPage = React.createClass({
 
 	getInitialState: function() {
 		return {
+			/*
 			sheet : {
 				title : '',
 				template : '',
 				data : {},
 				logic : ''
 			},
+			*/
 
+			info : {
+				title : ''
+			},
+			template : '',
+			data : {},
+			logic : '',
+
+
+
+			showEditor : true,
 			isSaving : false,
 			errors : []
 		};
@@ -40,28 +53,47 @@ var NewPage = React.createClass({
 	componentDidMount: function() {
 		try{
 			var sheet = localStorage.getItem(KEY);
-			this.setState({
-				sheet : _.assign({}, this.state.sheet, JSON.parse(sheet))
-			});
-		}catch(e){
-
-		}
+			this.setState(JSON.parse(sheet));
+		}catch(e){}
 	},
 
 	componentWillUnmount: function() {
 		window.onbeforeunload = function(){};
 	},
 
+	getSheet : function(){
+		return {
+			info : this.state.info,
+			template : this.state.template,
+			data : this.state.data,
+			logic : this.state.logic
+		}
+	},
+
+	saveSheetToLocal : function(){
+		localStorage.setItem(KEY, JSON.stringify(this.getSheet()));
+	},
+
+
 	handleSheetUpdate : function(newSheet){
+		this.setState(newSheet, this.saveSheetToLocal);
+	},
+
+	handleDataChange : function(newData){
 		this.setState({
-			sheet : newSheet
-		})
-		localStorage.setItem(KEY, JSON.stringify(newSheet));
+			data : newData
+		}, this.saveSheetToLocal);
 	},
 
 	handleTitleChange : function(title){
 		this.setState({
-			sheet : _.assign({}, this.state.sheet, {title : title})
+			info : _.assign({}, this.state.info, {title : title})
+		}, this.saveSheetToLocal);
+	},
+
+	handleEditorShowChange : function(val){
+		this.setState({
+			showEditor : val
 		});
 	},
 
@@ -73,7 +105,7 @@ var NewPage = React.createClass({
 		});
 
 		request.post('/api/sheet')
-			.send(this.state.sheet)
+			.send(this.getSheet())
 			.end((err, res)=>{
 				if(err){
 					this.setState({
@@ -84,6 +116,7 @@ var NewPage = React.createClass({
 				}
 				window.onbeforeunload = function(){};
 				var sheet = res.body;
+				//TODO: Uncomment later
 				//localStorage.removeItem(KEY);
 				window.location = `/edit/${sheet.editId}/${_.snakeCase(sheet.title)}`;
 			})
@@ -106,11 +139,12 @@ var NewPage = React.createClass({
 	renderNavbar : function(){
 		return <Navbar ver={this.props.ver}>
 			<Nav.section>
-				<EditTitle title={this.state.sheet.title} onChange={this.handleTitleChange} />
+				<EditTitle title={this.state.info.title} onChange={this.handleTitleChange} />
 			</Nav.section>
 
 			<Nav.section>
 				{this.renderSaveButton()}
+				<PrintNavItem opts={{dialog : true, local : KEY}} />
 				<IssueNavItem />
 			</Nav.section>
 		</Navbar>
@@ -118,21 +152,40 @@ var NewPage = React.createClass({
 
 
 
+
+	renderContent : function(){
+		if(this.state.showEditor){
+			return <SplitPane ref='pane'>
+				<Editor
+					sheet={this.getSheet()}
+					onChange={this.handleSheetUpdate}
+				/>
+				<Renderer
+					sheet={this.getSheet()}
+					onDataChange={this.handleDataChange}
+
+					showEditorState={this.state.showEditor}
+					onEditorShowChange={this.handleEditorShowChange}
+				/>
+			</SplitPane>
+		}else{
+			return <Renderer
+				sheet={this.getSheet()}
+				onDataChange={this.handleDataChange}
+
+				showEditorState={this.state.showEditor}
+				onEditorShowChange={this.handleEditorShowChange}
+			/>
+		}
+	},
+
+
 	render : function(){
 		return <div className='page newPage'>
 			{this.renderNavbar()}
 
 			<div className='content'>
-				<SplitPane ref='pane'>
-					<Editor
-						sheet={this.state.sheet}
-						onChange={this.handleSheetUpdate}
-					/>
-					<Renderer
-						sheet={this.state.sheet}
-						onChange={this.handleSheetUpdate}
-					/>
-				</SplitPane>
+				{this.renderContent()}
 			</div>
 		</div>
 	}
