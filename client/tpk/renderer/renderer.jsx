@@ -41,14 +41,14 @@ var Renderer = React.createClass({
 		if(_.isNull(this.props.showEditorState)) return null;
 
 		if(this.props.showEditorState){
-			return <div className='editorButton' onClick={this.props.onEditorShowChange.bind(this, false)}>
+			return <div className='editorButton' onClick={this.props.onEditorShowChange.bind(null, false)}>
 				<i className='fa fa-chevron-left' />
 				<span className='text'> hide editor </span>
 			</div>
 		}
 
 		if(!this.props.showEditorState){
-			return <div className='editorButton' onClick={this.props.onEditorShowChange.bind(this, true)}>
+			return <div className='editorButton' onClick={this.props.onEditorShowChange.bind(null, true)}>
 				<i className='fa fa-pencil' />
 				<span className='text'> show editor </span>
 			</div>

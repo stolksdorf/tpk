@@ -5,61 +5,31 @@
 	position   : relative;
 	display    : inline-block;
 	box-sizing : border-box;
-	//padding : 9px 7px;
-
-	/*
-	&:nth-child(1){
-		border : 1px solid grey;
-	}
-	&:nth-child(2){
-		border : 1px solid blue;
-	}
-	&:nth-child(3){
-		border : 1px solid green;
-	}
-	&:nth-child(4){
-		border : 1px solid red;
-	}
-	&:nth-child(5){
-		border : 1px solid purple;
-	}
-	*/
-
-	//width : 100%;
-
-	//flex : 1;
-
-
+	//TODO Remove?
 	&.expand{
-		flex-grow: 1;
+		flex-grow : 1;
 	}
-
-
 	&>.content{
-		position   : relative;
-		box-sizing : border-box;
-		//min-height : 58px;
-		//padding    : 8px 6px;
-
-		height: 100%;
-		width : 100%;
-		display        : flex;
-		flex-direction : row;
-		justify-content: flex-start;
-		flex-wrap      : wrap;
-		align-content: flex-start;
-
+		position        : relative;
+		display         : flex;
+		box-sizing      : border-box;
+		height          : 100%;
+		width           : 100%;
+		flex-direction  : row;
+		justify-content : flex-start;
+		flex-wrap       : wrap;
+		align-content   : flex-start;
 	}
 	&.vertical>.content{
 		//flex-direction : column;
 	}
 	&.space>.content{
-		align-content: space-around;
+		align-content : space-around;
 	}
 	&.border{
-		padding: 6px 7px;
-
+		padding : 6px 7px;
 		&>.content{
+			padding             : 0px 2px;
 			background-color    : white;
 			border              : initial;
 			border-style        : solid;
@@ -67,7 +37,6 @@
 			border-image-slice  : 50 60 50 60;
 			border-image-source : @borderImage;
 			border-image-width  : 20px;
-			padding    : 0px 2px;
 			&>h5{
 				&.title{
 					top : -2px;
@@ -77,18 +46,17 @@
 				}
 			}
 		}
-
 		&.hasTitle>.content{
-			padding-top : 3px;
+			padding-top : 6px;
 		}
 		&.hasLabel>.content{
 			padding-bottom : 6px;
 		}
 	}
 	&.shadow{
-		padding: 3px 3px;
-
+		padding : 3px 3px;
 		&>.content{
+			padding             : 2px 4px;
 			background-color    : #C3C2C2;
 			border              : initial;
 			border-style        : solid;
@@ -96,21 +64,20 @@
 			border-image-slice  : 25 25 25 25;
 			border-image-source : @shadowImage;
 			border-image-width  : 10px;
-			padding    : 2px 4px;
 			&>h5{
 				&.title{
-					top : 5px;
+					top : 4px;
 				}
 				&.label{
-					bottom : 5px;
+					bottom : 3px;
 				}
 			}
 		}
 		&.hasTitle>.content{
-			padding-top : 4px;
+			padding-top : 12px;
 		}
 		&.hasLabel>.content{
-			padding-bottom : 4px;
+			padding-bottom : 10px;
 		}
 	}
 	&>.content>h5{
@@ -118,7 +85,6 @@
 		left           : 0px;
 		box-sizing     : border-box;
 		width          : 100%;
-
 		text-align     : center;
 		text-transform : uppercase;
 		&.title{

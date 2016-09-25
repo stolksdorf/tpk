@@ -5,7 +5,8 @@
 - Split out the logic to render a sheet into a React element
 - Updated the renderer and print view to use new logic
 - Added ability to get PDF from local storage
-
+- Fixed centering on header title
+-
 
 
 ### Friday, 23/09/2016 - v0.1.1

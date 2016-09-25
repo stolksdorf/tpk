@@ -4,8 +4,9 @@
 }
 .renderer{
 	overflow-y : scroll;
-	.editorButton{
+	&>.editorButton{
 		position  : absolute;
+		z-index          : 1000;
 		top       : 6px;
 		left      : 6px;
 		cursor    : pointer;
@@ -34,9 +35,10 @@
 		background-color : @red;
 		font-size        : 0.8em;
 	}
-	.sheets{
+	&>.sheets{
 		position : relative;
 		margin   : 30px 0px;
+		z-index          : 100;
 		&>.sheet{
 			margin-right  : auto;
 			margin-bottom : 30px;

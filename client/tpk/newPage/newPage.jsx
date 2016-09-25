@@ -14,7 +14,7 @@ var Renderer = require('../renderer/renderer.jsx');
 var Editor = require('../editor/editor.jsx');
 
 
-const KEY = 'SHEET';
+const KEY = 'NEW_PAGE';
 
 
 var NewPage = React.createClass({

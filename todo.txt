@@ -1,5 +1,12 @@
 
 
+
+Sunday, 25/09/2016
+- Build a sheetView, that handles, hiding the editor, rendering errors, etc. etc. Should simplify the coding of pages
+-
+
+
+
 Wednesday, 07/09/2016
 - Add repeat element, for sure
 - Nested statboxes and boxes cover titles
