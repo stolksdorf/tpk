@@ -34,12 +34,13 @@ const baseTemplates = _.reduce(fs.readdirSync('./templates'), (r, file) => {
 
 
 
-//Populate tpk routes
-app = require('./server/tpk.api.js')(app);
-
+//Populate API routes
+app = require('./server/sheet.api.js')(app);
+app = require('./server/character.api.js')(app);
 
 
 const SheetModel = require('./server/sheet.model.js').model;
+const CharacterModel = require('./server/character.model.js').model;
 
 
 
@@ -70,11 +71,7 @@ app.get('/print/:id?', (req, res) => {
 
 
 
-
-
-
-
-
+//TODO: Add in finding character data middleware
 
 
 
@@ -92,7 +89,7 @@ app.get('/edit/:id*', (req, res, next) => {
 	});
 });
 
-app.get('/share/:shareId*', (req, res, next) => {
+app.get('/sheet/:id*', (req, res, next) => {
 
 	req.sheet = req.params.editId;
 
@@ -113,15 +110,16 @@ app.get('/template/:id*', (req, res, next) => {
 app.use((req, res) => {
 	vitreumRender({
 		page: './build/tpk/bundle.dot',
-		globals:{},
+		globals:{
+			version : projectVersion
+		},
 		prerenderWith : './client/tpk/tpk.jsx',
 		initialProps: {
 			url: req.originalUrl,
 			base_template : baseTemplate,
+			ver : projectVersion,
 
 			sheet : req.sheet,
-
-			ver : projectVersion
 		},
 		clearRequireCache : !process.env.PRODUCTION,
 	}, (err, page) => {

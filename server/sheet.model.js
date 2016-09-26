@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
-const shortid = require('shortid');
 const _ = require('lodash');
+const utils = require('./utils');
+
 
 const SheetSchema = mongoose.Schema({
-	shareId : {type : String, default: shortid.generate, index: { unique: true }},
-	editId : {type : String, default: shortid.generate, index: { unique: true }},
+
+	//TODO: Issues with duplicate shareid
+
+
+	editId : { type : String, default: utils.genId.bind(null, 'e'), index: { unique: true } },
+	shareId : { type : String, default: utils.genId.bind(null, 's'), index: { unique: true } },
 
 	title : {type : String, default : ''},
 	template : {type : String, default : ''},

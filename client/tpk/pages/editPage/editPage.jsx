@@ -4,14 +4,14 @@ var cx    = require('classnames');
 var request = require('superagent');
 
 var Nav = require('naturalcrit/nav/nav.jsx');
-var Navbar = require('../navbar/navbar.jsx');
-var EditTitle = require('../navbar/editTitle.navitem.jsx');
-var IssueNavItem = require('../navbar/issue.navitem.jsx');
-var PrintNavItem = require('../navbar/print.navitem.jsx');
+var Navbar = require('../../navbar/navbar.jsx');
+var EditTitle = require('../../navbar/editTitle.navitem.jsx');
+var IssueNavItem = require('../../navbar/issue.navitem.jsx');
+var PrintNavItem = require('../../navbar/print.navitem.jsx');
 
 var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
-var Renderer = require('../renderer/renderer.jsx');
-var Editor = require('../editor/editor.jsx');
+var Renderer = require('../../renderer/renderer.jsx');
+var Editor = require('../../editor/editor.jsx');
 
 
 

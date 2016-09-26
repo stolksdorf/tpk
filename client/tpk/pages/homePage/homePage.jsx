@@ -3,7 +3,7 @@ var _     = require('lodash');
 var cx    = require('classnames');
 
 var Nav = require('naturalcrit/nav/nav.jsx');
-var Navbar = require('../navbar/navbar.jsx');
+var Navbar = require('../../navbar/navbar.jsx');
 
 
 var HomePage = React.createClass({

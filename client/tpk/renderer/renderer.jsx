@@ -13,8 +13,6 @@ var Renderer = React.createClass({
 				logic : ''
 			},
 			onDataChange : ()=>{},
-
-			showEditorState2 : null,
 			onEditorShowChange : ()=>{}
 		};
 	},
