@@ -9,7 +9,7 @@ Sunday, 25/09/2016
 - Add in seamless data override capability
 - Pull override data or sheet data
 - Possibly rename 'character' to 'override'
--
+- A change in data should first be put through the logic, THEN set to the state.
 
 
 Wednesday, 07/09/2016

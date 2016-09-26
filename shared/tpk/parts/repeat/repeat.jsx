@@ -43,8 +43,10 @@ var Repeat = React.createClass({
 
 		var style = {};
 
-		if(get.width(child.props, 1)) style.width = `${get.width(child.props,1 ) / get.columns(this.props.parentProps) * 100}%`;
-		if(get.rows(this.props.parentProps, false)) style.height = `${get.height(child.props, 1) / get.rows(this.props.parentProps) * 100}%`;
+		var repeatProps = _.assign({}, this.props.parentProps, this.props);
+
+		if(get.width(child.props, 1)) style.width = `${get.width(child.props,1 ) / get.columns(repeatProps) * 100}%`;
+		if(get.rows(repeatProps, false)) style.height = `${get.height(child.props, 1) / get.rows(repeatProps) * 100}%`;
 
 		return React.cloneElement(child, {
 			onChange : onChange,

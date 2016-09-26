@@ -4,6 +4,11 @@ var cx = require('classnames');
 
 var Box = require('../box/box.jsx');
 
+const tryNum = (str) => {
+	const t = _.toNumber(str);
+	return (_.isNaN(t) || t == '' ? str : t);
+}
+
 var StatBox = React.createClass({
 	getDefaultProps: function() {
 		return {
@@ -23,19 +28,19 @@ var StatBox = React.createClass({
 
 	handleValueChange : function(e){
 		this.props.onChange(_.assign({}, this.props.data, {
-			value : e.target.value
+			value : tryNum(e.target.value)
 		}));
 	},
 
 	handleModChange : function(e){
 		this.props.onChange(_.assign({}, this.props.data, {
-			mod : e.target.value
+			mod : tryNum(e.target.value)
 		}));
 	},
 
 	handleAltChange : function(e){
 		this.props.onChange(_.assign({}, this.props.data, {
-			alt : e.target.value
+			alt : tryNum(e.target.value)
 		}));
 	},
 
