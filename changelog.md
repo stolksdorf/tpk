@@ -6,6 +6,7 @@
 - Updated the renderer and print view to use new logic
 - Added ability to get PDF from local storage
 - Fixed centering on header title
+- Fixed title and label spacing on boxes
 -
 
 
