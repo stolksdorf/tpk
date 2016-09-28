@@ -38,6 +38,8 @@ module.exports = {
 
 	Skill : require('./skill/skill.jsx'),
 
+	Button : require('./button/button.jsx'),
+
 	Repeat : require('./repeat/repeat.jsx'),
 
 	Label : require('./label/label.jsx'),
