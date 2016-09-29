@@ -17,6 +17,11 @@ module.exports = {
 	},
 
 
+	tryNum : (str) => {
+		const t = _.toNumber(str);
+		return (_.isNaN(t) || t == '' ? str : t);
+	}.
+
 /*
 
 	//DEPRICATE
