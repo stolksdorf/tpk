@@ -18,11 +18,11 @@ var Renderer = require('../../renderer/renderer.jsx');
 var ViewPage = React.createClass({
 	getDefaultProps: function() {
 		return {
-			override : {},
+			overrideId : '',
+			overrideData : {},
 
 			sheet : {
-				//editId : '',
-				shareId : '',
+				viewId : '',
 
 				info : {
 					title : '',
@@ -36,9 +36,44 @@ var ViewPage = React.createClass({
 		};
 	},
 
+	getInitialState: function() {
+		return {
+			overrideData : this.props.overrideData,
+
+			isSaving : false,
+			errors : null
+		};
+	},
+
+	handleSheetUpdate : function(newData){
+		console.log(newData);
+	},
+
+
+
+	renderNavbar : function(){
+		return <Navbar>
+			<Nav.section>
+				<PrintNavItem id={this.props.sheet.viewId} />
+				<IssueNavItem />
+			</Nav.section>
+		</Navbar>
+	},
+
+
 	render : function(){
-		return <div className='viewPage'>
-			ViewPage Component Ready.
+		console.log(this.props.sheet);
+
+
+		return <div className='page viewPage'>
+			{this.renderNavbar()}
+
+			<div className='content'>
+				<Renderer
+					sheet={this.props.sheet}
+					onChange={this.handleSheetUpdate}
+				/>
+			</div>
 		</div>
 	}
 });

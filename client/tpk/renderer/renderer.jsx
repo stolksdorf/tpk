@@ -12,7 +12,7 @@ var Renderer = React.createClass({
 				data : {},
 				logic : ''
 			},
-			onDataChange : ()=>{},
+			onChange : ()=>{},
 			onEditorShowChange : ()=>{}
 		};
 	},
@@ -32,7 +32,7 @@ var Renderer = React.createClass({
 
 
 	handleChange : function(newData){
-		this.props.onDataChange(newData);
+		this.props.onChange(newData);
 	},
 
 	renderEditorButton : function(){

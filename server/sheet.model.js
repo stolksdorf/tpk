@@ -8,6 +8,9 @@ const SheetSchema = mongoose.Schema({
 	//TODO: Issues with duplicate shareid
 
 	editId  : { type : String, default: utils.genId.bind(null, 'e'), index: { unique: true } },
+	viewId  : { type : String, default: utils.genId.bind(null, 'v'), index: { unique: true } },
+
+	//depricate
 	shareId : { type : String, default: utils.genId.bind(null, 's'), index: { unique: true } },
 
 	info : {

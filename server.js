@@ -36,11 +36,11 @@ const baseTemplates = _.reduce(fs.readdirSync('./templates'), (r, file) => {
 
 //Populate API routes
 app = require('./server/sheet.api.js')(app);
-app = require('./server/character.api.js')(app);
+app = require('./server/override.api.js')(app);
 
 
 const SheetModel = require('./server/sheet.model.js').model;
-const CharacterModel = require('./server/character.model.js').model;
+const OverrideModel = require('./server/override.model.js').model;
 
 
 
@@ -90,16 +90,20 @@ app.get('/edit/:id*', (req, res, next) => {
 });
 
 app.get('/sheet/:id*', (req, res, next) => {
+	SheetModel.find({viewId : req.params.id}, (err, objs) => {
+		if(err || !objs.length){
+			return res.status(400).send(`Can't get that`);
+		}
 
-	req.sheet = req.params.editId;
+		req.sheet = objs[0].toJSON();
+		delete req.sheet.editId;
 
-	return next();
+		return next();
+	});
 });
 
 app.get('/template/:id*', (req, res, next) => {
-
 	req.sheet = baseTemplates[req.params.id];
-
 	return next();
 });
 
@@ -116,8 +120,8 @@ app.use((req, res) => {
 		prerenderWith : './client/tpk/tpk.jsx',
 		initialProps: {
 			url: req.originalUrl,
-			base_template : baseTemplate,
-			ver : projectVersion,
+			//base_template : baseTemplate,
+			//ver : projectVersion, ?
 
 			sheet : req.sheet,
 		},

@@ -160,7 +160,7 @@ var NewPage = React.createClass({
 				/>
 				<Renderer
 					sheet={this.getSheet()}
-					onDataChange={this.handleDataChange}
+					onChange={this.handleDataChange}
 
 					showEditorState={this.state.showEditor}
 					onEditorShowChange={this.handleEditorShowChange}
@@ -169,7 +169,7 @@ var NewPage = React.createClass({
 		}else{
 			return <Renderer
 				sheet={this.getSheet()}
-				onDataChange={this.handleDataChange}
+				onChange={this.handleDataChange}
 
 				showEditorState={this.state.showEditor}
 				onEditorShowChange={this.handleEditorShowChange}

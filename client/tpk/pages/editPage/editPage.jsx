@@ -22,7 +22,7 @@ var EditPage = React.createClass({
 		return {
 			sheet : {
 				editId : '',
-				shareId : '',
+				viewId : '',
 
 				info : {
 					title : '',
@@ -130,6 +130,13 @@ var EditPage = React.createClass({
 			})
 	},
 
+	publishSheet : function(){
+		console.log('PUBLISH');
+
+
+	},
+
+
 	renderSaveButton : function(){
 		if(this.state.errors){
 			var errMsg = '';
@@ -161,17 +168,28 @@ var EditPage = React.createClass({
 		}
 	},
 
+	renderPublishNavItem : function(){
+		if(this.state.sheet.info.published) return;
+
+		return <Nav.item
+			color='purple' icon='fa-rocket'
+			onClick={this.publishSheet}>
+			Publish
+		</Nav.item>
+	},
+
 	renderNavbar : function(){
-		return <Navbar ver={this.props.ver}>
+		return <Navbar>
 
 			<Nav.section>
 				{this.renderSaveButton()}
 				<Nav.item
 					newTab={true} color='teal' icon='fa-share-alt'
-					href={`/view/${this.props.sheet.shareId}/${_.snakeCase(this.props.sheet.info.title)}`}>
+					href={`/sheet/${this.props.sheet.viewId}/${_.snakeCase(this.props.sheet.info.title)}`}>
 					Share
 				</Nav.item>
-				<PrintNavItem id={this.props.sheet.editId} />
+				{this.renderPublishNavItem()}
+				<PrintNavItem id={this.props.sheet.viewId} />
 				<IssueNavItem />
 			</Nav.section>
 		</Navbar>
