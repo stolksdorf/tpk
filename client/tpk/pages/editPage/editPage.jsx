@@ -5,7 +5,7 @@ var request = require('superagent');
 
 var Nav = require('naturalcrit/nav/nav.jsx');
 var Navbar = require('../../navbar/navbar.jsx');
-var EditTitle = require('../../navbar/editTitle.navitem.jsx');
+//var EditTitle = require('../../navbar/editTitle.navitem.jsx');
 var IssueNavItem = require('../../navbar/issue.navitem.jsx');
 var PrintNavItem = require('../../navbar/print.navitem.jsx');
 
@@ -20,14 +20,18 @@ const SAVE_TIMEOUT = 3000;
 var EditPage = React.createClass({
 	getDefaultProps: function() {
 		return {
-			ver : '0.0.0',
-
 			sheet : {
 				editId : '',
-				title : '',
+				shareId : '',
+
+				info : {
+					title : '',
+					desc : '',
+					published : false
+				},
 				template : '',
 				data : {},
-				logic : ''
+				logic : '',
 			},
 		};
 	},
@@ -159,12 +163,14 @@ var EditPage = React.createClass({
 
 	renderNavbar : function(){
 		return <Navbar ver={this.props.ver}>
-			<Nav.section>
-				<EditTitle title={this.state.sheet.title} onChange={this.handleTitleChange} />
-			</Nav.section>
 
 			<Nav.section>
 				{this.renderSaveButton()}
+				<Nav.item
+					newTab={true} color='teal' icon='fa-share-alt'
+					href={`/view/${this.props.sheet.shareId}/${_.snakeCase(this.props.sheet.info.title)}`}>
+					Share
+				</Nav.item>
 				<PrintNavItem id={this.props.sheet.editId} />
 				<IssueNavItem />
 			</Nav.section>

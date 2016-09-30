@@ -5,7 +5,7 @@ var request = require('superagent');
 
 var Nav = require('naturalcrit/nav/nav.jsx');
 var Navbar = require('../../navbar/navbar.jsx');
-var EditTitle = require('../../navbar/editTitle.navitem.jsx');
+//var EditTitle = require('../../navbar/editTitle.navitem.jsx');
 var PrintNavItem = require('../../navbar/print.navitem.jsx');
 var IssueNavItem = require('../../navbar/issue.navitem.jsx');
 
@@ -18,11 +18,6 @@ const KEY = 'NEW_PAGE';
 
 
 var NewPage = React.createClass({
-	getDefaultProps: function() {
-		return {
-			ver : '0.0.0'
-		};
-	},
 
 	getInitialState: function() {
 		return {
@@ -36,7 +31,9 @@ var NewPage = React.createClass({
 			*/
 
 			info : {
-				title : ''
+				title : '',
+				desc : '',
+				published : false
 			},
 			template : '',
 			data : {},
@@ -138,10 +135,11 @@ var NewPage = React.createClass({
 
 	renderNavbar : function(){
 		return <Navbar ver={this.props.ver}>
+			{/*
 			<Nav.section>
 				<EditTitle title={this.state.info.title} onChange={this.handleTitleChange} />
 			</Nav.section>
-
+			*/}
 			<Nav.section>
 				{this.renderSaveButton()}
 				<PrintNavItem opts={{dialog : true, local : KEY}} />

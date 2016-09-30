@@ -6,7 +6,7 @@ module.exports = {
 	genId : (prefix = '') => {
 		const opts = {
 			length: 4,
-			charset: 'alphabetic',
+			charset: 'alphanumeric',
 			capitalization : 'lowercase'
 		};
 

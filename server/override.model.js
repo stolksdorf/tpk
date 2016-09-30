@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 const utils = require('./utils');
 
-const CharacterSchema = mongoose.Schema({
+const OverrideSchema = mongoose.Schema({
 	id : {
 		type : String,
 		default: utils.genId.bind(null, 'c'),
@@ -10,17 +10,18 @@ const CharacterSchema = mongoose.Schema({
 	},
 
 	data : {type : Object, default : {}},
+	linkedSheetId : { type: String },
 
-	createdAt     : { type: Date, default: Date.now },
+	createdAt   : { type: Date, default: Date.now },
 	updatedAt   : { type: Date, default: Date.now},
 	lastViewed  : { type: Date, default: Date.now},
 });
 
 
 
-const Character = mongoose.model('Character', CharacterSchema);
+const Override = mongoose.model('Override', OverrideSchema);
 
 module.exports = {
-	schema : CharacterSchema,
-	model : Character,
+	schema : OverrideSchema,
+	model : Override,
 }

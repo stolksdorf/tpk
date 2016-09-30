@@ -34,7 +34,8 @@ module.exports = (app) => {
 	});
 
 
-	app.get('/api/sheet/:id', function(req, res){
+	//TODO :
+	app.get('/api/sheet/search', function(req, res){
 		SheetModel.find({editId : req.params.id}, function(err, objs){
 			if(!objs.length || err) return res.status(404).send("Can not find Sheet with that id");
 			var resEntry = objs[0];
@@ -44,6 +45,16 @@ module.exports = (app) => {
 	});
 
 
+
+
+	app.get('/api/sheet/:id', function(req, res){
+		SheetModel.find({editId : req.params.id}, function(err, objs){
+			if(!objs.length || err) return res.status(404).send("Can not find Sheet with that id");
+			var resEntry = objs[0];
+
+			return res.status(200).send(resEntry);
+		});
+	});
 
 
 	return app;
