@@ -1,8 +1,31 @@
 var React = require('react');
+var _ = require('lodash');
 var Nav = require('naturalcrit/nav/nav.jsx');
 
 module.exports = function(props){
-	return <Nav.item newTab={true} href={'/print/' + props.id +'?dialog=true'} color='purple' icon='fa-file-pdf-o'>
+	return <Nav.item
+		newTab={true}
+		href={`/print/${props.href}`}
+		color='purple'
+		icon='fa-file-pdf-o'>
 		get PDF
 	</Nav.item>
+
+	/*
+	var opts = _.map(props.opts, (val, name)=>{
+		return `${name}=${val}`;
+	}).join('&');
+
+	var id = '';
+	if(props.id) id = '/' + props.id;
+
+	return <Nav.item
+		newTab={true}
+		href={`/print${id}?${opts}`}
+		color='purple'
+		icon='fa-file-pdf-o'>
+		get PDF
+	</Nav.item>
+
+	*/
 };

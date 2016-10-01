@@ -4,6 +4,7 @@ var cx = require('classnames');
 
 var Box = require('../box/box.jsx');
 
+//In utils now
 const tryNum = (str) => {
 	const t = _.toNumber(str);
 	return (_.isNaN(t) || t == '' ? str : t);

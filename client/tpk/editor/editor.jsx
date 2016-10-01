@@ -10,6 +10,7 @@ var Editor = React.createClass({
 			sheet : {
 				template : '',
 				data : {},
+				info : {},
 				logic : ''
 			},
 
@@ -30,7 +31,8 @@ var Editor = React.createClass({
 						template : newTemplate
 					}));
 				},
-				language : 'jsx'
+				language : 'jsx',
+				icon : 'fa-file'
 			},
 			data : {
 				get : ()=>{
@@ -41,6 +43,19 @@ var Editor = React.createClass({
 						data : JSON.parse(newData)
 					}));
 				},
+				icon : 'fa-user',
+				language : 'javascript'
+			},
+			info : {
+				get : ()=>{
+					return JSON.stringify(this.props.sheet.info, null, '\t')
+				},
+				set : (newInfo)=>{
+					this.props.onChange(_.assign(this.props.sheet, {
+						info : JSON.parse(newInfo)
+					}));
+				},
+				icon : 'fa-rocket',
 				language : 'javascript'
 			},
 			logic : {
@@ -52,6 +67,7 @@ var Editor = React.createClass({
 						logic : newLogic
 					}));
 				},
+				icon : 'fa-gear',
 				language : 'javascript'
 			},
 		};
@@ -62,15 +78,15 @@ var Editor = React.createClass({
 
 	getInitialState: function(){
 		return {
-			editorType : 'template', //template, logic, data
+			editorType : 'template', //template, logic, data, info
 		};
 	},
 	componentDidMount: function(){
 		this.updateEditorSize();
-		window.addEventListener("resize", this.updateEditorSize);
+		window.addEventListener('resize', this.updateEditorSize);
 	},
 	componentWillUnmount: function(){
-		window.removeEventListener("resize", this.updateEditorSize);
+		window.removeEventListener('resize', this.updateEditorSize);
 	},
 	updateEditorSize : function(){
 		var paneHeight = this.refs.editor.parentNode.clientHeight;
@@ -99,28 +115,25 @@ var Editor = React.createClass({
 		var colors= {
 			template : '#ddd',
 			data : '#FFDDBC',
+			info : '#FF00BC',
 			logic : '#9EDDDD',
 		};
 
+		var buttons = _.map(colors, (color, name) => {
+			var config = this.config(name);
+
+			return <div
+				className={cx('editorButton', name)}
+				style={{backgroundColor : colors}}
+				onClick={this.changeEditorType.bind(null, name, color)}>
+				<i className={cx('fa', config.icon)} /> {name}
+			</div>
+
+
+		});
+
 		return <div className='editorBar' ref='editorBar' style={{backgroundColor : colors[this.state.editorType]}}>
-			<div
-				className={cx('editorButton template')}
-				style={{backgroundColor : colors.template}}
-				onClick={this.changeEditorType.bind(null, 'template', colors.template)}>
-				<i className='fa fa-file' /> Template
-			</div>
-			<div
-				className={cx('editorButton data')}
-				style={{backgroundColor : colors.data}}
-				onClick={this.changeEditorType.bind(null, 'data', colors.data)}>
-				<i className='fa fa-user' /> Data
-			</div>
-			<div
-				className={cx('editorButton logic')}
-				style={{backgroundColor : colors.logic}}
-				onClick={this.changeEditorType.bind(null, 'logic', colors.logic)}>
-				<i className='fa fa-gear' /> Logic
-			</div>
+			{buttons}
 		</div>
 	},
 

@@ -10,6 +10,9 @@ Sunday, 25/09/2016
 - Pull override data or sheet data
 - Possibly rename 'character' to 'override'
 - A change in data should first be put through the logic, THEN set to the state.
+- Make a dedicated button element. Sets value on mouse-up
+- improve tryNum in utils and use everywhere?
+
 
 
 Wednesday, 07/09/2016

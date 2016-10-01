@@ -12,8 +12,8 @@ var Renderer = React.createClass({
 				data : {},
 				logic : ''
 			},
-			onChange : ()=>{},
-			//onEditorShowChange : ()=>{}
+			onDataChange : ()=>{},
+			onEditorShowChange : ()=>{}
 		};
 	},
 	getInitialState: function() {
@@ -32,10 +32,9 @@ var Renderer = React.createClass({
 
 
 	handleChange : function(newData){
-		this.props.onChange(newData);
+		this.props.onDataChange(newData);
 	},
 
-	/*
 	renderEditorButton : function(){
 		if(_.isNull(this.props.showEditorState)) return null;
 
@@ -53,7 +52,7 @@ var Renderer = React.createClass({
 			</div>
 		}
 	},
-	*/
+
 
 	renderErrors : function(){
 		if(!this.errors) return;
@@ -73,7 +72,7 @@ var Renderer = React.createClass({
 		}
 
 		return <div className='renderer' ref='renderer' style={{height:this.state.height}}>
-			{/*this.renderEditorButton()*/}
+			{this.renderEditorButton()}
 			<div className='sheets'>{sheet}</div>
 			{this.renderErrors()}
 		</div>

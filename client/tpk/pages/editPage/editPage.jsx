@@ -4,14 +4,14 @@ var cx    = require('classnames');
 var request = require('superagent');
 
 var Nav = require('naturalcrit/nav/nav.jsx');
-var Navbar = require('../navbar/navbar.jsx');
-var EditTitle = require('../navbar/editTitle.navitem.jsx');
-var IssueNavItem = require('../navbar/issue.navitem.jsx');
-var PrintNavItem = require('../navbar/print.navitem.jsx');
+var Navbar = require('../../navbar/navbar.jsx');
+//var EditTitle = require('../../navbar/editTitle.navitem.jsx');
+var IssueNavItem = require('../../navbar/issue.navitem.jsx');
+var PrintNavItem = require('../../navbar/print.navitem.jsx');
 
 var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
-var Renderer = require('../renderer/renderer.jsx');
-var Editor = require('../editor/editor.jsx');
+var Renderer = require('../../renderer/renderer.jsx');
+var Editor = require('../../editor/editor.jsx');
 
 
 
@@ -20,14 +20,18 @@ const SAVE_TIMEOUT = 3000;
 var EditPage = React.createClass({
 	getDefaultProps: function() {
 		return {
-			ver : '0.0.0',
-
 			sheet : {
 				editId : '',
-				title : '',
+				viewId : '',
+
+				info : {
+					title : '',
+					desc : '',
+					published : false
+				},
 				template : '',
 				data : {},
-				logic : ''
+				logic : '',
 			},
 		};
 	},
@@ -69,9 +73,10 @@ var EditPage = React.createClass({
 			isPending : true
 		});
 
-		(this.hasChanges() ? this.debounceSave() : this.debounceSave.cancel());
+		this.trySave();
 	},
 
+	/*
 	handleTitleChange : function(title){
 		this.setState({
 			sheet : _.assign({}, this.state.sheet, {title : title})
@@ -79,6 +84,8 @@ var EditPage = React.createClass({
 
 		(this.hasChanges() ? this.debounceSave() : this.debounceSave.cancel());
 	},
+	*/
+
 
 	hasChanges : function(){
 		return true;
@@ -96,6 +103,14 @@ var EditPage = React.createClass({
 		return false;
 	},
 
+	trySave : function(){
+		if(this.hasChanges()){
+			this.debounceSave()
+		}else{
+			this.debounceSave.cancel()
+		}
+	},
+
 
 	save : function(){
 		this.debounceSave.cancel();
@@ -111,7 +126,7 @@ var EditPage = React.createClass({
 			.send(this.state.sheet)
 			.end((err, res) => {
 				if(err){
-					console.log('ERROR', err);
+					console.log('ERROR', err, err.toString());
 					this.setState({
 						errors : err,
 					})
@@ -125,6 +140,19 @@ var EditPage = React.createClass({
 				}
 			})
 	},
+
+	publishSheet : function(){
+		if(!confirm('Ready to share your sheet with the world?')) return;
+
+		this.setState({
+			sheet : _.assign(this.state.sheet, {
+				info : _.assign(this.state.sheet.info, {
+					published : true
+				})
+			})
+		}, this.save);
+	},
+
 
 	renderSaveButton : function(){
 		if(this.state.errors){
@@ -157,15 +185,30 @@ var EditPage = React.createClass({
 		}
 	},
 
-	renderNavbar : function(){
-		return <Navbar ver={this.props.ver}>
-			<Nav.section>
-				<EditTitle title={this.state.sheet.title} onChange={this.handleTitleChange} />
-			</Nav.section>
+	renderPublishNavItem : function(){
+		if(this.state.sheet.info.published) return;
 
+		return <Nav.item
+			color='purple' icon='fa-rocket'
+			onClick={this.publishSheet}>
+			Publish
+		</Nav.item>
+	},
+
+	renderNavbar : function(){
+		return <Navbar>
+			<Nav.section>
+				<Nav.item>{this.state.sheet.info.title}</Nav.item>
+			</Nav.section>
 			<Nav.section>
 				{this.renderSaveButton()}
-				<PrintNavItem id={this.props.sheet.editId} />
+				<Nav.item
+					newTab={true} color='teal' icon='fa-share-alt'
+					href={`/sheet/${this.props.sheet.viewId}/${_.snakeCase(this.props.sheet.info.title)}`}>
+					Share
+				</Nav.item>
+				{this.renderPublishNavItem()}
+				<PrintNavItem href={this.props.sheet.viewId} />
 				<IssueNavItem />
 			</Nav.section>
 		</Navbar>

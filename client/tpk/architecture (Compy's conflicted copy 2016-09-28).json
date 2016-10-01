@@ -1,0 +1,223 @@
+{
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\pages\\viewPage\\viewPage.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\pages\\docsPage\\docsPage.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\statBar\\statBar.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\pipBar\\pipBar.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\textField\\textField.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\skill\\skill.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\label\\label.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\sheet\\sheet.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../box/box.jsx",
+		"../pack/pack.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\statBox\\statBox.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../box/box.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\repeat\\repeat.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../utils.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\textBox\\textBox.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../box/box.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\pip\\pip.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../utils"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\utils.js": [
+		"lodash"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\header\\header.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../box/box.jsx",
+		"../utils.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\navbar\\navbar.jsx": [
+		"react",
+		"lodash",
+		"naturalcrit/nav/nav.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\navbar\\print.navitem.jsx": [
+		"react",
+		"lodash",
+		"naturalcrit/nav/nav.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\navbar\\editTitle.navitem.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"naturalcrit/nav/nav.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\naturalcrit\\codeEditor\\codeEditor.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"codemirror",
+		"codemirror/mode/javascript/javascript.js",
+		"codemirror/mode/jsx/jsx.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\editor\\editor.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"naturalcrit/codeEditor/codeEditor.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\pages\\homePage\\homePage.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../../navbar/navbar.jsx",
+		"naturalcrit/nav/nav.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\pages\\editPage\\editPage.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"superagent",
+		"../../navbar/navbar.jsx",
+		"../../navbar/editTitle.navitem.jsx",
+		"../../navbar/issue.navitem.jsx",
+		"../../navbar/print.navitem.jsx",
+		"../../renderer/renderer.jsx",
+		"../../editor/editor.jsx",
+		"naturalcrit/nav/nav.jsx",
+		"naturalcrit/splitPane/splitPane.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\naturalcrit\\splitPane\\splitPane.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\jsx-parser.js": [],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\processSheet.js": [
+		"lodash",
+		"tpk/jsx-parser",
+		"tpk/parts",
+		"tpk/parts/utils.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\box\\box.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../utils.js",
+		"tpk/greedyrow.binpack.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\greedyrow.binpack.js": [
+		"lodash"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\pack\\pack.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../utils.js",
+		"tpk/greedyrow.binpack.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\index.js": [
+		"./statBar/statBar.jsx",
+		"./pipBar/pipBar.jsx",
+		"./textBox/textBox.jsx",
+		"./statBox/statBox.jsx",
+		"./textField/textField.jsx",
+		"./skill/skill.jsx",
+		"./label/label.jsx",
+		"./sheet/sheet.jsx",
+		"./repeat/repeat.jsx",
+		"./pip/pip.jsx",
+		"./header/header.jsx",
+		"./box/box.jsx",
+		"./pack/pack.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\renderSheet.js": [
+		"react",
+		"lodash",
+		"./processSheet.js",
+		"./parts"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\renderer\\renderer.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"tpk/renderSheet.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\naturalcrit\\svg\\naturalcrit.svg.jsx": [
+		"react"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\naturalcrit\\nav\\nav.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"naturalcrit/svg/naturalcrit.svg.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\navbar\\issue.navitem.jsx": [
+		"react",
+		"naturalcrit/nav/nav.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\pages\\newPage\\newPage.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"superagent",
+		"../../navbar/navbar.jsx",
+		"../../navbar/print.navitem.jsx",
+		"../../navbar/editTitle.navitem.jsx",
+		"../../editor/editor.jsx",
+		"naturalcrit/nav/nav.jsx",
+		"naturalcrit/splitPane/splitPane.jsx",
+		"../../renderer/renderer.jsx",
+		"../../navbar/issue.navitem.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\tpk\\tpk.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"pico-router",
+		"./pages/viewPage/viewPage.jsx",
+		"./pages/docsPage/docsPage.jsx",
+		"./pages/homePage/homePage.jsx",
+		"./pages/editPage/editPage.jsx",
+		"./pages/newPage/newPage.jsx"
+	]
+}

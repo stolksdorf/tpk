@@ -1,5 +1,14 @@
 # changelog
 
+### Sunday, 25/09/2016
+- Added a button to hide/show editor
+- Split out the logic to render a sheet into a React element
+- Updated the renderer and print view to use new logic
+- Added ability to get PDF from local storage
+- Fixed centering on header title
+- Fixed title and label spacing on boxes
+-
+
 
 ### Friday, 23/09/2016 - v0.1.1
 - Sibling elements with the same base ID will now have their index part of the id.

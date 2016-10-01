@@ -1,0 +1,119 @@
+{
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\pipBar\\pipBar.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\statBar\\statBar.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\textField\\textField.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\label\\label.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\skill\\skill.jsx": [
+		"react",
+		"lodash",
+		"classnames"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\statBox\\statBox.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../box/box.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\sheet\\sheet.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../pack/pack.jsx",
+		"../box/box.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\textBox\\textBox.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../box/box.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\repeat\\repeat.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../utils.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\pip\\pip.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../utils"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\utils.js": [
+		"lodash"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\header\\header.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../box/box.jsx",
+		"../utils.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\jsx-parser.js": [],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\processSheet.js": [
+		"lodash",
+		"tpk/jsx-parser",
+		"tpk/parts",
+		"tpk/parts/utils.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\box\\box.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../utils.js",
+		"tpk/greedyrow.binpack.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\greedyrow.binpack.js": [
+		"lodash"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\pack\\pack.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"../utils.js",
+		"tpk/greedyrow.binpack.js"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\parts\\index.js": [
+		"./pipBar/pipBar.jsx",
+		"./statBar/statBar.jsx",
+		"./textBox/textBox.jsx",
+		"./statBox/statBox.jsx",
+		"./textField/textField.jsx",
+		"./label/label.jsx",
+		"./skill/skill.jsx",
+		"./sheet/sheet.jsx",
+		"./repeat/repeat.jsx",
+		"./pip/pip.jsx",
+		"./header/header.jsx",
+		"./box/box.jsx",
+		"./pack/pack.jsx"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\shared\\tpk\\renderSheet.js": [
+		"react",
+		"lodash",
+		"./processSheet.js",
+		"./parts"
+	],
+	"C:\\Dropbox\\root\\Programming\\Javascript\\tpk\\client\\printPage\\printPage.jsx": [
+		"react",
+		"lodash",
+		"classnames",
+		"tpk/renderSheet.js"
+	]
+}

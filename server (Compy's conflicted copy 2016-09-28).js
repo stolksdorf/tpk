@@ -36,40 +36,18 @@ const baseTemplates = _.reduce(fs.readdirSync('./templates'), (r, file) => {
 
 //Populate API routes
 app = require('./server/sheet.api.js')(app);
-app = require('./server/override.api.js')(app);
+app = require('./server/character.api.js')(app);
 
 
 const SheetModel = require('./server/sheet.model.js').model;
-const OverrideModel = require('./server/override.model.js').model;
-
-
-
-
-
-
-//Override Character Data middleware loader
-app.use((req, res, next) => {
-	if(!req.query.data) return next();
-
-	OverrideModel.get({id : req.query.data}, (err, objs) => {
-		if(err || !objs.length){
-			return res.status(400).send(`Can't get that`);
-		}
-		req.overrideData = objs[0].toJSON().data;
-		return next();
-	});
-});
-
-
-
-
+const CharacterModel = require('./server/character.model.js').model;
 
 
 
 /* PRINT PAGE */
 
 app.get('/print/:id?', (req, res) => {
-	SheetModel.get({viewId : req.params.id}, (err, objs) => {
+	SheetModel.find({editId : req.params.id}, (err, objs) => {
 		if(objs.length){
 			req.sheet = objs[0].toJSON();
 		}
@@ -81,8 +59,7 @@ app.get('/print/:id?', (req, res) => {
 			initialProps: {
 				url: req.originalUrl,
 				sheet : req.sheet,
-				query : req.query,
-				overrideData : req.overrideData,
+				query : req.query
 			},
 			clearRequireCache : !process.env.PRODUCTION,
 		}, (err, page) => {
@@ -93,9 +70,8 @@ app.get('/print/:id?', (req, res) => {
 
 
 
-SheetModel.search({}).then((results, a)=>{
-	console.log(results.length, a);
-})
+
+//TODO: Add in finding character data middleware
 
 
 
@@ -103,7 +79,7 @@ SheetModel.search({}).then((results, a)=>{
 
 
 app.get('/edit/:id*', (req, res, next) => {
-	SheetModel.get({editId : req.params.id}, (err, objs) => {
+	SheetModel.find({editId : req.params.id}, (err, objs) => {
 		if(err || !objs.length){
 			return res.status(400).send(`Can't get that`);
 		}
@@ -114,20 +90,16 @@ app.get('/edit/:id*', (req, res, next) => {
 });
 
 app.get('/sheet/:id*', (req, res, next) => {
-	SheetModel.get({viewId : req.params.id}, (err, objs) => {
-		if(err || !objs.length){
-			return res.status(400).send(`Can't get that`);
-		}
 
-		req.sheet = objs[0].toJSON();
-		delete req.sheet.editId;
+	req.sheet = req.params.editId;
 
-		return next();
-	});
+	return next();
 });
 
 app.get('/template/:id*', (req, res, next) => {
+
 	req.sheet = baseTemplates[req.params.id];
+
 	return next();
 });
 
@@ -144,10 +116,9 @@ app.use((req, res) => {
 		prerenderWith : './client/tpk/tpk.jsx',
 		initialProps: {
 			url: req.originalUrl,
-			//base_template : baseTemplate,
+			base_template : baseTemplate,
 			ver : projectVersion,
 
-			overrideData : req.overrideData,
 			sheet : req.sheet,
 		},
 		clearRequireCache : !process.env.PRODUCTION,

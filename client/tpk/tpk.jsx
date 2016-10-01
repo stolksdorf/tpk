@@ -7,19 +7,19 @@ const CreateRouter = require('pico-router').createRouter;
 
 
 //PAGES
-const HomePage = require('./homePage/homePage.jsx');
-const NewPage = require('./newPage/newPage.jsx');
-var EditPage = require('./editPage/editPage.jsx');
-
-
-const CharacterPage = require('./characterPage/characterPage.jsx');
+const HomePage = require('./pages/homePage/homePage.jsx');
+const NewPage = require('./pages/newPage/newPage.jsx');
+const EditPage = require('./pages/editPage/editPage.jsx');
+const ViewPage = require('./pages/viewPage/viewPage.jsx');
+const DocsPage = require('./pages/docsPage/docsPage.jsx');
 
 var Router;
 const TPK = React.createClass({
 	getDefaultProps: function() {
 		return {
 			url : '',
-			ver : '0.0.0',
+
+			overrideData : null,
 
 			sheet : {
 				editId : null,
@@ -33,26 +33,34 @@ const TPK = React.createClass({
 		};
 	},
 
-	componentWillMount: function() {
+	componentWillMount: function(){
+		global.version = this.props.ver;
 		Router = CreateRouter({
-
 			'/edit/:id*' : (args) => {
-				if(!this.props.sheet.editId){
-					console.log('Error!');
-					//return <ErrorPage ver={this.props.version} errorId={args.id}/>
-				}
-
 				return <EditPage
-					ver={this.props.version}
 					id={args.id}
 					sheet={this.props.sheet} />
-
+			},
+			'/template/:id*' : (args) => {
+				return <ViewPage
+					id={args.id}
+					sheet={this.props.sheet} />
+			},
+			'/sheet/:id*' : (args, query) => {
+				return <ViewPage
+					id={args.id}
+					overrideId={query.data}
+					overrideData={this.props.overrideData}
+					sheet={this.props.sheet} />
 			},
 
-			'/new' : (args) => {
-				return <NewPage ver={this.props.version} />
+			'/new*' : (args, query) => {
+				return <NewPage query={query} />
 			},
-			'*' : <HomePage ver={this.props.version} />,
+			'/docs' : (args) => {
+				return <Docs />
+			},
+			'*' : <HomePage />,
 		});
 	},
 

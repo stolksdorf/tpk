@@ -1,14 +1,13 @@
 var React = require('react');
-var _ = require('lodash');
-var cx = require('classnames');
+var _     = require('lodash');
+var cx    = require('classnames');
 
-var utils = require('../utils');
 
 var Pip = React.createClass({
 	getDefaultProps: function() {
 		return {
-			name : 'pip',
-			defaultData : false,
+			base_name : 'pip',
+			data : false,
 
 			id : '',
 			title : '',
@@ -18,13 +17,8 @@ var Pip = React.createClass({
 		};
 	},
 
-
-	id : utils.id,
-	data : utils.data,
-	updateData : utils.updateData,
-
 	handleChange : function(){
-		this.updateData(!this.data());
+		this.props.onChange(!this.props.data);
 	},
 	renderTitle : function(){
 		if(!this.props.title) return;
@@ -39,10 +33,10 @@ var Pip = React.createClass({
 		return <div className='pip' onClick={this.handleChange}>
 			{this.renderTitle()}
 			<i className={cx('fa', 'fa-fw', {
-				'fa-circle-o' : !this.data() && !this.props.alt,
-				'fa-circle' : this.data()  && !this.props.alt,
-				'fa-square-o' : !this.data() && this.props.alt,
-				'fa-square' : this.data()  && this.props.alt,
+				'fa-circle-o' : !this.props.data && !this.props.alt,
+				'fa-circle'   : this.props.data  && !this.props.alt,
+				'fa-square-o' : !this.props.data && this.props.alt,
+				'fa-square'   : this.props.data  && this.props.alt,
 			})}/>
 			{this.renderLabel()}
 		</div>

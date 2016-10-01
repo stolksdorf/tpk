@@ -2,6 +2,11 @@ var React = require('react');
 var _     = require('lodash');
 var cx    = require('classnames');
 
+const tryNum = (str) => {
+	const t = _.toNumber(str);
+	return (_.isNaN(t) || t == '' ? str : t);
+}
+
 var TextField = React.createClass({
 	getDefaultProps: function() {
 		return {
@@ -20,7 +25,7 @@ var TextField = React.createClass({
 	},
 
 	handleChange : function(e){
-		this.props.onChange(e.target.value);
+		this.props.onChange(tryNum(e.target.value));
 	},
 
 	renderTitle : function(){
