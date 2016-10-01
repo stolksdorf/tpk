@@ -25,9 +25,10 @@ const SheetSchema = mongoose.Schema({
 	createdAt     : { type: Date, default: Date.now },
 	updatedAt   : { type: Date, default: Date.now},
 	//lastViewed  : { type: Date, default: Date.now},
+}, {
+	versionKey: false,
+	toObject: { transform: (doc, ret)=>{ delete ret.__v; }}
 });
-
-
 
 const Sheet = mongoose.model('Sheet', SheetSchema);
 

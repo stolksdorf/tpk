@@ -3,7 +3,7 @@ var _     = require('lodash');
 var Parts = require('./parts');
 var ProcessSheet = require('./processSheet.js');
 
-module.exports = function(sheet, onChange){
+module.exports = function(sheet, onChange = ()=>{}){
 	var renderChildren = (nodes) => {
 		return _.map(nodes, (node, index)=>{
 			if(_.isString(node)) return node;

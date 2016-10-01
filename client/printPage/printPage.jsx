@@ -22,7 +22,10 @@ var PrintPage = React.createClass({
 		if(this.props.query.local){
 			try{
 				sheet = JSON.parse(localStorage.getItem(this.props.query.local));
-			}catch(e){}
+				console.log(sheet);
+			}catch(e){
+				console.log(`err: could not load from ${this.props.query.local}`);
+			}
 		}
 
 		return <div className='printPage'>

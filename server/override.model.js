@@ -5,7 +5,7 @@ const utils = require('./utils');
 const OverrideSchema = mongoose.Schema({
 	id : {
 		type : String,
-		default: utils.genId.bind(null, 'c'),
+		default: utils.genId.bind(null, 'd'),
 		index: { unique: true }
 	},
 
@@ -15,6 +15,9 @@ const OverrideSchema = mongoose.Schema({
 	createdAt   : { type: Date, default: Date.now },
 	updatedAt   : { type: Date, default: Date.now},
 	lastViewed  : { type: Date, default: Date.now},
+}, {
+	versionKey: false,
+	toObject: { transform: (doc, ret)=>{ delete ret.__v; }}
 });
 
 
