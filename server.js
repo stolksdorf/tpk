@@ -47,7 +47,7 @@ const OverrideModel = require('./server/override.model.js').model;
 /* PRINT PAGE */
 
 app.get('/print/:id?', (req, res) => {
-	SheetModel.find({editId : req.params.id}, (err, objs) => {
+	SheetModel.find({viewId : req.params.id}, (err, objs) => {
 		if(objs.length){
 			req.sheet = objs[0].toJSON();
 		}

@@ -3,6 +3,15 @@ var _ = require('lodash');
 var Nav = require('naturalcrit/nav/nav.jsx');
 
 module.exports = function(props){
+	return <Nav.item
+		newTab={true}
+		href={`/print/${props.href}`}
+		color='purple'
+		icon='fa-file-pdf-o'>
+		get PDF
+	</Nav.item>
+
+	/*
 	var opts = _.map(props.opts, (val, name)=>{
 		return `${name}=${val}`;
 	}).join('&');
@@ -17,4 +26,6 @@ module.exports = function(props){
 		icon='fa-file-pdf-o'>
 		get PDF
 	</Nav.item>
+
+	*/
 };

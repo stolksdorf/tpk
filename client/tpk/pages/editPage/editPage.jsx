@@ -73,9 +73,10 @@ var EditPage = React.createClass({
 			isPending : true
 		});
 
-		(this.hasChanges() ? this.debounceSave() : this.debounceSave.cancel());
+		this.trySave();
 	},
 
+	/*
 	handleTitleChange : function(title){
 		this.setState({
 			sheet : _.assign({}, this.state.sheet, {title : title})
@@ -83,6 +84,8 @@ var EditPage = React.createClass({
 
 		(this.hasChanges() ? this.debounceSave() : this.debounceSave.cancel());
 	},
+	*/
+
 
 	hasChanges : function(){
 		return true;
@@ -98,6 +101,14 @@ var EditPage = React.createClass({
 			if(this.state.title !== this.props.brew.title) return true;
 		}*/
 		return false;
+	},
+
+	trySave : function(){
+		if(this.hasChanges()){
+			this.debounceSave()
+		}else{
+			this.debounceSave.cancel()
+		}
 	},
 
 
@@ -131,9 +142,13 @@ var EditPage = React.createClass({
 	},
 
 	publishSheet : function(){
-		console.log('PUBLISH');
-
-
+		this.setState({
+			sheet : _.assign(this.state.sheet, {
+				info : _.assign(this.state.sheet.info, {
+					published : true
+				})
+			})
+		}, this.save);
 	},
 
 
@@ -180,7 +195,6 @@ var EditPage = React.createClass({
 
 	renderNavbar : function(){
 		return <Navbar>
-
 			<Nav.section>
 				{this.renderSaveButton()}
 				<Nav.item
@@ -189,7 +203,7 @@ var EditPage = React.createClass({
 					Share
 				</Nav.item>
 				{this.renderPublishNavItem()}
-				<PrintNavItem id={this.props.sheet.viewId} />
+				<PrintNavItem href={this.props.sheet.viewId} />
 				<IssueNavItem />
 			</Nav.section>
 		</Navbar>
