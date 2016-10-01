@@ -44,10 +44,32 @@ const OverrideModel = require('./server/override.model.js').model;
 
 
 
+
+
+
+//Override Character Data middleware loader
+app.use((req, res, next) => {
+	if(!req.query.data) return next();
+
+	OverrideModel.get({id : req.query.data}, (err, objs) => {
+		if(err || !objs.length){
+			return res.status(400).send(`Can't get that`);
+		}
+		req.overrideData = objs[0].toJSON().data;
+		return next();
+	});
+});
+
+
+
+
+
+
+
 /* PRINT PAGE */
 
 app.get('/print/:id?', (req, res) => {
-	SheetModel.find({viewId : req.params.id}, (err, objs) => {
+	SheetModel.get({viewId : req.params.id}, (err, objs) => {
 		if(objs.length){
 			req.sheet = objs[0].toJSON();
 		}
@@ -59,7 +81,8 @@ app.get('/print/:id?', (req, res) => {
 			initialProps: {
 				url: req.originalUrl,
 				sheet : req.sheet,
-				query : req.query
+				query : req.query,
+				overrideData : req.overrideData,
 			},
 			clearRequireCache : !process.env.PRODUCTION,
 		}, (err, page) => {
@@ -70,8 +93,9 @@ app.get('/print/:id?', (req, res) => {
 
 
 
-
-//TODO: Add in finding character data middleware
+SheetModel.search({}).then((results, a)=>{
+	console.log(results.length, a);
+})
 
 
 
@@ -79,7 +103,7 @@ app.get('/print/:id?', (req, res) => {
 
 
 app.get('/edit/:id*', (req, res, next) => {
-	SheetModel.find({editId : req.params.id}, (err, objs) => {
+	SheetModel.get({editId : req.params.id}, (err, objs) => {
 		if(err || !objs.length){
 			return res.status(400).send(`Can't get that`);
 		}
@@ -90,7 +114,7 @@ app.get('/edit/:id*', (req, res, next) => {
 });
 
 app.get('/sheet/:id*', (req, res, next) => {
-	SheetModel.find({viewId : req.params.id}, (err, objs) => {
+	SheetModel.get({viewId : req.params.id}, (err, objs) => {
 		if(err || !objs.length){
 			return res.status(400).send(`Can't get that`);
 		}
@@ -121,8 +145,9 @@ app.use((req, res) => {
 		initialProps: {
 			url: req.originalUrl,
 			//base_template : baseTemplate,
-			//ver : projectVersion, ?
+			ver : projectVersion,
 
+			overrideData : req.overrideData,
 			sheet : req.sheet,
 		},
 		clearRequireCache : !process.env.PRODUCTION,

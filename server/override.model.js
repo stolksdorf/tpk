@@ -15,11 +15,11 @@ const OverrideSchema = mongoose.Schema({
 	createdAt   : { type: Date, default: Date.now },
 	updatedAt   : { type: Date, default: Date.now},
 	lastViewed  : { type: Date, default: Date.now},
-}, {
-	versionKey: false,
-	toObject: { transform: (doc, ret)=>{ delete ret.__v; }}
-});
+}, { versionKey: false });
 
+OverrideSchema.statics.get = (query, cb) => {
+	Override.find(query, {_id : 0, __v : 0}, cb);
+}
 
 
 const Override = mongoose.model('Override', OverrideSchema);

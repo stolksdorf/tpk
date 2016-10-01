@@ -126,7 +126,7 @@ var EditPage = React.createClass({
 			.send(this.state.sheet)
 			.end((err, res) => {
 				if(err){
-					console.log('ERROR', err);
+					console.log('ERROR', err, err.toString());
 					this.setState({
 						errors : err,
 					})
@@ -142,6 +142,8 @@ var EditPage = React.createClass({
 	},
 
 	publishSheet : function(){
+		if(!confirm('Ready to share your sheet with the world?')) return;
+
 		this.setState({
 			sheet : _.assign(this.state.sheet, {
 				info : _.assign(this.state.sheet.info, {
@@ -195,6 +197,9 @@ var EditPage = React.createClass({
 
 	renderNavbar : function(){
 		return <Navbar>
+			<Nav.section>
+				<Nav.item>{this.state.sheet.info.title}</Nav.item>
+			</Nav.section>
 			<Nav.section>
 				{this.renderSaveButton()}
 				<Nav.item

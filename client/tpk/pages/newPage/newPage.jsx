@@ -16,19 +16,31 @@ var Editor = require('../../editor/editor.jsx');
 
 const KEY = 'NEW_PAGE';
 
+var updateSheet = (sheet, field, newVal) => {
+	if(_.isEqual(sheet[field], newVal)) return sheet;
+
+	return _.assign(sheet, {
+		[field] : _.assign(sheet[field], newVal)
+	});
+}
+
 
 var NewPage = React.createClass({
 
 	getInitialState: function() {
 		return {
-			/*
 			sheet : {
-				title : '',
+				info : {
+					title : '',
+					desc : '',
+					published : false
+				},
 				template : '',
 				data : {},
 				logic : ''
 			},
-			*/
+
+			/*
 
 			info : {
 				title : '',
@@ -38,19 +50,23 @@ var NewPage = React.createClass({
 			template : '',
 			data : {},
 			logic : '',
+			*/
 
 
-
-			showEditor : true,
+			query : {},
 			isSaving : false,
 			errors : []
 		};
 	},
 
-	componentDidMount: function() {
+	componentDidMount: function(){
+		let key = KEY;
+		if(this.props.query.local) key = this.props.query.local
 		try{
-			var sheet = localStorage.getItem(KEY);
-			this.setState(JSON.parse(sheet));
+			var sheet = localStorage.getItem(key);
+			this.setState({
+				sheet : JSON.parse(sheet)
+			});
 		}catch(e){}
 	},
 
@@ -58,6 +74,7 @@ var NewPage = React.createClass({
 		window.onbeforeunload = function(){};
 	},
 
+	/*
 	getSheet : function(){
 		return {
 			info : this.state.info,
@@ -66,34 +83,24 @@ var NewPage = React.createClass({
 			logic : this.state.logic
 		}
 	},
+	*/
 
 	saveSheetToLocal : function(){
-		localStorage.setItem(KEY, JSON.stringify(this.getSheet()));
+		localStorage.setItem(KEY, JSON.stringify(this.state.sheet));
 	},
 
 
 	handleSheetUpdate : function(newSheet){
-		this.setState(newSheet, this.saveSheetToLocal);
+		this.setState({
+			sheet : newSheet
+		}, this.saveSheetToLocal);
 	},
 
 	handleDataChange : function(newData){
 		this.setState({
-			data : newData
+			sheet : updateSheet(this.state.sheet, 'data', newData)
 		}, this.saveSheetToLocal);
 	},
-
-	handleTitleChange : function(title){
-		this.setState({
-			info : _.assign({}, this.state.info, {title : title})
-		}, this.saveSheetToLocal);
-	},
-
-	handleEditorShowChange : function(val){
-		this.setState({
-			showEditor : val
-		});
-	},
-
 
 	handleSave : function(){
 		this.setState({
@@ -102,7 +109,7 @@ var NewPage = React.createClass({
 		});
 
 		request.post('/api/sheet')
-			.send(this.getSheet())
+			.send(this.state.sheet)
 			.end((err, res)=>{
 				if(err){
 					this.setState({
@@ -150,40 +157,21 @@ var NewPage = React.createClass({
 
 
 
-
-	renderContent : function(){
-		if(this.state.showEditor){
-			return <SplitPane ref='pane'>
-				<Editor
-					sheet={this.getSheet()}
-					onChange={this.handleSheetUpdate}
-				/>
-				<Renderer
-					sheet={this.getSheet()}
-					onChange={this.handleDataChange}
-
-					showEditorState={this.state.showEditor}
-					onEditorShowChange={this.handleEditorShowChange}
-				/>
-			</SplitPane>
-		}else{
-			return <Renderer
-				sheet={this.getSheet()}
-				onChange={this.handleDataChange}
-
-				showEditorState={this.state.showEditor}
-				onEditorShowChange={this.handleEditorShowChange}
-			/>
-		}
-	},
-
-
 	render : function(){
 		return <div className='page newPage'>
 			{this.renderNavbar()}
 
 			<div className='content'>
-				{this.renderContent()}
+				<SplitPane ref='pane'>
+					<Editor
+						sheet={this.state.sheet}
+						onChange={this.handleSheetUpdate}
+					/>
+					<Renderer
+						sheet={this.state.sheet}
+						onChange={this.handleDataChange}
+					/>
+				</SplitPane>
 			</div>
 		</div>
 	}

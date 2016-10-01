@@ -25,10 +25,26 @@ const SheetSchema = mongoose.Schema({
 	createdAt     : { type: Date, default: Date.now },
 	updatedAt   : { type: Date, default: Date.now},
 	//lastViewed  : { type: Date, default: Date.now},
-}, {
-	versionKey: false,
-	toObject: { transform: (doc, ret)=>{ delete ret.__v; }}
-});
+}, { versionKey: false });
+
+SheetSchema.statics.get = (query, cb) => {
+	return Sheet.find(query, {_id : 0, __v : 0}, cb);
+};
+
+SheetSchema.statics.search = (query, page=0, limit=10) => {
+	return new Promise((resolve)=>{
+		Sheet.find({
+			'info.published' : true
+		}, {_id : 0, __v : 0},
+		{
+			skip : page * limit,
+			limit : limit
+		}, (err, res) => {
+			if(err) throw err;
+			resolve(res);
+		});
+	});
+}
 
 const Sheet = mongoose.model('Sheet', SheetSchema);
 

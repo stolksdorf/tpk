@@ -27,7 +27,8 @@ module.exports = (app) => {
 			resEntry.updatedAt = new Date();
 
 			resEntry.save(function(err, obj){
-				if(err) return res.status(500).send("Error while saving");
+				console.log('ERR', err);
+				if(err) return res.status(500).send(err);
 				return res.status(200).send(obj);
 			})
 		});
@@ -36,7 +37,7 @@ module.exports = (app) => {
 
 	//TODO :
 	app.get('/api/sheet/search', function(req, res){
-		SheetModel.find({editId : req.params.id}, function(err, objs){
+		SheetModel.get({info : { published : true}}, function(err, objs){
 			if(!objs.length || err) return res.status(404).send("Can not find Sheet with that id");
 			var resEntry = objs[0];
 
@@ -48,7 +49,7 @@ module.exports = (app) => {
 
 
 	app.get('/api/sheet/:id', function(req, res){
-		SheetModel.find({editId : req.params.id}, function(err, objs){
+		SheetModel.get({editId : req.params.id}, function(err, objs){
 			if(!objs.length || err) return res.status(404).send("Can not find Sheet with that id");
 			var resEntry = objs[0];
 

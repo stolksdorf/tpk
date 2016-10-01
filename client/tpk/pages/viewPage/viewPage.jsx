@@ -9,8 +9,7 @@ var Navbar = require('../../navbar/navbar.jsx');
 //var EditTitle = require('../../navbar/editTitle.navitem.jsx');
 var PrintNavItem = require('../../navbar/print.navitem.jsx');
 var IssueNavItem = require('../../navbar/issue.navitem.jsx');
-
-
+var CloneNavItem = require('../../navbar/clone.navitem.jsx');
 
 var Renderer = require('../../renderer/renderer.jsx');
 
@@ -27,7 +26,8 @@ var updateSheet = (sheet, field, newVal) => {
 
 
 const KEY = 'PRINT';
-
+//const CLONE_KEY = 'CLONE';
+const SAVE_TIMEOUT = 3000;
 
 
 var ViewPage = React.createClass({
@@ -64,14 +64,24 @@ var ViewPage = React.createClass({
 		};
 	},
 
+	componentDidMount: function() {
+		this.debounceSave = _.debounce(this.save, SAVE_TIMEOUT);
+		window.onbeforeunload = ()=>{
+			if(this.state.isSaving || this.state.isPending){
+				return 'You have unsaved changes!';
+			}
+		};
+	},
+
+	componentWillUnmount: function() {
+		window.onbeforeunload = function(){};
+	},
+
 	handleSheetUpdate : function(newData){
-		//if override id, save it
-
-
 		this.setState({
-			overrideData : newData
+			overrideData : newData,
+			isPending : true
 		}, this.trySave);
-
 	},
 
 	create : function(){
@@ -80,7 +90,7 @@ var ViewPage = React.createClass({
 			errors : null
 		});
 		request
-			.post('/api/override/')
+			.post('/api/override')
 			.send({
 				data : this.state.overrideData,
 				linkedSheetId : this.props.sheet.viewId
@@ -95,53 +105,48 @@ var ViewPage = React.createClass({
 				}
 				window.onbeforeunload = function(){};
 				var data = res.body;
-				//TODO: Uncomment later
-				//localStorage.removeItem(KEY);
 				window.location = `/sheet/${this.props.sheet.viewId}?data=${data.id}`;
 			});
 	},
 
 	save : function(){
-		//this.debounceSave.cancel();
+		this.debounceSave.cancel();
 		this.setState({
 			isSaving : true,
 			isPending : false,
 			errors : null
 		});
-
 		request
-			.put('/api/sheet/' + this.props.sheet.editId)
-			.send(this.state.sheet)
+			.put('/api/override/' + this.props.overrideId)
+			.send({
+				data : this.state.overrideData
+			})
 			.end((err, res) => {
 				if(err){
-					console.log('ERROR', err);
 					this.setState({
 						errors : err,
 					})
 				}else{
-					this.savedSheet = res.body;
 					this.setState({
 						isPending : false,
 						isSaving : false,
-						lastUpdated : res.body.updatedAt
 					})
 				}
 			})
 	},
 
 	trySave : function(){
-
 		if(!this.props.overrideId){
-			console.log('saving', this.getOverriddenSheet());
-
 			localStorage.setItem(KEY, JSON.stringify(this.getOverriddenSheet()));
 		}else{
-			//kick off save
+			this.debounceSave();
 		}
-
 	},
 
-
+	cloneSheet : function(){
+		localStorage.setItem(CLONE_KEY, JSON.stringify(this.getOverriddenSheet()));
+		window.open(`/new?local=${CLONE_KEY}`, '_blank').focus();
+	},
 
 	getOverriddenSheet : function(){
 		return {
@@ -156,13 +161,29 @@ var ViewPage = React.createClass({
 		return `${this.props.sheet.viewId}?${query}`
 	},
 
+	/*
+	renderTweakButton : function(){
+		return <div className='tweak' >
+			<i className='fa fa-gear' />
+			<div className='content'>
+				You can tweak the layout or logic of this sheet! <br />
+				Would you like to clone this sheet, including the current data, into a brand new sheet?
+				<button onClick={this.cloneSheet}>
+					<i className='fa fa-clone' /> clone it!
+				</button>
+			</div>
+		</div>
+	},
+	*/
+
+
 	renderSaveButton : function(){
 		if(this.state.isSaving){
 			return <Nav.item className='save' icon='fa-spinner fa-spin'>saving...</Nav.item>
 		}
 
 		if(!this.props.overrideId){
-			return <Nav.item className='save' icon='fa-save' onClick={this.create}>create</Nav.item>
+			return <Nav.item className='save create' icon='fa-user' onClick={this.create}>save character</Nav.item>
 		}
 
 
@@ -177,8 +198,12 @@ var ViewPage = React.createClass({
 	renderNavbar : function(){
 		return <Navbar>
 			<Nav.section>
+				<Nav.item>{this.props.sheet.info.title}</Nav.item>
+			</Nav.section>
+			<Nav.section>
 				{this.renderSaveButton()}
 				<PrintNavItem href={this.getPrintHref()} />
+				<CloneNavItem sheet={this.getOverriddenSheet()} />
 				<IssueNavItem />
 			</Nav.section>
 		</Navbar>

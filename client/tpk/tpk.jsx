@@ -18,7 +18,8 @@ const TPK = React.createClass({
 	getDefaultProps: function() {
 		return {
 			url : '',
-			ver : '0.0.0',
+
+			overrideData : null,
 
 			sheet : {
 				editId : null,
@@ -34,32 +35,27 @@ const TPK = React.createClass({
 
 	componentWillMount: function(){
 		global.version = this.props.ver;
-
-
 		Router = CreateRouter({
-
 			'/edit/:id*' : (args) => {
 				return <EditPage
 					id={args.id}
 					sheet={this.props.sheet} />
 			},
-
-
-
 			'/template/:id*' : (args) => {
 				return <ViewPage
 					id={args.id}
 					sheet={this.props.sheet} />
 			},
-
-			'/sheet/:id*' : (args) => {
+			'/sheet/:id*' : (args, query) => {
 				return <ViewPage
 					id={args.id}
+					overrideId={query.data}
+					overrideData={this.props.overrideData}
 					sheet={this.props.sheet} />
 			},
 
-			'/new*' : (args) => {
-				return <NewPage />
+			'/new*' : (args, query) => {
+				return <NewPage query={query} />
 			},
 			'/docs' : (args) => {
 				return <Docs />

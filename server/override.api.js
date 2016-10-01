@@ -19,7 +19,7 @@ module.exports = (app) => {
 	});
 
 	app.put('/api/override/:id', function(req, res){
-		OverrideModel.find({editId : req.params.id}, function(err, objs){
+		OverrideModel.find({id : req.params.id}, function(err, objs){
 			if(!objs.length || err) return res.status(404).send("Can not find override with that id");
 			var resEntry = objs[0];
 
@@ -35,7 +35,7 @@ module.exports = (app) => {
 
 
 	app.get('/api/override/:id', function(req, res){
-		OverrideModel.find({editId : req.params.id}, function(err, objs){
+		OverrideModel.get({id : req.params.id}, function(err, objs){
 			if(!objs.length || err) return res.status(404).send("Can not find override with that id");
 			var resEntry = objs[0];
 

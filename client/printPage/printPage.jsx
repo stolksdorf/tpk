@@ -12,6 +12,7 @@ var PrintPage = React.createClass({
 				data : {},
 				logic : ''
 			},
+			overrideData : {},
 			query : {}
 		};
 	},
@@ -27,6 +28,8 @@ var PrintPage = React.createClass({
 				console.log(`err: could not load from ${this.props.query.local}`);
 			}
 		}
+
+		sheet.data = _.merge(sheet.data, this.props.overrideData);
 
 		return <div className='printPage'>
 			{RenderSheet(sheet)}
