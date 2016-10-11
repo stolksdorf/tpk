@@ -1,12 +1,18 @@
 const _ = require('lodash');
+const fs = require('fs');
 
 const SheetModel = require('./sheet.model.js').model;
 
+//Load all base templates
+const baseTemplates = _.reduce(fs.readdirSync('./templates'), (r, file) => {
+	const template = require(`../templates/${file}`);
+	r[template.viewId] = template;
+	return r;
+}, {});
 
 
-module.exports = (app) => {
 
-
+const SetupRoutes = (app) => {
 	app.post('/api/sheet', (req, res) => {
 		var newSheet = new SheetModel(req.body);
 		newSheet.save(function(err, obj){
@@ -34,7 +40,6 @@ module.exports = (app) => {
 		});
 	});
 
-
 	//TODO :
 	app.get('/api/sheet/search', function(req, res){
 		SheetModel.get({info : { published : true}}, function(err, objs){
@@ -45,9 +50,6 @@ module.exports = (app) => {
 		});
 	});
 
-
-
-
 	app.get('/api/sheet/:id', function(req, res){
 		SheetModel.get({editId : req.params.id}, function(err, objs){
 			if(!objs.length || err) return res.status(404).send("Can not find Sheet with that id");
@@ -56,7 +58,31 @@ module.exports = (app) => {
 			return res.status(200).send(resEntry);
 		});
 	});
+};
 
 
-	return app;
+module.exports = (app) => {
+	SetupRoutes(app);
+
+
+
+	return {
+		getBaseTemplate : (id) => {
+			if(id == '*') return baseTemplates;
+			return baseTemplates[id];
+		},
+
+		getAllBaseTemplates : () => {
+			return _.map(baseTemplates, (temp) => {
+				return {
+					viewId : temp.viewId,
+					info : temp.info,
+				}
+			})
+		},
+
+
+
+
+	};
 }

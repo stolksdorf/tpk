@@ -29,7 +29,10 @@ const TPK = React.createClass({
 				template : '',
 				data : {},
 				logic : ''
-			}
+			},
+
+
+			templates : []
 		};
 	},
 
@@ -60,7 +63,11 @@ const TPK = React.createClass({
 			'/docs' : (args) => {
 				return <Docs />
 			},
-			'*' : <HomePage />,
+			'*' : (args) => {
+				return <HomePage
+					templates={this.props.templates}
+				/>
+			}
 		});
 	},
 

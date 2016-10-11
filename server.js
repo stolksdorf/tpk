@@ -18,32 +18,16 @@ mongoose.connection.on('error', function(){
 });
 
 
-var baseTemplate = fs.readFileSync('./sample_sheet.txt', 'utf8');
 
 //Load project version
 var projectVersion = require('./package.json').version;
 
 
-//Load all base templates
-const baseTemplates = _.reduce(fs.readdirSync('./templates'), (r, file) => {
-	const template = require(`./templates/${file}`);
-	r[template.id] = template;
-	return r;
-}, {})
-
-
-
-
 //Populate API routes
-app = require('./server/sheet.api.js')(app);
-app = require('./server/override.api.js')(app);
-
-
 const SheetModel = require('./server/sheet.model.js').model;
 const OverrideModel = require('./server/override.model.js').model;
-
-
-
+const SheetAPI = require('./server/sheet.api.js')(app);
+require('./server/override.api.js')(app);
 
 
 
@@ -59,9 +43,6 @@ app.use((req, res, next) => {
 		return next();
 	});
 });
-
-
-
 
 
 
@@ -92,16 +73,6 @@ app.get('/print/:id?', (req, res) => {
 });
 
 
-
-SheetModel.search({}).then((results, a)=>{
-	console.log(results.length, a);
-})
-
-
-
-
-
-
 app.get('/edit/:id*', (req, res, next) => {
 	SheetModel.get({editId : req.params.id}, (err, objs) => {
 		if(err || !objs.length){
@@ -127,7 +98,7 @@ app.get('/sheet/:id*', (req, res, next) => {
 });
 
 app.get('/template/:id*', (req, res, next) => {
-	req.sheet = baseTemplates[req.params.id];
+	req.sheet = SheetAPI.getBaseTemplate(req.params.id);
 	return next();
 });
 
@@ -149,6 +120,8 @@ app.use((req, res) => {
 
 			overrideData : req.overrideData,
 			sheet : req.sheet,
+
+			templates : SheetAPI.getAllBaseTemplates(),
 		},
 		clearRequireCache : !process.env.PRODUCTION,
 	}, (err, page) => {
