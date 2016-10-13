@@ -13,11 +13,14 @@ var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
 var Renderer = require('../../renderer/renderer.jsx');
 var Editor = require('../../editor/editor.jsx');
 
+const Store = require('tpk/sheet.store.js');
+const Actions = require('tpk/sheet.actions.js');
 
 
 const SAVE_TIMEOUT = 3000;
 
 var EditPage = React.createClass({
+	mixins : [Store.mixin()],
 	getDefaultProps: function() {
 		return {
 			sheet : {
@@ -35,22 +38,28 @@ var EditPage = React.createClass({
 			},
 		};
 	},
-
 	getInitialState: function() {
 		return {
-			sheet : this.props.sheet,
+			sheet : Store.getSheet(),
 
 			isSaving : false,
 			errors : null
 		};
 	},
+	onStoreChange : function(){
+		this.setState({
+			sheet : Store.getSheet()
+		})
+	},
 
 	savedSheet : null,
 
+	componentWillMount : function(){
+		Actions.setSheet(this.props.sheet);
+	},
+
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({
-			sheet : nextProps.sheet
-		})
+		Actions.setSheet(nextProps.sheet);
 	},
 
 	componentDidMount: function() {
@@ -68,12 +77,12 @@ var EditPage = React.createClass({
 	},
 
 	handleSheetUpdate : function(newSheet){
+		Actions.updateSheet(newSheet);
 		this.setState({
-			sheet : _.assign({}, this.state, newSheet),
 			isPending : true
+		}, ()=>{
+			this.trySave();
 		});
-
-		this.trySave();
 	},
 
 	/*
@@ -119,7 +128,6 @@ var EditPage = React.createClass({
 			isPending : false,
 			errors : null
 		});
-
 
 		request
 			.put('/api/sheet/' + this.props.sheet.editId)

@@ -2,6 +2,7 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
+var ProcessSheet = require('tpk/processSheet.js');
 var CodeEditor = require('naturalcrit/codeEditor/codeEditor.jsx');
 
 var Editor = React.createClass({
@@ -110,6 +111,52 @@ var Editor = React.createClass({
 		this.refs.codeEditor.updateSize();
 	},
 
+	export : function(){
+		console.log(this.props.sheet);
+
+		window.open('data:application/json;' +JSON.stringify(this.props.sheet, null, '  '));
+	},
+	import : function(){
+
+		var temp = window.prompt("sometext","defaultText");
+		if(temp){
+			alert(temp);
+		}
+	},
+	resetData : function(){
+		console.log(ProcessSheet.getDefaultData(this.props.sheet.template));
+	},
+
+
+	renderOptionsMenu : function(){
+		const opts = {
+			"reset data" : {
+				icon : 'fa-user-times',
+				action : this.resetData
+			},
+			export : {
+				icon : 'fa-upload',
+				action : this.export
+			},
+			import : {
+				icon : 'fa-download',
+				action : this.import
+			},
+		}
+
+		const options = _.map(opts, (opt, name) => {
+			return <div onClick={opt.action}>
+					<i className={`fa fa-fw ${opt.icon}`} />
+					{name}
+				</div>
+		})
+
+		return <div className='optionsMenu'>
+			<i className=' fa fa-ellipsis-v' />
+			<div className='options'>{options}</div>
+		</div>
+	},
+
 	renderBar : function(){
 
 		var colors= {
@@ -128,12 +175,11 @@ var Editor = React.createClass({
 				onClick={this.changeEditorType.bind(null, name, color)}>
 				<i className={cx('fa', config.icon)} /> {name}
 			</div>
-
-
 		});
 
 		return <div className='editorBar' ref='editorBar' style={{backgroundColor : colors[this.state.editorType]}}>
 			{buttons}
+			{this.renderOptionsMenu()}
 		</div>
 	},
 
