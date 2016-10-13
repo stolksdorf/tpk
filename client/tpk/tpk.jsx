@@ -32,7 +32,8 @@ const TPK = React.createClass({
 			},
 
 
-			templates : []
+			templates : [],
+			published : []
 		};
 	},
 
@@ -66,6 +67,7 @@ const TPK = React.createClass({
 			'*' : (args) => {
 				return <HomePage
 					templates={this.props.templates}
+					published={this.props.published}
 				/>
 			}
 		});

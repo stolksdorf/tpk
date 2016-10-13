@@ -10,14 +10,14 @@ var HomePage = React.createClass({
 	getDefaultProps: function() {
 		return {
 			templates : [],
-			publishedSheets : []
+			published : []
 		};
 	},
 
 
 	renderSheetCard : function(sheet, route=''){
 		//const href =
-		return <a href={`/${route}/${sheet.viewId}`} className='sheetCard' key={sheet.viewId}>
+		return <a target='_blank' href={`/${route}/${sheet.viewId}`} className='sheetCard' key={sheet.viewId}>
 			<h5>{sheet.info.title}</h5>
 			<p>{sheet.info.desc}</p>
 
@@ -26,8 +26,8 @@ var HomePage = React.createClass({
 
 
 	renderPublishedSection : function(){
-		const sheets = _.map(this.props.publishedSheets, (temp) => {
-			return this.renderSheetCard(temp, 'sheet');
+		const sheets = _.map(this.props.published, (sheet) => {
+			return this.renderSheetCard(sheet, 'sheet');
 		});
 
 		return <section className='published'>
@@ -37,8 +37,8 @@ var HomePage = React.createClass({
 	},
 
 	renderTemplateSection : function(){
-		const templates = _.map(this.props.templates, (temp) => {
-			return this.renderSheetCard(temp, 'template');
+		const templates = _.map(this.props.templates, (sheet) => {
+			return this.renderSheetCard(sheet, 'template');
 		});
 
 		return <section className='templates'>
@@ -60,6 +60,7 @@ var HomePage = React.createClass({
 
 			<div className='content'>
 				{this.renderTemplateSection()}
+				{this.renderPublishedSection()}
 
 			</div>
 		</div>

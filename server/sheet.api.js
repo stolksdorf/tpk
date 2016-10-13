@@ -60,29 +60,38 @@ const SetupRoutes = (app) => {
 	});
 };
 
+const cleanSheets = (sheets) => {
+	return _.map(sheets, (sheet) => {
+		return {
+			viewId : sheet.viewId,
+			info : sheet.info,
+		}
+	});
+}
+
 
 module.exports = (app) => {
 	SetupRoutes(app);
-
-
 
 	return {
 		getBaseTemplate : (id) => {
 			if(id == '*') return baseTemplates;
 			return baseTemplates[id];
 		},
-
 		getAllBaseTemplates : () => {
-			return _.map(baseTemplates, (temp) => {
-				return {
-					viewId : temp.viewId,
-					info : temp.info,
-				}
-			})
+			return cleanSheets(baseTemplates);
 		},
 
-
-
+		getPublishedSheets : () => {
+			return new Promise((resolve, reject) => {
+				SheetModel.get({
+					'info.published' : true
+				}, (err, sheets) => {
+					if(err) return reject(err);
+					return resolve(cleanSheets(sheets));
+				});
+			});
+		},
 
 	};
 }

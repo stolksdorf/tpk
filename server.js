@@ -102,11 +102,24 @@ app.get('/template/:id*', (req, res, next) => {
 	return next();
 });
 
+app.get('/', (req, res, next) => {
+	SheetAPI.getPublishedSheets()
+		.then((sheets) => {
+			req.published = sheets;
+			return next();
+		})
+		.catch((err) => {
+			console.log(err);
+			return next();
+		});
+})
+
 
 
 
 //Render Page
 app.use((req, res) => {
+
 	vitreumRender({
 		page: './build/tpk/bundle.dot',
 		globals:{
@@ -122,6 +135,7 @@ app.use((req, res) => {
 			sheet : req.sheet,
 
 			templates : SheetAPI.getAllBaseTemplates(),
+			published : req.published,
 		},
 		clearRequireCache : !process.env.PRODUCTION,
 	}, (err, page) => {
