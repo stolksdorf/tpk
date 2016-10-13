@@ -1,12 +1,14 @@
 module.exports = {
-	id : 'phb',
-	shareId : '',
-	name : `Player's Handbook`,
-	desc : '',
-	sheet : {
-		data : {},
-		logic : '',
-		template : `
+	viewId : 'phb_standard',
+	templateId : 'phb_standard',
+	info : {
+		title : 'PHB Standard',
+		desc : 'Player sheet right from the PHB',
+		published : true
+	},
+	data : {},
+	logic : '',
+	template : `
 <Sheet cols=3 rows=15>
 	<Header w=3 h=2 rows=2 cols=3
 		title='Awesome Sheet'
@@ -169,6 +171,6 @@ module.exports = {
 		<TextBox id='field1' lines />
 		<TextBox id='field2' lines />
 	</Box>
-</Sheet>`
-	}
+</Sheet>
+`
 }

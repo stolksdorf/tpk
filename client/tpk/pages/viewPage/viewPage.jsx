@@ -183,7 +183,11 @@ var ViewPage = React.createClass({
 		}
 
 		if(!this.props.overrideId){
-			return <Nav.item className='save create' icon='fa-user' onClick={this.create}>save character</Nav.item>
+			return <Nav.item
+				className='save create'
+				icon='fa-user'
+				color='green'
+				onClick={this.create}>save character</Nav.item>
 		}
 
 

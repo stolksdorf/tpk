@@ -5,5 +5,41 @@
 		margin           : 0 auto;
 		padding          : 30px;
 		background-color : white;
+		h2{
+			margin-bottom  : 20px;
+			margin-top: 20px;
+			font-size: 0.8em;
+			font-weight    : 800;
+			text-transform : uppercase;
+		}
+	}
+	.sheetCard{
+		.animate(background-color);
+		display          : inline-block;
+		vertical-align   : top;
+		box-sizing       : border-box;
+		height           : 100px;
+		width            : 260px;
+		margin           : 3px;
+		padding          : 10px;
+		cursor           : pointer;
+		background-color : white;
+		border           : 1px solid black;
+		border-radius    : 5px;
+		text-decoration: none;
+		color : black;
+		&:hover{
+			background-color : @greyLight;
+		}
+		h5{
+			margin-bottom  : 10px;
+			font-size      : 0.8em;
+			font-weight    : 800;
+			text-transform : uppercase;
+		}
+		p{
+			font-size   : 0.8em;
+			line-height : 1.4em;
+		}
 	}
 }

@@ -1,3 +1,21 @@
+Tuesday, 11/10/2016
+- Add a settings menu to editor
+	- Reset data
+	- import source
+	- export source (new tab)
+
+
+
+Monday, 10/10/2016
+- Add in a view for seeing all templates and published sheets
+- Add in additional templates
+- Make a `tpk` lib accessible in the logic which has a "dice roll" function for taking dice strings (use Rollbot code)
+- Style the button to be much better
+-
+- Filter data changes THROUGH logic, then cast into data. Then push through to render.
+-
+
+
 
 
 Wednesday, 28/09/2016
@@ -7,11 +25,9 @@ Wednesday, 28/09/2016
 
 
 Sunday, 25/09/2016
-- Build a sheetView, that handles, hiding the editor, rendering errors, etc. etc. Should simplify the coding of pages
 - Add in middleware for finding character data
 - Add in seamless data override capability
 - Pull override data or sheet data
-- Possibly rename 'character' to 'override'
 - A change in data should first be put through the logic, THEN set to the state.
 
 

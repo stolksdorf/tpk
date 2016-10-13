@@ -5,13 +5,27 @@
 
 
 module.exports = {
-	id : 'blank',
-	shareId : '',
-	name : `Blank Slate`,
-	desc : '',
-	sheet : {
-		data : {},
-		logic : `
+	viewId : 'player_tracker',
+	templateId : 'player_tracker',
+	info : {
+		title : 'Player Tracker',
+		desc : 'A DM tool for tracking the stats of their PCs',
+		published : true
+	},
+	data : {
+		"tracker": {
+			"max_hp": 10,
+			"hp": {
+				"value": 0,
+				"mod": "",
+				"alt": ""
+			},
+			"na_n": {
+				"set_max": false
+			}
+		}
+	},
+	logic : `
 if(data.tracker.na_n.m_5){
 	data.tracker.na_n.m_5 = false;
 	data.tracker.hp.value -= 5;
@@ -28,7 +42,7 @@ if(data.tracker.na_n.set_max){
 }
 
 `,
-		template : `
+	template : `
 <Sheet cols=4 rows=20>
 		<Box id='tracker' border h=3 rows=4 cols=3>
 			<TextField label='max hp' shadow w=3 />
@@ -43,5 +57,4 @@ if(data.tracker.na_n.set_max){
 </Sheet>
 
 `
-	}
 }
