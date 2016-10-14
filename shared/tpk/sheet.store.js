@@ -7,24 +7,24 @@ const ProcessSheet = require('tpk/processSheet.js');
 let Sheet = {
 	info : {
 		published : false,
+		title : '',
+		desc : ''
 	},
 	template : '',
 	data : {},
 	logic : ''
 };
 
-let Override = {
-	id : null,
-	data : {}
-}
 
 const SheetStore = flux.createStore({
 
 	SET_SHEET : function(sheet){
-		Sheet = _.assign({}, sheet);
-	},
-	SET_OVERRIDE : function(override){
-		Override = _.assign({}, override);
+		Sheet = {
+			info : sheet.info,
+			template : sheet.template,
+			logic : sheet.logic,
+			data : sheet.data,
+		}
 	},
 
 	UPDATE_SHEET : function(sheet){
@@ -34,19 +34,12 @@ const SheetStore = flux.createStore({
 
 		console.log('data', Sheet.data);
 	},
-	UPDATE_OVERRIDE : function(data){
-		Override.data = ProcessSheet.runLogic(Sheet.template, Sheet.logic, data);
-	},
+
 
 
 },{
 	getSheet : function(){
-		return {
-			info : Sheet.info,
-			template : Sheet.template,
-			logic : Sheet.logic,
-			data : (Override.id ? Override.data : Sheet.data)
-		}
+		return Sheet
 	},
 	getOverrideData : function(){
 		return Override.data

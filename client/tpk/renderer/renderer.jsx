@@ -3,6 +3,7 @@ var _ = require('lodash');
 var cx = require('classnames');
 
 var RenderSheet = require('tpk/renderSheet.js');
+var Actions = require('tpk/sheet.actions.js');
 
 var Renderer = React.createClass({
 	getDefaultProps: function() {
@@ -33,7 +34,11 @@ var Renderer = React.createClass({
 
 	handleChange : function(newData){
 		console.log('new data', newData);
-		this.props.onChange(newData);
+
+		Actions.updateSheet({
+			data : newData
+		});
+		//this.props.onChange(newData);
 	},
 
 	/*

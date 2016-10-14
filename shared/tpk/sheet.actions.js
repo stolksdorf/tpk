@@ -8,16 +8,11 @@ const Actions = {
 	setSheet : function(sheet){
 		dispatch('SET_SHEET', sheet);
 	},
-	setOverride : function(override){
-		dispatch('SET_OVERRIDE', override);
-	},
 
 	updateSheet : function(sheet){
 		dispatch('UPDATE_SHEET', sheet);
 	},
-	updateOverrideData : function(data){
-		dispatch('UPDATE_OVERRIDE', data);
-	},
+
 
 	updateData : function(data){
 

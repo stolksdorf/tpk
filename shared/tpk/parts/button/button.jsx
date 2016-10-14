@@ -10,7 +10,7 @@ var Button = React.createClass({
 		return {
 			base_name : 'button',
 			data : {
-				clicked : false
+				pressed : false
 			},
 
 			label : '',
@@ -19,12 +19,12 @@ var Button = React.createClass({
 
 	handleClick : function(){
 		this.props.onChange({
-			clicked : !this.props.data.clicked
+			pressed : !this.props.data.pressed
 		});
 	},
 
 	render : function(){
-		return <div className={cx('button', {'clicked' : this.props.data.clicked})} style={this.props.style} >
+		return <div className={cx('button', {'pressed' : this.props.data.pressed})} style={this.props.style} >
 			<button onClick={this.handleClick}> {this.props.label} </button>
 		</div>
 	}
