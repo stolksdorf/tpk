@@ -14,7 +14,15 @@ const Actions = {
 	},
 
 
-	updateData : function(data){
+	publish : function(){
+		if(!confirm('Ready to share your sheet with the world?')) return;
+
+		Actions.updateSheet({
+			//info
+		});
+	},
+
+	unpublish : function(){
 
 	},
 

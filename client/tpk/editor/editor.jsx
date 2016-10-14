@@ -3,6 +3,8 @@ var _ = require('lodash');
 var cx = require('classnames');
 
 var CodeEditor = require('naturalcrit/codeEditor/codeEditor.jsx');
+const Actions = require('tpk/sheet.actions.js');
+const Store = require('tpk/sheet.store.js');
 
 var Editor = React.createClass({
 	getDefaultProps: function() {
@@ -15,7 +17,7 @@ var Editor = React.createClass({
 			},
 
 			onDividerColorChange : ()=>{},
-			onChange : ()=>{}
+			//onChange : ()=>{}
 		}
 	},
 
@@ -24,48 +26,49 @@ var Editor = React.createClass({
 		var config = {
 			template : {
 				get : ()=>{
-					return this.props.sheet.template
+					return Store.getSheet().template
 				},
 				set : (newTemplate)=>{
-					this.props.onChange(_.assign(this.props.sheet, {
+					console.log('firing');
+					Actions.updateSheet({
 						template : newTemplate
-					}));
+					});
 				},
 				language : 'jsx',
 				icon : 'fa-file'
 			},
 			data : {
 				get : ()=>{
-					return JSON.stringify(this.props.sheet.data, null, '\t')
+					return JSON.stringify(Store.getSheet().data, null, '\t')
 				},
 				set : (newData)=>{
-					this.props.onChange(_.assign(this.props.sheet, {
+					Actions.updateSheet({
 						data : JSON.parse(newData)
-					}));
+					});
 				},
 				icon : 'fa-user',
 				language : 'javascript'
 			},
 			info : {
 				get : ()=>{
-					return JSON.stringify(this.props.sheet.info, null, '\t')
+					return JSON.stringify(Store.getSheet().info, null, '\t')
 				},
 				set : (newInfo)=>{
-					this.props.onChange(_.assign(this.props.sheet, {
+					Actions.updateSheet({
 						info : JSON.parse(newInfo)
-					}));
+					});
 				},
 				icon : 'fa-rocket',
 				language : 'javascript'
 			},
 			logic : {
 				get : ()=>{
-					return this.props.sheet.logic
+					return Store.getSheet().logic
 				},
 				set : (newLogic)=>{
-					this.props.onChange(_.assign(this.props.sheet, {
+					Actions.updateSheet({
 						logic : newLogic
-					}));
+					});
 				},
 				icon : 'fa-gear',
 				language : 'javascript'

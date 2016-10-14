@@ -3,7 +3,7 @@ var _ = require('lodash');
 var cx = require('classnames');
 
 var RenderSheet = require('tpk/renderSheet.js');
-var Actions = require('tpk/sheet.actions.js');
+const Actions = require('tpk/sheet.actions.js');
 const Store = require('tpk/sheet.store.js');
 
 var Renderer = React.createClass({

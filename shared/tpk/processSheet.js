@@ -28,10 +28,6 @@ const ProcessSheet = {
 	},
 
 	runLogic : function(template, logic, data){
-		console.log({
-			template,
-			logic, data
-		});
 
 
 		//if(!_.isObject(data)) data = ProcessSheet.getDefaultData(template);
