@@ -17,7 +17,7 @@ var last = {
 };
 
 
-module.exports = {
+const ProcessSheet = {
 
 	getSheetStucture : function(template){
 		if(template == last.template) return last.nodes;
@@ -27,8 +27,18 @@ module.exports = {
 		return nodes;
 	},
 
-	runLogic : function(logic, data){
+	runLogic : function(template, logic, data){
+		console.log({
+			template,
+			logic, data
+		});
+
+
+		//if(!_.isObject(data)) data = ProcessSheet.getDefaultData(template);
+		if(!_.isObject(data)) data = {};
 		if(!logic) return data;
+
+		console.log(logic);
 
 		/*
 
@@ -102,3 +112,5 @@ module.exports = {
 
 
 }
+
+module.exports = ProcessSheet;

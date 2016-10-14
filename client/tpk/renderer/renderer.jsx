@@ -32,6 +32,7 @@ var Renderer = React.createClass({
 
 
 	handleChange : function(newData){
+		console.log('new data', newData);
 		this.props.onChange(newData);
 	},
 

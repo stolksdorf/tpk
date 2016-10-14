@@ -19,6 +19,10 @@ const Actions = {
 		dispatch('UPDATE_OVERRIDE', data);
 	},
 
+	updateData : function(data){
+
+	},
+
 	//Maybe?
 	updateTemplate : function(template){
 		if(Store.getTemplate() == template) return;

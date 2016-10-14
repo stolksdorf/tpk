@@ -20,11 +20,11 @@ module.exports = function(sheet, onChange = ()=>{}){
 	};
 
 	var sheetStructure = ProcessSheet.getSheetStucture(sheet.template);
-	var processedData = ProcessSheet.runLogic(sheet.logic,sheet.data);
+	//var processedData = ProcessSheet.runLogic(sheet.logic,sheet.data);
 
 	//Add data and handlers to structure
 	sheetStructure = _.map(sheetStructure, (node)=>{
-		node.props.data = processedData;
+		node.props.data = sheet.data;
 		node.props.onChange = (newData)=>{
 			onChange(_.assign({}, sheet.data, newData));
 		}

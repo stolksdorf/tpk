@@ -2,7 +2,6 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
-var ProcessSheet = require('tpk/processSheet.js');
 var CodeEditor = require('naturalcrit/codeEditor/codeEditor.jsx');
 
 var Editor = React.createClass({
@@ -124,7 +123,8 @@ var Editor = React.createClass({
 		}
 	},
 	resetData : function(){
-		console.log(ProcessSheet.getDefaultData(this.props.sheet.template));
+		//console.log(ProcessSheet.getDefaultData(this.props.sheet.template));
+		//Actions.resetData();
 	},
 
 
