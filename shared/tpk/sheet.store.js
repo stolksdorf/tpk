@@ -4,56 +4,53 @@ const ProcessSheet = require('tpk/processSheet.js');
 
 
 
-let Sheet = {
-	info : {
-		published : false,
-		title : '',
-		desc : ''
+const State = {
+	sheet : {
+		editId : null,
+		viewId : null,
+
+		info : {
+			published : false,
+			title : '',
+			desc : ''
+		},
+		template : '',
+		data : {},
+		logic : ''
 	},
-	template : '',
-	data : {},
-	logic : ''
-};
+
+	errors : {
+		render : [],
+		logic : [],
+		template : []
+	}
+}
+
 
 
 const SheetStore = flux.createStore({
 
 	SET_SHEET : function(sheet){
-		Sheet = {
-			info : sheet.info,
-			template : sheet.template,
-			logic : sheet.logic,
-			data : sheet.data,
-		}
+		State.sheet = sheet;
 	},
 
 	UPDATE_SHEET : function(sheet){
-		console.log('updating sheet');
-		Sheet = _.assign({}, Sheet, sheet);
-		Sheet.data = ProcessSheet.runLogic(Sheet.template, Sheet.logic, Sheet.data);
-
-		console.log('data', Sheet.data);
+		State.sheet = _.assign({}, State.sheet, sheet);
+		State.sheet.data = ProcessSheet.runLogic(State.sheet.template, State.sheet.logic, State.sheet.data);
 	},
 
 
 
 },{
 	getSheet : function(){
-		return Sheet
+		return State.sheet
 	},
-	getOverrideData : function(){
-		return Override.data
-	},
-
-
 	getTemplate : function(){
-		return Sheet.template;
+		return State.sheet.template;
 	},
-
-
 
 	isPublished : function(){
-		return !!Sheet.info.published;
+		return !!State.sheet.info.published;
 	}
 
 

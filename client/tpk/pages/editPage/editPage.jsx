@@ -58,9 +58,11 @@ var EditPage = React.createClass({
 		Actions.setSheet(this.props.sheet);
 	},
 
+	/*
 	componentWillReceiveProps: function(nextProps) {
 		Actions.setSheet(nextProps.sheet);
 	},
+	*/
 
 	componentDidMount: function() {
 		this.debounceSave = _.debounce(this.save, SAVE_TIMEOUT);

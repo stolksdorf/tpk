@@ -38,8 +38,6 @@ const ProcessSheet = {
 		if(!_.isObject(data)) data = {};
 		if(!logic) return data;
 
-		console.log(logic);
-
 		/*
 
 		var dataHash = md5(JSON.stringify(data));
