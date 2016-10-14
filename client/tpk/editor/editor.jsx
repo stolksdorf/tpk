@@ -2,6 +2,17 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
+/*
+TODO
+- Split off and make an editor component for each
+- Pass down an error change handler
+- Design much better tabs
+-
+
+
+*/
+
+
 var CodeEditor = require('naturalcrit/codeEditor/codeEditor.jsx');
 const Actions = require('tpk/sheet.actions.js');
 const Store = require('tpk/sheet.store.js');
