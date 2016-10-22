@@ -34,7 +34,8 @@ var gulp = vitreumTasks(gulp, {
 
 		//"moment",
 		"superagent",
-		"pico-router"
+		"pico-router",
+		"pico-flux"
 	],
 	clientLibs: [],
 });

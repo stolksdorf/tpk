@@ -28,6 +28,7 @@ const SheetModel = require('./server/sheet.model.js').model;
 const OverrideModel = require('./server/override.model.js').model;
 const SheetAPI = require('./server/sheet.api.js')(app);
 require('./server/override.api.js')(app);
+require('./server/admin.api.js')(app);
 
 
 

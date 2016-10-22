@@ -32,7 +32,7 @@ var PrintPage = React.createClass({
 		sheet.data = _.merge(sheet.data, this.props.overrideData);
 
 		return <div className='printPage'>
-			{RenderSheet(sheet)}
+			{RenderSheet(sheet.template, sheet.data)}
 		</div>
 	}
 });

@@ -3,7 +3,7 @@ var _     = require('lodash');
 var Parts = require('./parts');
 var ProcessSheet = require('./processSheet.js');
 
-module.exports = function(sheet, onChange = ()=>{}){
+module.exports = function(template, data, onChange = ()=>{}){
 	var renderChildren = (nodes) => {
 		return _.map(nodes, (node, index)=>{
 			if(_.isString(node)) return node;
@@ -19,14 +19,14 @@ module.exports = function(sheet, onChange = ()=>{}){
 			...renderChildren(node.children))
 	};
 
-	var sheetStructure = ProcessSheet.getSheetStucture(sheet.template);
-	var processedData = ProcessSheet.runLogic(sheet.logic,sheet.data);
+	var sheetStructure = ProcessSheet.getSheetStucture(template);
+	//var processedData = ProcessSheet.runLogic(sheet.logic,sheet.data);
 
 	//Add data and handlers to structure
 	sheetStructure = _.map(sheetStructure, (node)=>{
-		node.props.data = processedData;
+		node.props.data = data;
 		node.props.onChange = (newData)=>{
-			onChange(_.assign({}, sheet.data, newData));
+			onChange(_.assign({}, data, newData));
 		}
 		return node;
 	})

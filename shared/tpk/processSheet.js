@@ -4,20 +4,25 @@ var Parts = require('tpk/parts');
 var get = require('tpk/parts/utils.js').get;
 //var md5 = require('md5');
 
+var tpkLib = _.reduce(require('tpk/tpk.lib.js'), (r, func, key) => {
+	return `${r}${key}:${func.toString()},`;
+}, '{') + '}';
+
+
+
+
+
 
 var last = {
 	template : '',
 	nodes : [],
 
-	/*
-	dataHash : '',
-	logicHash : '',
-	processedData : {}
-	*/
+	data : {},
+	logic : '',
 };
 
 
-module.exports = {
+const ProcessSheet = {
 
 	getSheetStucture : function(template){
 		if(template == last.template) return last.nodes;
@@ -27,32 +32,30 @@ module.exports = {
 		return nodes;
 	},
 
-	runLogic : function(logic, data){
+	runLogic : function(template, logic, data){
+
+		//if(!_.isObject(data)) data = ProcessSheet.getDefaultData(template);
+		if(!_.isObject(data)) data = {};
 		if(!logic) return data;
 
-		/*
-
-		var dataHash = md5(JSON.stringify(data));
-		var logicHash = md5(logic);
-
-		if(dataHash == last.dataHash && logicHash == last.logicHash) return last.processedData;
-
-		console.log('Doing new calc');
-
-		*/
+		console.log('running', logic == last.logic, data == last.data);
+		if(logic == last.logic && data == last.data){
+			console.log('efficiency!');
+			return last.data;
+		}
 
 		try{
 			var code = `(function(){
 				'use strict';
 				var data = ${JSON.stringify(data)};
+				var tpk = ${tpkLib}
 				${logic};
 				return data;
 			})();`;
 			var processedData = _.merge({}, data, eval(code));
 
-			//last.logicHash = logicHash;
-			//last.dataHash = dataHash;
-			//last.processedData = processedData;
+			last.logic = logic;
+			last.data = processedData;
 
 			return processedData;
 
@@ -102,3 +105,5 @@ module.exports = {
 
 
 }
+
+module.exports = ProcessSheet;

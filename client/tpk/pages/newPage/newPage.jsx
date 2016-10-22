@@ -8,25 +8,19 @@ var Navbar = require('../../navbar/navbar.jsx');
 //var EditTitle = require('../../navbar/editTitle.navitem.jsx');
 var PrintNavItem = require('../../navbar/print.navitem.jsx');
 var IssueNavItem = require('../../navbar/issue.navitem.jsx');
+var CreateSheetNavItem = require('../../navbar/createSheet.navitem.jsx');
 
 var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
 var Renderer = require('../../renderer/renderer.jsx');
 var Editor = require('../../editor/editor.jsx');
 
+const Store = require('tpk/sheet.store.js');
+const Actions = require('tpk/sheet.actions.js');
 
-const KEY = 'NEW_PAGE';
 
-var updateSheet = (sheet, field, newVal) => {
-	if(_.isEqual(sheet[field], newVal)) return sheet;
-
-	return _.assign(sheet, {
-		[field] : _.assign(sheet[field], newVal)
-	});
-}
-
+let KEY = 'NEW_PAGE';
 
 var NewPage = React.createClass({
-
 	getInitialState: function() {
 		return {
 			sheet : {
@@ -40,137 +34,36 @@ var NewPage = React.createClass({
 				logic : ''
 			},
 
-			/*
-
-			info : {
-				title : '',
-				desc : '',
-				published : false
-			},
-			template : '',
-			data : {},
-			logic : '',
-			*/
-
-
 			query : {},
 			isSaving : false,
 			errors : []
 		};
 	},
-
 	componentDidMount: function(){
-		let key = KEY;
-		if(this.props.query.local) key = this.props.query.local
-		try{
-			var sheet = localStorage.getItem(key);
-			this.setState({
-				sheet : JSON.parse(sheet)
-			});
-		}catch(e){}
+		if(this.props.query.local) KEY = this.props.query.local;
+		Actions.setLocalKey(KEY);
+		Actions.loadFromLocal();
 	},
-
-	componentWillUnmount: function() {
-		window.onbeforeunload = function(){};
+	handleCreate : function(newSheet){
+		localStorage.removeItem(KEY);
+		window.location = `/edit/${newSheet.editId}/${_.snakeCase(newSheet.title)}`;
 	},
-
-	/*
-	getSheet : function(){
-		return {
-			info : this.state.info,
-			template : this.state.template,
-			data : this.state.data,
-			logic : this.state.logic
-		}
-	},
-	*/
-
-	saveSheetToLocal : function(){
-		localStorage.setItem(KEY, JSON.stringify(this.state.sheet));
-	},
-
-
-	handleSheetUpdate : function(newSheet){
-		this.setState({
-			sheet : newSheet
-		}, this.saveSheetToLocal);
-	},
-
-	handleDataChange : function(newData){
-		this.setState({
-			sheet : updateSheet(this.state.sheet, 'data', newData)
-		}, this.saveSheetToLocal);
-	},
-
-	handleSave : function(){
-		this.setState({
-			isSaving : true,
-			errors : null
-		});
-
-		request.post('/api/sheet')
-			.send(this.state.sheet)
-			.end((err, res)=>{
-				if(err){
-					this.setState({
-						isSaving : false,
-						errors : err
-					});
-					return;
-				}
-				window.onbeforeunload = function(){};
-				var sheet = res.body;
-				//TODO: Uncomment later
-				//localStorage.removeItem(KEY);
-				window.location = `/edit/${sheet.editId}/${_.snakeCase(sheet.title)}`;
-			})
-	},
-
-
-
-	renderSaveButton : function(){
-		if(this.state.isSaving){
-			return <Nav.item icon='fa-spinner fa-spin' className='saveButton'>
-				save...
-			</Nav.item>
-		}else{
-			return <Nav.item icon='fa-save' className='saveButton' onClick={this.handleSave}>
-				save
-			</Nav.item>
-		}
-	},
-
 	renderNavbar : function(){
 		return <Navbar ver={this.props.ver}>
-			{/*
 			<Nav.section>
-				<EditTitle title={this.state.info.title} onChange={this.handleTitleChange} />
-			</Nav.section>
-			*/}
-			<Nav.section>
-				{this.renderSaveButton()}
+				<CreateSheetNavItem onCreate={this.handleCreate} />
 				<PrintNavItem opts={{dialog : true, local : KEY}} />
 				<IssueNavItem />
 			</Nav.section>
 		</Navbar>
 	},
-
-
-
 	render : function(){
 		return <div className='page newPage'>
 			{this.renderNavbar()}
-
 			<div className='content'>
 				<SplitPane ref='pane'>
-					<Editor
-						sheet={this.state.sheet}
-						onChange={this.handleSheetUpdate}
-					/>
-					<Renderer
-						sheet={this.state.sheet}
-						onChange={this.handleDataChange}
-					/>
+					<Editor />
+					<Renderer />
 				</SplitPane>
 			</div>
 		</div>

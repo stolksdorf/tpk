@@ -3,8 +3,11 @@ var _ = require('lodash');
 var cx = require('classnames');
 
 var RenderSheet = require('tpk/renderSheet.js');
+const Actions = require('tpk/sheet.actions.js');
+const Store = require('tpk/sheet.store.js');
 
 var Renderer = React.createClass({
+	mixins : [Store.mixin()],
 	getDefaultProps: function() {
 		return {
 			sheet : {
@@ -12,15 +15,25 @@ var Renderer = React.createClass({
 				data : {},
 				logic : ''
 			},
-			onChange : ()=>{},
+			//onChange : ()=>{},
 			//onEditorShowChange : ()=>{}
 		};
 	},
 	getInitialState: function() {
 		return {
 			height: 0,
+
+			template : Store.getSheet().template,
+			data : Store.getSheet().data,
 		};
 	},
+	onStoreChange : function(){
+		this.setState({
+			template : Store.getSheet().template,
+			data : Store.getSheet().data,
+		})
+	},
+
 	componentDidMount: function() {
 		this.setState({
 			height : this.refs.renderer.parentNode.clientHeight,
@@ -32,28 +45,10 @@ var Renderer = React.createClass({
 
 
 	handleChange : function(newData){
-		this.props.onChange(newData);
+		Actions.updateSheet({
+			data : newData
+		});
 	},
-
-	/*
-	renderEditorButton : function(){
-		if(_.isNull(this.props.showEditorState)) return null;
-
-		if(this.props.showEditorState){
-			return <div className='editorButton' onClick={this.props.onEditorShowChange.bind(null, false)}>
-				<i className='fa fa-chevron-left' />
-				<span className='text'> hide editor </span>
-			</div>
-		}
-
-		if(!this.props.showEditorState){
-			return <div className='editorButton' onClick={this.props.onEditorShowChange.bind(null, true)}>
-				<i className='fa fa-pencil' />
-				<span className='text'> show editor </span>
-			</div>
-		}
-	},
-	*/
 
 	renderErrors : function(){
 		if(!this.errors) return;
@@ -65,7 +60,7 @@ var Renderer = React.createClass({
 
 		var sheet;
 		try{
-			sheet = RenderSheet(this.props.sheet, this.handleChange);
+			sheet = RenderSheet(this.state.template, this.state.data, this.handleChange);
 			this.lastSheet = sheet;
 		}catch(e){
 			this.errors = e;
