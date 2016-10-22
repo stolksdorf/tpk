@@ -14,18 +14,15 @@ var Renderer = require('../../renderer/renderer.jsx');
 var Editor = require('../../editor/editor.jsx');
 
 
-const KEY = 'NEW_PAGE';
+let KEY = 'NEW_PAGE';
 
-var updateSheet = (sheet, field, newVal) => {
-	if(_.isEqual(sheet[field], newVal)) return sheet;
 
-	return _.assign(sheet, {
-		[field] : _.assign(sheet[field], newVal)
-	});
-}
+//const Store = require('tpk/sheet.store.js');
+const Actions = require('tpk/sheet.actions.js');
 
 
 var NewPage = React.createClass({
+	//mixins : [Store.mixin()],
 
 	getInitialState: function() {
 		return {
@@ -40,69 +37,23 @@ var NewPage = React.createClass({
 				logic : ''
 			},
 
-			/*
-
-			info : {
-				title : '',
-				desc : '',
-				published : false
-			},
-			template : '',
-			data : {},
-			logic : '',
-			*/
-
-
 			query : {},
 			isSaving : false,
 			errors : []
 		};
 	},
-
 	componentDidMount: function(){
-		let key = KEY;
-		if(this.props.query.local) key = this.props.query.local
-		try{
-			var sheet = localStorage.getItem(key);
-			this.setState({
-				sheet : JSON.parse(sheet)
-			});
-		}catch(e){}
+		if(this.props.query.local) KEY = this.props.query.local;
+		Actions.loadFromLocal(KEY);
 	},
 
 	componentWillUnmount: function() {
 		window.onbeforeunload = function(){};
 	},
 
-	/*
-	getSheet : function(){
-		return {
-			info : this.state.info,
-			template : this.state.template,
-			data : this.state.data,
-			logic : this.state.logic
-		}
-	},
-	*/
-
-	saveSheetToLocal : function(){
-		localStorage.setItem(KEY, JSON.stringify(this.state.sheet));
-	},
 
 
-	handleSheetUpdate : function(newSheet){
-		this.setState({
-			sheet : newSheet
-		}, this.saveSheetToLocal);
-	},
-
-	handleDataChange : function(newData){
-		this.setState({
-			sheet : updateSheet(this.state.sheet, 'data', newData)
-		}, this.saveSheetToLocal);
-	},
-
-	handleSave : function(){
+	save : function(){
 		this.setState({
 			isSaving : true,
 			errors : null
@@ -120,8 +71,7 @@ var NewPage = React.createClass({
 				}
 				window.onbeforeunload = function(){};
 				var sheet = res.body;
-				//TODO: Uncomment later
-				//localStorage.removeItem(KEY);
+				localStorage.removeItem(KEY);
 				window.location = `/edit/${sheet.editId}/${_.snakeCase(sheet.title)}`;
 			})
 	},
@@ -134,7 +84,7 @@ var NewPage = React.createClass({
 				save...
 			</Nav.item>
 		}else{
-			return <Nav.item icon='fa-save' className='saveButton' onClick={this.handleSave}>
+			return <Nav.item icon='fa-save' className='saveButton' onClick={this.save}>
 				save
 			</Nav.item>
 		}
@@ -163,14 +113,8 @@ var NewPage = React.createClass({
 
 			<div className='content'>
 				<SplitPane ref='pane'>
-					<Editor
-						sheet={this.state.sheet}
-						onChange={this.handleSheetUpdate}
-					/>
-					<Renderer
-						sheet={this.state.sheet}
-						onChange={this.handleDataChange}
-					/>
+					<Editor />
+					<Renderer />
 				</SplitPane>
 			</div>
 		</div>

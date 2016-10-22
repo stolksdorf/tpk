@@ -220,10 +220,7 @@ var ViewPage = React.createClass({
 			{this.renderNavbar()}
 
 			<div className='content'>
-				<Renderer
-					sheet={this.getOverriddenSheet()}
-					onChange={this.handleSheetUpdate}
-				/>
+				<Renderer />
 			</div>
 		</div>
 	}

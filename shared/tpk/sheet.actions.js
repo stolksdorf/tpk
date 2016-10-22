@@ -3,12 +3,15 @@ const dispatch = require('pico-flux').dispatch;
 
 const Store = require('./sheet.store.js');
 const ProcessSheet = require('tpk/processSheet.js');
+const AsyncActions = require('./async.actions.js');
 
 const Actions = {
+	//Overwrites existing sheet info
 	setSheet : function(sheet){
 		dispatch('SET_SHEET', sheet);
 	},
 
+	//Merges with existing sheet info
 	updateSheet : function(sheet){
 		dispatch('UPDATE_SHEET', sheet);
 	},
@@ -51,8 +54,12 @@ const Actions = {
 		});
 	},
 
+	loadFromLocal : function(key){
+		dispatch('LOAD_FROM_LOCAL', key);
+	}
 
 
 };
 
-module.exports = Actions;
+
+module.exports = _.assign(Actions, { async : AsyncActions });

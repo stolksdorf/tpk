@@ -16,7 +16,7 @@ var Editor = require('../../editor/editor.jsx');
 //const Store = require('tpk/sheet.store.js');
 const Actions = require('tpk/sheet.actions.js');
 
-
+console.log(Actions);
 
 
 var EditPage = React.createClass({
@@ -73,8 +73,6 @@ var EditPage = React.createClass({
 		</Navbar>
 	},
 
-
-
 	render : function(){
 		return <div className='page editPage'>
 			{this.renderNavbar()}
@@ -90,8 +88,3 @@ var EditPage = React.createClass({
 });
 
 module.exports = EditPage;
-
-
-
-
-
