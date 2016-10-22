@@ -36,6 +36,7 @@ const SaveSheetNavItem = React.createClass({
 			this.debounceSave.cancel()
 		}
 	},
+	debounceSave : function(){},
 
 	componentDidMount: function() {
 		this.debounceSave = _.debounce(this.save, SAVE_TIMEOUT);
