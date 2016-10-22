@@ -8,7 +8,7 @@ var Navbar = React.createClass({
 		return <Nav.base>
 			<Nav.section>
 				<Nav.logo />
-				<Nav.item href='/tpk' className='tpkLogo'>
+				<Nav.item href='/' className='tpkLogo'>
 					<div>Total Player Knolling</div>
 				</Nav.item>
 				<Nav.item>{`v${global.version || '0.0.0'}`}</Nav.item>

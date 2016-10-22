@@ -33,10 +33,10 @@ const SaveSheetNavItem = React.createClass({
 			this.debounceSave();
 			this.sheetHash = Store.getSheetHash();
 		}else{
-			this.debounceSave && this.debounceSave.cancel()
+			this.debounceSave.cancel();
 		}
 	},
-	debounceSave : function(){},
+	debounceSave : _.debounce(()=>{}, 1),
 
 	componentDidMount: function() {
 		this.debounceSave = _.debounce(this.save, SAVE_TIMEOUT);

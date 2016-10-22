@@ -1,9 +1,8 @@
 Tuesday, 11/10/2016
-- Add a settings menu to editor
-	- Reset data
-	- import source
-	- export source (new tab)
-
+- Get PDF doesn't take the newest copy of data
+- Editor updates data slow
+- Split off Editors
+- Add a ctrl+s watch in the save nav items to trigger save
 
 
 Monday, 10/10/2016
