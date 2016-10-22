@@ -6,16 +6,12 @@ var request = require('superagent');
 
 var Nav = require('naturalcrit/nav/nav.jsx');
 var Navbar = require('../../navbar/navbar.jsx');
-//var EditTitle = require('../../navbar/editTitle.navitem.jsx');
 var PrintNavItem = require('../../navbar/print.navitem.jsx');
 var IssueNavItem = require('../../navbar/issue.navitem.jsx');
-var CloneNavItem = require('../../navbar/clone.navitem.jsx');
 var SaveDataNavItem = require('../../navbar/saveData.navitem.jsx');
 
 const Actions = require('tpk/sheet.actions.js');
 const Renderer = require('../../renderer/renderer.jsx');
-
-const KEY = 'change this';
 
 var ViewPage = React.createClass({
 	getDefaultProps: function() {
@@ -36,7 +32,7 @@ var ViewPage = React.createClass({
 	//TODO look into this
 	getPrintHref : function(){
 		let query = `data=${this.props.overrideId}`;
-		if(!this.props.overrideId) query = `local=${KEY}`;
+		if(!this.props.overrideId) query = `local=WHAT`;
 		return `${this.props.sheet.viewId}?${query}`
 	},
 
@@ -55,7 +51,12 @@ var ViewPage = React.createClass({
 					sheetId={this.props.sheet.shareId}
 					onCreate={this.handleCreate} />
 				<PrintNavItem href={this.getPrintHref()} />
-				<CloneNavItem />
+				<Nav.item
+					color='green'
+					icon='fa-clone'
+					onClick={Actions.cloneSheet}>
+						clone
+				</Nav.item>
 				<IssueNavItem />
 			</Nav.section>
 		</Navbar>
