@@ -75,6 +75,11 @@ const SheetStore = flux.createStore({
 	getData : function(){
 		return State.sheet.data;
 	},
+	getInfo : function(){
+		return State.sheet.info;
+	},
+
+
 	isPublished : function(){
 		return !!State.sheet.info.published;
 	},

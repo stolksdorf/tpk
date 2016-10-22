@@ -1,5 +1,14 @@
 # changelog
 
+### Saturday, 22/10/2016 - v0.2.0
+- Completely revamped how data works on client side
+- Implemented a sheet store and actions
+- Pages are much more light weight now
+- Moved saving and pending logic into nav items
+- Added several async actions
+- Added a home page to see all published sheets
+
+
 ### Sunday, 25/09/2016
 - Added a button to hide/show editor
 - Split out the logic to render a sheet into a React element

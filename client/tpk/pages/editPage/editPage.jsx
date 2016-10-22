@@ -4,7 +4,6 @@ var cx    = require('classnames');
 
 var Nav = require('naturalcrit/nav/nav.jsx');
 var Navbar = require('../../navbar/navbar.jsx');
-//var EditTitle = require('../../navbar/editTitle.navitem.jsx');
 var IssueNavItem = require('../../navbar/issue.navitem.jsx');
 var PrintNavItem = require('../../navbar/print.navitem.jsx');
 var SaveSheetNavItem = require('../../navbar/saveSheet.navitem.jsx');
@@ -13,13 +12,12 @@ var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
 var Renderer = require('../../renderer/renderer.jsx');
 var Editor = require('../../editor/editor.jsx');
 
-//const Store = require('tpk/sheet.store.js');
 const Actions = require('tpk/sheet.actions.js');
 
 
 
 var EditPage = React.createClass({
-	//mixins : [Store.mixin()],
+
 	getDefaultProps: function() {
 		return {
 			sheet : {
@@ -65,7 +63,7 @@ var EditPage = React.createClass({
 					href={`/sheet/${this.props.sheet.viewId}/${_.snakeCase(this.props.sheet.info.title)}`}>
 					Share
 				</Nav.item>
-				{this.renderPublishNavItem()}
+				{/*this.renderPublishNavItem()*/}
 				<PrintNavItem href={this.props.sheet.viewId} />
 				<IssueNavItem />
 			</Nav.section>

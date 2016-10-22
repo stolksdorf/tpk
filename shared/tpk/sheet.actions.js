@@ -21,7 +21,10 @@ const Actions = {
 		if(!confirm('Ready to share your sheet with the world?')) return;
 
 		Actions.updateSheet({
-			//info
+			info : {
+				...Store.getInfo(),
+				published : true
+			}
 		});
 	},
 
