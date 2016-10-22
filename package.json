@@ -6,6 +6,9 @@
     "postinstall": "gulp prod",
     "start": "node server.js"
   },
+  "engines" : {
+    "node" : ">=6.2.0"
+  },
   "author": "stolksdorf",
   "license": "BSD-2-Clause",
   "dependencies": {
