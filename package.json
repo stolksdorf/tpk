@@ -6,8 +6,8 @@
     "postinstall": "gulp prod",
     "start": "node server.js"
   },
-  "engines" : {
-    "node" : ">=6.2.0"
+  "engines": {
+    "node": ">=6.2.0"
   },
   "author": "stolksdorf",
   "license": "BSD-2-Clause",
@@ -21,6 +21,7 @@
     "lodash": "^4.11.2",
     "moment": "^2.11.0",
     "mongoose": "^4.6.0",
+    "pico-flux": "^1.1.0",
     "pico-router": "^1.1.1",
     "randomstring": "^1.1.5",
     "react": "^15.0.2",
