@@ -4,7 +4,11 @@ const ProcessSheet = require('tpk/processSheet.js');
 
 
 const EmptySheet = {
-	info : {},
+	info : {
+		published : false,
+		title : '',
+		desc : ''
+	},
 	template : '<Sheet>\n\n\n</Sheet>',
 	data : {},
 	logic : ''
