@@ -5,17 +5,16 @@ const AsyncActions = {
 
 	createSheet : () => {
 		return new Promise((resolve, reject) => {
-			return new Promise((resolve, reject) => {
-				request.post(`/api/sheet`)
-					.send(Store.getSheet())
-					.end((err, res) => {
-						if(err || !res.body){
-							console.log('ERROR', err, err.toString());
-							return reject(err);
-						}
-						return resolve(res.body);
-					});
-			});
+			request.post(`/api/sheet`)
+				.send(Store.getSheet())
+				.end((err, res) => {
+					if(err || !res.body){
+						console.log('ERROR', err, err.toString());
+						return reject(err);
+					}
+					console.log(res);
+					return resolve(res.body);
+				});
 		});
 	},
 

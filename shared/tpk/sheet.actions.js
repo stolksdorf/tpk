@@ -54,11 +54,15 @@ const Actions = {
 		});
 	},
 
+	setLocalKey : function(key){
+		dispatch('SET_LOCAL_KEY', key);
+	},
+	saveToLocal : function(key){
+		localStorage.setItem(key, JSON.stringify(Store.getSheet()));
+	},
 	loadFromLocal : function(key){
 		dispatch('LOAD_FROM_LOCAL', key);
-	}
-
-
+	},
 };
 
 

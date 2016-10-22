@@ -7,8 +7,6 @@ TODO
 - Split off and make an editor component for each
 - Pass down an error change handler
 - Design much better tabs
--
-
 
 */
 
@@ -40,7 +38,6 @@ var Editor = React.createClass({
 					return Store.getSheet().template
 				},
 				set : (newTemplate)=>{
-					console.log('firing');
 					Actions.updateSheet({
 						template : newTemplate
 					});

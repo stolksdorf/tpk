@@ -8,22 +8,19 @@ var Navbar = require('../../navbar/navbar.jsx');
 //var EditTitle = require('../../navbar/editTitle.navitem.jsx');
 var PrintNavItem = require('../../navbar/print.navitem.jsx');
 var IssueNavItem = require('../../navbar/issue.navitem.jsx');
+var CreateSheetNavItem = require('../../navbar/createSheet.navitem.jsx');
 
 var SplitPane = require('naturalcrit/splitPane/splitPane.jsx');
 var Renderer = require('../../renderer/renderer.jsx');
 var Editor = require('../../editor/editor.jsx');
 
-
-let KEY = 'NEW_PAGE';
-
-
-//const Store = require('tpk/sheet.store.js');
+const Store = require('tpk/sheet.store.js');
 const Actions = require('tpk/sheet.actions.js');
 
 
-var NewPage = React.createClass({
-	//mixins : [Store.mixin()],
+let KEY = 'NEW_PAGE';
 
+var NewPage = React.createClass({
 	getInitialState: function() {
 		return {
 			sheet : {
@@ -44,73 +41,25 @@ var NewPage = React.createClass({
 	},
 	componentDidMount: function(){
 		if(this.props.query.local) KEY = this.props.query.local;
-		Actions.loadFromLocal(KEY);
+		Actions.setLocalKey(KEY);
+		Actions.loadFromLocal();
 	},
-
-	componentWillUnmount: function() {
-		window.onbeforeunload = function(){};
+	handleCreate : function(newSheet){
+		localStorage.removeItem(KEY);
+		window.location = `/edit/${newSheet.editId}/${_.snakeCase(newSheet.title)}`;
 	},
-
-
-
-	save : function(){
-		this.setState({
-			isSaving : true,
-			errors : null
-		});
-
-		request.post('/api/sheet')
-			.send(this.state.sheet)
-			.end((err, res)=>{
-				if(err){
-					this.setState({
-						isSaving : false,
-						errors : err
-					});
-					return;
-				}
-				window.onbeforeunload = function(){};
-				var sheet = res.body;
-				localStorage.removeItem(KEY);
-				window.location = `/edit/${sheet.editId}/${_.snakeCase(sheet.title)}`;
-			})
-	},
-
-
-
-	renderSaveButton : function(){
-		if(this.state.isSaving){
-			return <Nav.item icon='fa-spinner fa-spin' className='saveButton'>
-				save...
-			</Nav.item>
-		}else{
-			return <Nav.item icon='fa-save' className='saveButton' onClick={this.save}>
-				save
-			</Nav.item>
-		}
-	},
-
 	renderNavbar : function(){
 		return <Navbar ver={this.props.ver}>
-			{/*
 			<Nav.section>
-				<EditTitle title={this.state.info.title} onChange={this.handleTitleChange} />
-			</Nav.section>
-			*/}
-			<Nav.section>
-				{this.renderSaveButton()}
+				<CreateSheetNavItem onCreate={this.handleCreate} />
 				<PrintNavItem opts={{dialog : true, local : KEY}} />
 				<IssueNavItem />
 			</Nav.section>
 		</Navbar>
 	},
-
-
-
 	render : function(){
 		return <div className='page newPage'>
 			{this.renderNavbar()}
-
 			<div className='content'>
 				<SplitPane ref='pane'>
 					<Editor />
