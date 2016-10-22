@@ -38,9 +38,10 @@ const SaveDataNavItem = React.createClass({
 			this.debounceSave();
 			this.sheetHash = Store.getSheetHash();
 		}else{
-			this.debounceSave.cancel()
+			this.debounceSave && this.debounceSave.cancel()
 		}
 	},
+	debounceSave : function(){},
 
 	componentDidMount: function() {
 		this.debounceSave = _.debounce(this.save, SAVE_TIMEOUT);
