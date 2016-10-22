@@ -7,9 +7,7 @@ var Nav = require('naturalcrit/nav/nav.jsx');
 const Store = require('tpk/sheet.store.js');
 const Actions = require('tpk/sheet.actions.js');
 
-
 const CreateSheetNavItem = React.createClass({
-	//mixins : [Store.mixin()],
 	getDefaultProps: function() {
 		return {
 			onCreate : () => {}
@@ -21,20 +19,6 @@ const CreateSheetNavItem = React.createClass({
 			errors : null
 		};
 	},
-	/*
-	onStoreChange : function(){
-		if(this.hasChanges()){
-			this.setState({
-				isPending : true
-			});
-			this.debounceSave();
-			this.sheetHash = JSON.stringify(Store.getSheet());
-		}else{
-			this.debounceSave.cancel()
-		}
-	},
-	*/
-
 	componentDidMount: function() {
 		this.sheetHash = Store.getSheetHash();
 		window.onbeforeunload = () => {
@@ -73,7 +57,6 @@ const CreateSheetNavItem = React.createClass({
 			errMsg += '```\n' + JSON.stringify(this.state.errors.response.error, null, '  ') + '\n```';
 		}catch(e){}
 
-
 		return <Nav.item className='save error' icon="fa-warning">
 			Oops!
 			<div className='errorContainer'>
@@ -85,7 +68,6 @@ const CreateSheetNavItem = React.createClass({
 		</Nav.item>
 	},
 
-
 	render : function(){
 		if(this.state.errors){
 			return this.renderErrors();
@@ -94,7 +76,6 @@ const CreateSheetNavItem = React.createClass({
 			return <Nav.item icon='fa-spinner fa-spin' className='createSheetNav'>
 				save...
 			</Nav.item>
-
 		}
 		return <Nav.item icon='fa-save' className='createSheetNav' onClick={this.create}>
 			save

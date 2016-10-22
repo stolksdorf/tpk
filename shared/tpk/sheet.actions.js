@@ -29,16 +29,9 @@ const Actions = {
 
 	},
 
-	//Maybe?
-	updateTemplate : function(template){
-		if(Store.getTemplate() == template) return;
-		Actions.updateSheet({
-			template : template
-		});
-	},
 
-	clone : function(){
-		let clonedData = _.assign({}, Store.getSheet());
+	cloneSheet : function(){
+		let clonedData = _.cloneDeep(Store.getSheet());
 
 		clonedData.info.published = false;
 		clonedData.info.title += ' (cloned)';

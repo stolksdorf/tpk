@@ -31,7 +31,7 @@ const SaveSheetNavItem = React.createClass({
 				isPending : true
 			});
 			this.debounceSave();
-			this.sheetHash = JSON.stringify(Store.getSheet());
+			this.sheetHash = Store.getSheetHash();
 		}else{
 			this.debounceSave.cancel()
 		}
@@ -44,15 +44,13 @@ const SaveSheetNavItem = React.createClass({
 				return 'You have unsaved changes!';
 			}
 		};
-		this.sheetHash = JSON.stringify(Store.getSheet());
+		this.sheetHash = Store.getSheetHash();
 	},
-
 	componentWillUnmount: function() {
 		window.onbeforeunload = function(){};
-		document.onkeydown = function(){};
 	},
 	hasChanges : function(){
-		return this.steetHash !== JSON.stringify(Store.getSheet());
+		return this.sheetHash !== Store.getSheetHash();
 	},
 	save : function(){
 		this.debounceSave.cancel();
@@ -62,24 +60,21 @@ const SaveSheetNavItem = React.createClass({
 			errors : null
 		});
 
-		request
-			.put('/api/sheet/' + this.props.editId)
-			.send(Store.getSheet())
-			.end((err, res) => {
-				if(err){
-					console.log('ERROR', err, err.toString());
-					this.setState({
-						errors : err,
-					})
-				}else{
-					this.savedSheet = res.body;
-					this.setState({
-						isPending : false,
-						isSaving : false,
-						lastUpdated : res.body.updatedAt
-					})
-				}
+		Actions.async.saveSheet(this.props.editId)
+			.then((sheet) => {
+				this.savedSheet = sheet;
+				this.setState({
+					isPending : false,
+					isSaving : false,
+					lastUpdated : sheet.updatedAt
+				});
 			})
+			.catch((err) => {
+				console.log('ERROR', err, err.toString());
+				this.setState({
+					errors : err,
+				});
+			});
 	},
 
 	renderErrors : function(){
@@ -100,7 +95,6 @@ const SaveSheetNavItem = React.createClass({
 			</div>
 		</Nav.item>
 	},
-
 
 	render : function(){
 		if(this.state.errors){
