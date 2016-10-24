@@ -3,6 +3,7 @@ Tuesday, 11/10/2016
 - Editor updates data slow
 - Split off Editors
 - Add a ctrl+s watch in the save nav items to trigger save
+- Statboxes aren't accepting pluses
 
 
 Monday, 10/10/2016
