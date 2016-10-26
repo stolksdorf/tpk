@@ -34,7 +34,7 @@ const Actions = {
 
 
 	cloneSheet : function(){
-		let clonedData = _.cloneDeep(Store.getSheet());
+		let clonedData = _.cloneDeep(Store.getRawSheet());
 
 		clonedData.info.published = false;
 		clonedData.info.title += ' (cloned)';

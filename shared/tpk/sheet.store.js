@@ -73,6 +73,14 @@ const SheetStore = flux.createStore({
 	getSheet : function(){
 		return State.sheet
 	},
+	getRawSheet : function(){
+		return {
+			info : State.sheet.info,
+			template : State.sheet.template,
+			data : State.sheet.data,
+			logic : State.sheet.logic
+		}
+	},
 	getTemplate : function(){
 		return State.sheet.template;
 	},
