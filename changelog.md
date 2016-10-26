@@ -1,5 +1,9 @@
 # changelog
 
+### Wednesday, 26/10/2016 - v0.2.1
+- Fixed bug where cloning didn't work Copied over the existing ids to the clone.
+- Removed the 'tryNum' feature from fields. Moved that into the Logic Lib.
+
 ### Saturday, 22/10/2016 - v0.2.0
 - Completely revamped how data works on client side
 - Implemented a sheet store and actions

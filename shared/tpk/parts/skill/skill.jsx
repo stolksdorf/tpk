@@ -2,11 +2,6 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
-const tryNum = (str) => {
-	const t = _.toNumber(str);
-	return (_.isNaN(t) || t == '' ? str : t);
-}
-
 var Skill = React.createClass({
 	getDefaultProps: function() {
 		return {
@@ -37,7 +32,7 @@ var Skill = React.createClass({
 	},
 	handleModChange : function(e){
 		this.props.onChange(_.assign({}, this.props.data, {
-			mod : tryNum(e.target.value)
+			mod : e.target.value
 		}));
 	},
 
