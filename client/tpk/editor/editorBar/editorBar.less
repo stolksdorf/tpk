@@ -1,0 +1,72 @@
+
+.editorBar{
+	@height          : 25px;
+	position         : relative;
+	height           : @height;
+	background-color : #ddd;
+	.editorButton{
+		display        : inline-block;
+		height         : @height;
+		padding        : 0px 5px;
+		cursor         : pointer;
+		font-size      : 0.6em;
+		font-weight    : 800;
+		line-height    : @height;
+		text-transform : uppercase;
+		border-right   : 1px solid black;
+		i{
+			vertical-align : middle;
+			margin-right   : 3px;
+			font-size      : 1.2em;
+		}
+		&:hover, &.selected{
+			background-color : #999;
+		}
+		.text{
+			line-height : 20px;
+			.groupName{
+				margin-left : 6px;
+				font-size   : 10px;
+			}
+		}
+	}
+	.optionsMenu{
+		position   : absolute;
+		top        : 3px;
+		right      : 0px;
+		height     : 20px;
+		width      : 20px;
+		cursor     : pointer;
+		text-align : center;
+		&:hover{
+			.options{
+				display : block;
+			}
+		}
+		.options{
+			position         : absolute;
+			display          : none;
+			top              : 0px;
+			right            : 0px;
+			z-index          : 100000;
+			width            : 120px;
+			padding-top      : 20px;
+			background-color : fade(@grey, 80%);
+			&>*{
+				padding        : 8px 10px;
+				font-size      : 0.6em;
+				font-weight    : 800;
+				text-align     : left;
+				text-transform : uppercase;
+				border-top     : @greyLight 1px solid;
+				&:hover{
+					background-color : @grey;
+				}
+				i{
+					margin-right : 1em;
+					font-size    : 1.6em;
+				}
+			}
+		}
+	}
+}

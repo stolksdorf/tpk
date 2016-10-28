@@ -54,6 +54,10 @@ const Actions = {
 		});
 	},
 
+	throwError : function(err){
+		//should display a nice looking error to user
+	},
+
 	setLocalKey : function(key){
 		dispatch('SET_LOCAL_KEY', key);
 	},
