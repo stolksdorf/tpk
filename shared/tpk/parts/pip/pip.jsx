@@ -9,7 +9,6 @@ var Pip = React.createClass({
 			base_name : 'pip',
 			data : false,
 
-			id : '',
 			title : '',
 			label : '',
 
