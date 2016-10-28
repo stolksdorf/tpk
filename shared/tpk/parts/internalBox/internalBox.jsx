@@ -28,6 +28,7 @@ var InternalBox = React.createClass({
 		});
 	},
 
+
 	renderTitle : function(){
 		if(this.props.title) return <h5 className='title'>{this.props.title}</h5>
 	},
@@ -55,10 +56,12 @@ var InternalBox = React.createClass({
 			className={cx('box', this.props.className, get.classes(this.props))}
 			style={this.props.style}>
 
-			<div className={cx('content')}>
-				{this.renderGuides()}
+			<div className='outline'>
 				{this.renderTitle()}
-				{this.renderChildren()}
+				<div className='content'>
+					{this.renderGuides()}
+					{this.renderChildren()}
+				</div>
 				{this.renderLabel()}
 			</div>
 		</div>
