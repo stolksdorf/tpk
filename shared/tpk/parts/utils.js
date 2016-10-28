@@ -7,8 +7,9 @@ module.exports = {
 
 	get : {
 		id : (props, index = '') => {
-			return _.snakeCase(props.id || props.title || props.label || props.tag
-				|| props.base_name + index);
+			const id = props.id || props.title || props.label || props.tag;
+			if(id) return _.snakeCase(id);
+			if(props.base_name) return props.base_name + index;
 		},
 
 		width   : (props, def) => { return props.width || props.w || def },

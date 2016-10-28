@@ -45,6 +45,10 @@ const Actions = {
 	},
 
 	resetData : function(){
+		console.log('yo');
+		console.log(ProcessSheet.getDefaultData(Store.getTemplate()));
+
+		return;
 		Actions.updateSheet({
 			data : ProcessSheet.getDefaultData(Store.getTemplate())
 		});

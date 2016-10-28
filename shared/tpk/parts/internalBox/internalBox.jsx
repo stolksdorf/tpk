@@ -42,10 +42,10 @@ var InternalBox = React.createClass({
 		const rows = get.rows(this.props);
 		const guides = _.flatten([
 			_.times(cols + 1, (idx) => {
-				return <div className='horizontal_guide' style={{left : `${idx*100/cols}%` }} />
+				return <div className='horizontal_guide' style={{left : `${idx*100/cols}%` }} key={`h${idx}`}/>
 			}),
 			_.times(rows + 1, (idx) => {
-				return <div className='vertical_guide' style={{top : `${idx*100/rows}%` }} />
+				return <div className='vertical_guide' style={{top : `${idx*100/rows}%` }} key={`v${idx}`}/>
 			})
 		]);
 		return <div className='guideContainer'>{guides}</div>

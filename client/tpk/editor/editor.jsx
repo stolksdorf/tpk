@@ -138,7 +138,7 @@ var Editor = React.createClass({
 	},
 	resetData : function(){
 		//console.log(ProcessSheet.getDefaultData(this.props.sheet.template));
-		//Actions.resetData();
+		Actions.resetData();
 	},
 
 

@@ -19,6 +19,9 @@ const Box = React.createClass({
 			const id = get.id(child.props, index);
 
 			const onChange = (val) => {
+				if(!id){
+					return this.props.onChange(val);
+				}
 				this.props.onChange(_.assign({}, this.props.data, {
 					[id] : val
 				}));
@@ -26,7 +29,7 @@ const Box = React.createClass({
 
 			return React.cloneElement(child, {
 				onChange : onChange,
-				data : this.props.data[id],
+				data : (!id ? this.props.data : this.props.data[id]),
 
 				parentProps : (child.props.needsParentProps? this.props : null)
 			});
