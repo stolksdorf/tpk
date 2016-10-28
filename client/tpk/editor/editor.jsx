@@ -95,6 +95,9 @@ var Editor = React.createClass({
 	componentDidMount: function(){
 		this.updateEditorSize();
 		window.addEventListener('resize', this.updateEditorSize);
+		setTimeout(()=>{
+			this.changeEditorType('template');
+		}, 100)
 	},
 	componentWillUnmount: function(){
 		window.removeEventListener('resize', this.updateEditorSize);

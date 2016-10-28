@@ -66,20 +66,28 @@ var Box = React.createClass({
 		if(this.props.label) return <h5 className='label'>{this.props.label}</h5>
 	},
 
+	renderGuides : function(){
+		if(!this.props.guides) return;
+		const cols = get.columns(this.props);
+		const rows = get.rows(this.props);
+		return _.flatten([
+			_.times(cols + 1, (idx) => {
+				return <div className='horizontal_guide' style={{left : `${idx*100/cols}%` }} />
+			}),
+			_.times(rows + 1, (idx) => {
+				return <div className='vertical_guide' style={{top : `${idx*100/rows}%` }} />
+			})
+		]);
+	},
+
 	render : function(){
-		return <div className={cx('box', this.props.className, {
-				shadow : this.props.shadow,
-				border : this.props.border,
-				space : this.props.space,
-
-				hasTitle : !!this.props.title,
-				hasLabel : !!this.props.label,
-
-				expand : this.props.expand,
+		return <div className={cx('box', this.props.className, get.classes(this.props), {
 				vertical : get.columns(this.props) == 1,
-
 			})} style={this.props.style}>
 			<div className={cx('content', /*{expand : get.height(this.props) || get.rows(this.props)>1} */)}>
+
+				{this.renderGuides()}
+
 				{this.renderTitle()}
 				{this.renderChildren()}
 				{this.renderLabel()}

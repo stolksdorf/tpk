@@ -1,10 +1,12 @@
-var React = require('react');
-var _ = require('lodash');
-var cx = require('classnames');
+const React = require('react');
+const _ = require('lodash');
+const cx = require('classnames');
 
-var Box = require('../box/box.jsx');
+const get = require('../utils.js').get;
 
-var StatBox = React.createClass({
+const Box = require('../box/box.jsx');
+
+const StatBox = React.createClass({
 	getDefaultProps: function() {
 		return {
 			base_name : 'statBox',
@@ -56,7 +58,7 @@ var StatBox = React.createClass({
 	render : function(){
 
 		return <Box
-				className={cx('statBox', {hasMod : !!this.props.mod, hasAlt : !!this.props.alt})}
+				className={cx('statBox', get.classes(this.props))}
 				border={true}
 				label={this.props.label}
 				title={this.props.title}
