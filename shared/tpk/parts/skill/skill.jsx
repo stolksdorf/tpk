@@ -65,7 +65,7 @@ var Skill = React.createClass({
 			className='prof' {...this.getPipProps()} />
 	},
 	render : function(){
-		return <div className='skill'>
+		return <div className='skill' style={this.props.style}>
 			{this.renderExpert()}
 			{this.renderProf()}
 			<input type='text' onChange={this.handleValueChange} value={this.props.data.value} />

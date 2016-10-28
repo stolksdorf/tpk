@@ -40,7 +40,10 @@ var Pip = React.createClass({
 	},
 
 	render : function(){
-		return <div className={cx('pip', this.props.className)} onClick={this.handleChange}>
+		return <div
+			className={cx('pip', this.props.className)}
+			style={this.props.style}
+			onClick={this.handleChange}>
 			{this.renderTitle()}
 			<i className={cx('fa', 'fa-fw', this.getIcon())}/>
 			{this.renderLabel()}

@@ -39,7 +39,7 @@ var InternalBox = React.createClass({
 		if(!this.props.guides) return;
 		const cols = get.columns(this.props);
 		const rows = get.rows(this.props);
-		return _.flatten([
+		const guides = _.flatten([
 			_.times(cols + 1, (idx) => {
 				return <div className='horizontal_guide' style={{left : `${idx*100/cols}%` }} />
 			}),
@@ -47,6 +47,7 @@ var InternalBox = React.createClass({
 				return <div className='vertical_guide' style={{top : `${idx*100/rows}%` }} />
 			})
 		]);
+		return <div className='guideContainer'>{guides}</div>
 	},
 
 	render : function(){
