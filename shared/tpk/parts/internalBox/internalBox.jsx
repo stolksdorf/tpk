@@ -20,8 +20,11 @@ var InternalBox = React.createClass({
 		return React.Children.map(this.props.children, (child, index)=>{
 			if(!React.isValidElement(child)) return null;
 			var style = {};
-			if(get.width(child.props, 1)) style.width = `${get.width(child.props,1 ) / get.columns(this.props) * 100}%`;
+
+			style.width = `${get.width(child.props,1 ) / get.columns(this.props) * 100}%`;
 			if(get.rows(this.props, false)) style.height = `${get.height(child.props, 1) / get.rows(this.props) * 100}%`;
+			//if(get.height(child.props)) style.height = `${get.height(child.props, 1) / get.rows(this.props) * 100}%`;
+
 			return React.cloneElement(child, {
 				style : _.assign({}, child.props.style, style)
 			});
