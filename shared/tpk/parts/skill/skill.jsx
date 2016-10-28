@@ -2,6 +2,8 @@ var React = require('react');
 var _ = require('lodash');
 var cx = require('classnames');
 
+const Pip = require('../pip/pip.jsx');
+
 var Skill = React.createClass({
 	getDefaultProps: function() {
 		return {
@@ -9,14 +11,18 @@ var Skill = React.createClass({
 			data : {
 				prof : false,
 				expert : false,
-				mod : ''
+				value : ''
 			},
 
 			title : '',
 			label : '',
 
 			expert : false,
-			alt : false
+
+			//For pips
+			alt : false,
+			mod : false,
+			star : false,
 		};
 	},
 
@@ -30,37 +36,39 @@ var Skill = React.createClass({
 			expert : !this.props.data.expert
 		}));
 	},
-	handleModChange : function(e){
+	handleValueChange : function(e){
 		this.props.onChange(_.assign({}, this.props.data, {
-			mod : e.target.value
+			value : e.target.value
 		}));
 	},
 
-	//TODO: Replace with pip elements?
+	getPipProps : function(){
+		return {
+			alt : this.props.alt,
+			mod : this.props.mod,
+			star : this.props.star
+		};
+	},
+
 	renderExpert : function(){
 		if(!this.props.expert) return null;
-		return <i onClick={this.handleToggleExpert} className={cx('expert', 'fa', 'fa-fw', {
-			'fa-circle-o' : !this.props.data.expert && !this.props.alt,
-			'fa-circle' : this.props.data.expert  && !this.props.alt,
-			'fa-square-o' : !this.props.data.expert && this.props.alt,
-			'fa-square' : this.props.data.expert  && this.props.alt,
-			'alt' : this.props.alt
-		})}/>
+		return <Pip
+			data={this.props.data.expert}
+			onChange={this.handleToggleExpert}
+			className='expert' {...this.getPipProps()} />
+
 	},
 	renderProf : function(){
-		return <i onClick={this.handleToggleProf} className={cx('prof', 'fa', 'fa-fw', {
-			'fa-circle-o' : !this.props.data.prof && !this.props.alt,
-			'fa-circle' : this.props.data.prof  && !this.props.alt,
-			'fa-square-o' : !this.props.data.prof && this.props.alt,
-			'fa-square' : this.props.data.prof  && this.props.alt,
-			'alt' : this.props.alt
-		})}/>
+		return <Pip
+			data={this.props.data.prof}
+			onChange={this.handleToggleProf}
+			className='prof' {...this.getPipProps()} />
 	},
 	render : function(){
 		return <div className='skill'>
 			{this.renderExpert()}
 			{this.renderProf()}
-			<input type='text' onChange={this.handleModChange} value={this.props.data.mod} />
+			<input type='text' onChange={this.handleValueChange} value={this.props.data.value} />
 			<label>
 				{this.props.title}
 				<small>{this.props.label}</small>

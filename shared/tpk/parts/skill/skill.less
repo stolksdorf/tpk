@@ -1,26 +1,18 @@
 
 .skill{
 	position      : relative;
+	display: inline-block;
 	margin-bottom : -3px;
 	padding-left  : 0.7em;
-	&>i{
+	&>.pip{
 		margin    : 0px -2px;
-		cursor    : pointer;
 		font-size : 0.7em;
-		&.alt{
-			margin-right : 1px;
-			margin-left  : -3px;
-		}
+
 		&.expert{
 			position : absolute;
-			top      : 5px;
+			top      : 4px;
 			left     : 0px;
 		}
-	}
-	.fa-square-o,.fa-square{
-		-webkit-transform : rotate(45deg);
-		-moz-transform    : rotate(45deg);
-		transform         : rotate(45deg);
 	}
 	&>input{
 		width            : 2.2em;
