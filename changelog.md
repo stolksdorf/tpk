@@ -1,6 +1,6 @@
 # changelog
 
-### Thursday, 27/10/2016
+### Thursday, 27/10/2016 - v0.3.0
 - Added guides to help with spacing, use by typeing `guides` as a prop
 - Added a table element
 - Split out the visual rendering from box into `internalBox`
