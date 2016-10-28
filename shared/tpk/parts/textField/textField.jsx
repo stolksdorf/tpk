@@ -1,8 +1,10 @@
-var React = require('react');
-var _     = require('lodash');
-var cx    = require('classnames');
+const React = require('react');
+const _     = require('lodash');
+const cx    = require('classnames');
 
-var TextField = React.createClass({
+const get = require('../utils.js').get;
+
+const TextField = React.createClass({
 	getDefaultProps: function() {
 		return {
 			base_name : 'textField',
@@ -15,7 +17,6 @@ var TextField = React.createClass({
 			shadow : false,
 			line : true,
 			fontSize : '',
-			print : false
 		};
 	},
 
@@ -34,16 +35,13 @@ var TextField = React.createClass({
 	},
 
 	render : function(){
-
 		//conditionally add on style if w or height was set?
-		var style = {
+		const style = {
 			width : this.props.style.width,
 			fontSize : this.props.fontSize
 		};
 
-		return <div className={cx('textField', {
-			hasTag    : !!this.props.tag,
-			shadow : !!this.props.shadow,
+		return <div className={cx('textField', get.classes(this.props), {
 			line   : !!this.props.line && !this.props.shadow,
 		})} style={style}>
 			{this.renderTitle()}
@@ -51,11 +49,6 @@ var TextField = React.createClass({
 			<input type='text' value={this.props.data} onChange={this.handleChange} />
 			{this.renderLabel()}
 		</div>
-	},
-
-
-	renderPrint : function(){
-		return <div>Print dog</div>
 	}
 });
 

@@ -21,11 +21,13 @@ const CreateSheetNavItem = React.createClass({
 	},
 	componentDidMount: function() {
 		this.sheetHash = Store.getSheetHash();
+		/*
 		window.onbeforeunload = () => {
 			if(this.state.isSaving || this.sheetHash != Store.getSheetHash()){
 				return 'You have unsaved changes!';
 			}
 		};
+		*/
 	},
 	componentWillUnmount: function() {
 		window.onbeforeunload = ()=>{};

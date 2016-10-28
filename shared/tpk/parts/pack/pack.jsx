@@ -93,8 +93,26 @@ var Pack = React.createClass({
 		});
 	},
 
+	renderGuides : function(){
+		if(!this.props.guides) return;
+		const cols = get.columns(this.props);
+		const rows = get.rows(this.props);
+		const guides =  _.flatten([
+			_.times(cols + 1, (idx) => {
+				return <div className='horizontal_guide' style={{left : `${idx*100/cols}%` }} />
+			}),
+			_.times(rows + 1, (idx) => {
+				return <div className='vertical_guide' style={{top : `${idx*100/rows}%` }} />
+			})
+		]);
+		return guides;
+
+		return <div className='guideContainer'>{guides}</div>
+	},
+
 	render : function(){
 		return <div className={cx('pack', this.props.className)} style={this.props.style}>
+			{this.renderGuides()}
 			{this.renderChildren()}
 		</div>
 	}

@@ -1,10 +1,12 @@
-var React = require('react');
-var _ = require('lodash');
-var cx = require('classnames');
+const React = require('react');
+const _ = require('lodash');
+const cx = require('classnames');
 
-var Box = require('../box/box.jsx');
+const get = require('../utils.js').get;
 
-var TextBox = React.createClass({
+const Box = require('../box/box.jsx');
+
+const TextBox = React.createClass({
 	getDefaultProps: function() {
 		return {
 			base_name : 'textbox',
@@ -26,7 +28,7 @@ var TextBox = React.createClass({
 
 	render : function(){
 		return <Box
-			className={cx('textBox', {lines : this.props.lines})} {...this.props} is_internal={true}>
+			className={cx('textBox', get.classes(this.props))} {...this.props} is_internal={true}>
 			<textarea style={{
 					fontSize : this.props.fontSize
 				}}

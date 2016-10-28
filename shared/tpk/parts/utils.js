@@ -1,5 +1,7 @@
-var _ = require('lodash');
+const _ = require('lodash');
 
+const PropNames = ['shadow','border','space','expand','lines', 'guides'];
+const Toggles = ['label','title','mod','alt', 'tag'];
 
 module.exports = {
 
@@ -14,6 +16,16 @@ module.exports = {
 
 		rows    : (props, def=1) => { return props.rows || props.r || def },
 		columns : (props, def=1) => { return props.columns || props.cols || props.col || props.c || def },
+
+		classes : (props) => {
+			const classes = _.filter(PropNames, (name)=>{ return !!props[name]; });
+			_.each(Toggles, (toggle) => {
+				if(!!props[toggle]){
+					classes.push(`has${_.capitalize(toggle)}`);
+				}
+			})
+			return classes;
+		}
 	},
 
 
