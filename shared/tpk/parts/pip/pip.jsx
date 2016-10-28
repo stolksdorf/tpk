@@ -14,6 +14,8 @@ var Pip = React.createClass({
 			label : '',
 
 			alt : false,
+			mod : false,
+			star : false
 		};
 	},
 
@@ -29,15 +31,19 @@ var Pip = React.createClass({
 		return <span className='label'>{this.props.label}</span>
 	},
 
+	getIcon : function(){
+		let icon = ['circle', 'circle-o'];
+		if(this.props.star) icon = ['star', 'star-o'];
+		if(this.props.alt) icon = ['square', 'square-o'];
+		if(this.props.mod) icon = ['toggle-on', 'toggle-off'];
+
+		return `fa-${this.props.data ? icon[0] : icon[1]}`;
+	},
+
 	render : function(){
 		return <div className='pip' onClick={this.handleChange}>
 			{this.renderTitle()}
-			<i className={cx('fa', 'fa-fw', {
-				'fa-circle-o' : !this.props.data && !this.props.alt,
-				'fa-circle'   : this.props.data  && !this.props.alt,
-				'fa-square-o' : !this.props.data && this.props.alt,
-				'fa-square'   : this.props.data  && this.props.alt,
-			})}/>
+			<i className={cx('fa', 'fa-fw', this.getIcon())}/>
 			{this.renderLabel()}
 		</div>
 	}
