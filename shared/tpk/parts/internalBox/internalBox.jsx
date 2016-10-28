@@ -8,7 +8,12 @@ var get = require('../utils.js').get;
 var InternalBox = React.createClass({
 	getDefaultProps: function() {
 		return {
-
+			space : false,
+			shadow : false,
+			border : false,
+			expand : false,
+			label : '',
+			title : ''
 		};
 	},
 	renderChildren : function(){
@@ -46,7 +51,7 @@ var InternalBox = React.createClass({
 
 	render : function(){
 		return <div
-			className={cx('interalBox', this.props.className, get.classes(this.props))}
+			className={cx('box', this.props.className, get.classes(this.props))}
 			style={this.props.style}>
 
 			<div className={cx('content')}>

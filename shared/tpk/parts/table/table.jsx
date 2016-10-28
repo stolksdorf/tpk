@@ -10,7 +10,6 @@ const Table = React.createClass({
 		return {
 			base_name : 'table',
 			data : [],
-			style : {},
 
 			count : 1,
 
@@ -20,9 +19,11 @@ const Table = React.createClass({
 
 	createChild : function(child, index, row){
 		if(!React.isValidElement(child)) return null;
+
 		if(!this.props.data[row]) this.props.data[row] = {};
 		const id = get.id(child.props, index);
 		const columnName = child.props.title || child.props.label || '';
+
 		const onChange = (val) => {
 			this.props.data[row][id] = val;
 			this.props.onChange(this.props.data);

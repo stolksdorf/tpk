@@ -35,8 +35,6 @@ const TextField = React.createClass({
 	},
 
 	render : function(){
-		console.log('text', this.props.data);
-
 		//conditionally add on style if w or height was set?
 		const style = {
 			width : this.props.style.width,
