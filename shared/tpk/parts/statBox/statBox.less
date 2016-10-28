@@ -2,60 +2,53 @@
 @altBackground : url('/assets/tpk/parts/statBox/alt.png');
 @modBackground : url('/assets/tpk/parts/statBox/mod.png');
 .statBox{
-	position  : relative;
-//	min-width : 70px;
-
-	&.hasMod{
-		padding-top: 13px;
+	position : relative;
+	&.box.hasMod{
+		//padding-top: 13px;
 	}
-
 	&.hasAlt{
-		input.value{
-			padding-bottom: 7px;
+		.content{
+			padding-bottom : 7px;
 		}
 	}
-
 	input.value{
 		box-sizing  : border-box;
+		height      : 100%;
 		width       : 100%;
-		height       : 100%;
-		//font-family : 'Open Sans', sans-serif;
 		font-size   : 2em;
 		font-weight : 800;
 		text-align  : center;
 		border      : none;
 	}
-
 	.mod>input, .alt>input{
-		display          : block;
-		margin           : 0 auto;
-		background-color : transparent;
-		background-size  : cover;
-		background-repeat: no-repeat;
-		text-align       : center;
-		border           : none;
-		font-weight: 800;
-		font-size: 0.75em;
+		display           : block;
+		margin            : 0 auto;
+		background-color  : transparent;
+		background-repeat : no-repeat;
+		background-size   : cover;
+		font-size         : 0.75em;
+		font-weight       : 800;
+		text-align        : center;
+		border            : none;
 	}
-
 	.mod{
 		position : absolute;
-		top   : -12px;
+		top      : -12px;
 		left     : 0px;
 		width    : 100%;
 		input{
-			height           : 20px;
+			height           : 22px;
 			width            : 43px;
 			background-image : @modBackground;
 		}
 	}
 	.alt{
 		position : absolute;
-		bottom   : -10px;
+		bottom   : -14px;
 		left     : 0px;
 		width    : 100%;
 		input{
-			height           : 23px;
+			height           : 25px;
 			width            : 47px;
 			background-image : @altBackground;
 		}
