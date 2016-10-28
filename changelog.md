@@ -7,6 +7,7 @@
 - Added an additional div layer to box rendering to allow more fine grained control over positioning and sizing
 - Styling of boxes are way more consistent now
 - Pips are all fixed
+- Ediotrs have been broken out and tab bar improved
 
 ### Wednesday, 26/10/2016 - v0.2.1
 - Fixed bug where cloning didn't work Copied over the existing ids to the clone.
