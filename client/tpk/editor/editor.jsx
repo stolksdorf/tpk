@@ -1,6 +1,7 @@
-var React = require('react');
-var _ = require('lodash');
-var cx = require('classnames');
+const React = require('react');
+const _ = require('lodash');
+const cx = require('classnames');
+
 
 /*
 TODO
@@ -10,26 +11,17 @@ TODO
 
 */
 
+const Editors = {
+	info     : require('./infoEditor/infoEditor.jsx'),
+	template : require('./templateEditor/templateEditor.jsx'),
+	data     : require('./dataEditor/dataEditor.jsx'),
+	logic    : require('./logicEditor/logicEditor.jsx')
+};
 
-var CodeEditor = require('naturalcrit/codeEditor/codeEditor.jsx');
-const Actions = require('tpk/sheet.actions.js');
-const Store = require('tpk/sheet.store.js');
+const EDITOR = 'EDITOR_TYPE';
 
-var Editor = React.createClass({
-	getDefaultProps: function() {
-		return {
-			sheet : {
-				template : '',
-				data : {},
-				info : {},
-				logic : ''
-			},
 
-			onDividerColorChange : ()=>{},
-			//onChange : ()=>{}
-		}
-	},
-
+const Editor = React.createClass({
 
 	config : function(val){
 		var config = {
@@ -85,44 +77,34 @@ var Editor = React.createClass({
 		return config[val || this.state.editorType];
 	},
 
-
-
 	getInitialState: function(){
 		return {
 			editorType : 'template', //template, logic, data, info
 		};
 	},
+
+	paneHeight : 0,
+
 	componentDidMount: function(){
 		this.updateEditorSize();
 		window.addEventListener('resize', this.updateEditorSize);
-		setTimeout(()=>{
-			this.changeEditorType('template');
-		}, 100)
+		this.changeEditorType(localStorage.getItem(EDITOR));
 	},
 	componentWillUnmount: function(){
 		window.removeEventListener('resize', this.updateEditorSize);
 	},
 	updateEditorSize : function(){
-		var paneHeight = this.refs.editor.parentNode.clientHeight;
-		paneHeight -= this.refs.editorBar.clientHeight + 1;
-		this.refs.codeEditor.codeMirror.setSize(null, paneHeight);
+		this.paneHeight = this.refs.main.parentNode.clientHeight - (this.refs.editorBar.clientHeight + 1);
+		this.refs.editor.updateHeight(this.paneHeight);
+	},
+
+	changeEditorType : function(type){
+		if(!type) return;
+		this.setState({ editorType : type });
+		localStorage.setItem(EDITOR, type);
 	},
 
 
-	handleChange : function(text){
-		this.config().set(text);
-	},
-	changeEditorType : function(type, color){
-		this.setState({
-			editorType : type,
-		});
-		this.props.onDividerColorChange(color);
-	},
-
-	//Called when there are changes to the editor's dimensions
-	update : function(){
-		this.refs.codeEditor.updateSize();
-	},
 
 	export : function(){
 		console.log(this.props.sheet);
@@ -171,6 +153,8 @@ var Editor = React.createClass({
 		</div>
 	},
 
+	//break out to it's own componet
+
 	renderBar : function(){
 
 		var colors= {
@@ -199,8 +183,13 @@ var Editor = React.createClass({
 
 
 	render : function(){
-		return <div className='editor' ref='editor'>
+		const EditorComp = Editors[this.state.editorType].component;
+
+		return <div className='editor' ref='main'>
 			{this.renderBar()}
+
+			<EditorComp ref='editor' height={this.paneHeight} />
+			{/*
 			<CodeEditor
 				ref='codeEditor'
 				wrap={true}
@@ -208,6 +197,8 @@ var Editor = React.createClass({
 				value={this.config().get()}
 				onChange={this.handleChange}
 				onCursorActivity={this.handleCursorActivty} />
+
+			*/}
 		</div>
 	}
 });
