@@ -3,8 +3,7 @@ const _ = require('lodash');
 const cx = require('classnames');
 
 const get = require('../utils.js').get;
-
-const Box = require('../box/box.jsx');
+const InternalBox = require('../internalBox/internalBox.jsx');
 
 const StatBox = React.createClass({
 	getDefaultProps: function() {
@@ -56,19 +55,11 @@ const StatBox = React.createClass({
 	},
 
 	render : function(){
-
-		return <Box
-				className={cx('statBox', get.classes(this.props))}
-				border={true}
-				label={this.props.label}
-				title={this.props.title}
-				style={this.props.style}
-				is_internal={true}
-				>
+		return <InternalBox className='statBox' {...this.props} border={true}>
 			{this.renderMod()}
 			<input className='value' type='text' value={this.props.data.value} onChange={this.handleValueChange} />
 			{this.renderAlt()}
-		</Box>
+		</InternalBox>
 	}
 });
 
