@@ -3,8 +3,7 @@ const _ = require('lodash');
 const cx = require('classnames');
 
 const get = require('../utils.js').get;
-
-const Box = require('../box/box.jsx');
+const InternalBox = require('../internalBox/internalBox.jsx');
 
 const TextBox = React.createClass({
 	getDefaultProps: function() {
@@ -27,14 +26,12 @@ const TextBox = React.createClass({
 	},
 
 	render : function(){
-		return <Box
-			className={cx('textBox', get.classes(this.props))} {...this.props} is_internal={true}>
-			<textarea style={{
-					fontSize : this.props.fontSize
-				}}
+		return <InternalBox className='textBox' {...this.props}>
+			<textarea
+				style={{fontSize : this.props.fontSize}}
 				value={this.props.data}
 				onChange={this.handleChange} />
-		</Box>
+		</InternalBox>
 	}
 });
 

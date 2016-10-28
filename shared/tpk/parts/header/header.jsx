@@ -1,9 +1,9 @@
-var React = require('react');
-var _     = require('lodash');
-var cx    = require('classnames');
+const React = require('react');
+const _     = require('lodash');
+const cx    = require('classnames');
 
-var get = require('../utils.js').get;
-var Box = require('../box/box.jsx');
+const get = require('../utils.js').get;
+const Box = require('../box/box.jsx');
 
 /*
 <Header
@@ -16,28 +16,21 @@ var Box = require('../box/box.jsx');
 </Header>
 */
 
-var Header = React.createClass({
+const Header = React.createClass({
 	getDefaultProps: function() {
 		return {
 			base_name : 'header',
 			data: {
 				banner : '',
 				content : {}
-			},
-
-			title : '',
-			label : '',
-			rows : '',
-			columns : '',
+			}
 		};
 	},
-
 	handleContentChange : function(newContent){
 		this.props.onChange(_.assign({}, this.props.data, {
 			content : _.assign({}, this.props.data.content, newContent)
 		}));
 	},
-
 	handleBannerChange : function(e){
 		this.props.onChange(_.assign({}, this.props.data, {
 			banner : e.target.value
@@ -70,8 +63,7 @@ var Header = React.createClass({
 				data={this.props.data.content}
 				space={true}
 				rows={get.rows(this.props)}
-				columns={get.columns(this.props)}
-				>
+				columns={get.columns(this.props)}>
 				{this.props.children}
 			</Box>
 		</div>

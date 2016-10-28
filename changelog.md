@@ -1,5 +1,11 @@
 # changelog
 
+### Thursday, 27/10/2016
+- Added guides to help with spacing, use by typeing `guides` as a prop
+- Added a table element
+- Split out the visual rendering from box into `internalBox`
+
+
 ### Wednesday, 26/10/2016 - v0.2.1
 - Fixed bug where cloning didn't work Copied over the existing ids to the clone.
 - Removed the 'tryNum' feature from fields. Moved that into the Logic Lib.

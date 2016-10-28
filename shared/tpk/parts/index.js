@@ -37,15 +37,13 @@ module.exports = {
 	TextField : require('./textField/textField.jsx'),
 
 	Skill : require('./skill/skill.jsx'),
-
 	Button : require('./button/button.jsx'),
 
 	Repeat : require('./repeat/repeat.jsx'),
+	Table : require('./table/table.jsx'),
 
 	Label : require('./label/label.jsx'),
-
 	Header : require('./header/header.jsx'),
-
 	Pack : require('./pack/pack.jsx'),
 
 

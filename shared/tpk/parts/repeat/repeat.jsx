@@ -1,10 +1,10 @@
-var React = require('react');
-var _     = require('lodash');
-var cx    = require('classnames');
+const React = require('react');
+const _     = require('lodash');
+const cx    = require('classnames');
 
-var get = require('../utils.js').get;
+const get = require('../utils.js').get;
 
-var Repeat = React.createClass({
+const Repeat = React.createClass({
 	getDefaultProps: function() {
 		return {
 			base_name : 'repeat',
