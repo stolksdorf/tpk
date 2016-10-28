@@ -3,10 +3,11 @@ const _ = require('lodash');
 const cx = require('classnames');
 
 const Editors = {
-	info     : require('./infoEditor/infoEditor.jsx'),
+
 	template : require('./templateEditor/templateEditor.jsx'),
 	data     : require('./dataEditor/dataEditor.jsx'),
-	logic    : require('./logicEditor/logicEditor.jsx')
+	logic    : require('./logicEditor/logicEditor.jsx'),
+	info     : require('./infoEditor/infoEditor.jsx'),
 };
 
 const EditorBar = require('./editorBar/editorBar.jsx');
