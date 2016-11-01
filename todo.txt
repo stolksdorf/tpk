@@ -1,3 +1,10 @@
+Tuesday, 01/11/2016
+- Print from new dones;t work
+- Pipbar doesn't support label or title
+- Header name has been bumped down again
+- Header boundaries seem weird
+- Lines don't line up on text box anymore
+
 Tuesday, 11/10/2016
 - Get PDF doesn't take the newest copy of data
 - Editor updates data slow
