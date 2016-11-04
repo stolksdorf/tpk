@@ -3,7 +3,8 @@ var _     = require('lodash');
 var cx    = require('classnames');
 
 var get = require('../utils.js').get;
-var BinPack = require('tpk/greedyrow.binpack.js');
+//var BinPack = require('tpk/greedyrow.binpack.js');
+var BinPack = require('tpk/greedybinpack.js');
 
 
 var Pack = React.createClass({
@@ -12,6 +13,8 @@ var Pack = React.createClass({
 		return {
 			data : {},
 			style : {},
+
+			flow : 'vertical',
 
 			onChange: ()=>{}
 		};
@@ -75,7 +78,9 @@ var Pack = React.createClass({
 		}
 		*/
 
-		var coords = BinPack(this.getContainerDimensions(), _.map(validChildren, (child)=>{
+		const packAlgo = (this.props.flow == 'vertical' ? BinPack.greedyCol : BinPack.greedyRow);
+
+		const coords = packAlgo(this.getContainerDimensions(), _.map(validChildren, (child)=>{
 			return {
 				w : get.width(child.props, 1),
 				h : get.height(child.props, 1),
