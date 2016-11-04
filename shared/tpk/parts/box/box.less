@@ -116,4 +116,30 @@
 	&.guides{
 		//see tpk.less
 	}
+
+	//Borders
+	&.borderRight, &.borderLeft{
+		&:after{
+			content : '';
+			position: absolute;
+			top : 0px;
+			width : 1px;
+			height : 100%;
+			background: linear-gradient(transparent, #888 20%, #888 50%, #888 80%, transparent);
+		}
+	}
+	&.borderTop, &.borderBottom{
+		&:after{
+			content : '';
+			position: absolute;
+			left : 0px;
+			height : 1px;
+			width : 100%;
+			background: linear-gradient(to right, transparent, #888 20%, #888 50%, #888 80%, transparent);
+		}
+	}
+	&.borderRight:after{ right : 0px;}
+	&.borderLeft:after{ left : 0px;}
+	&.borderTop:after{ top : 0px;}
+	&.borderBottom:after{ bottom : 0px;}
 }

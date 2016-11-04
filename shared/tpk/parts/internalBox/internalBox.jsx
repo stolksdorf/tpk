@@ -12,6 +12,10 @@ var InternalBox = React.createClass({
 			shadow : false,
 			border : false,
 			expand : false,
+
+			borderRight : false,
+
+
 			label : '',
 			title : ''
 		};
