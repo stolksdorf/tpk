@@ -1,6 +1,7 @@
 // Greedy row bin packing
 
 var _ = require('lodash');
+
 module.exports = (container, boxes) => {
 	var currentRow = 0;
 	var map = _.times(container.h, ()=>{
@@ -32,6 +33,11 @@ module.exports = (container, boxes) => {
 	});
 	return res;
 }
+
+
+
+
+
 
 /*
 
