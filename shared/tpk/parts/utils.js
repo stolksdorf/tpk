@@ -1,7 +1,8 @@
 const _ = require('lodash');
 
 const PropNames = ['shadow','border','space','expand','lines', 'guides',
-					'borderRight', 'borderLeft', 'borderTop', 'borderBottom'];
+					'borderRight', 'borderLeft', 'borderTop', 'borderBottom',
+					'right', 'center'];
 const Toggles = ['label','title','mod','alt', 'tag'];
 
 module.exports = {
