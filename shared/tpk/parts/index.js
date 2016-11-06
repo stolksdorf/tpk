@@ -42,7 +42,7 @@ module.exports = {
 	Repeat : require('./repeat/repeat.jsx'),
 	Table : require('./table/table.jsx'),
 
-	Label : require('./label/label.jsx'),
+	Text : require('./text/text.jsx'),
 	Header : require('./header/header.jsx'),
 	Pack : require('./pack/pack.jsx'),
 
