@@ -26,17 +26,21 @@ const EditorBar = React.createClass({
 		}
 	},
 	resetData : function(){
-		//console.log(ProcessSheet.getDefaultData(this.props.sheet.template));
 		Actions.resetData();
 	},
+
 
 
 
 	renderOptionsMenu : function(){
 		const opts = {
 			"reset data" : {
-				icon : 'fa-user-times',
+				icon : 'fa-exclamation-triangle',
 				action : this.resetData
+			},
+			"prune data" : {
+				icon : 'fa-user-times',
+				action : Actions.pruneData
 			},
 			export : {
 				icon : 'fa-upload',

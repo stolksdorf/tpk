@@ -45,9 +45,14 @@ const Actions = {
 	},
 
 	resetData : function(){
-
 		Actions.updateSheet({
 			data : ProcessSheet.getDefaultData(Store.getTemplate())
+		});
+	},
+
+	pruneData : function(){
+		Actions.updateSheet({
+			data : ProcessSheet.getPrunedData(Store.getTemplate(), Store.getData())
 		});
 	},
 

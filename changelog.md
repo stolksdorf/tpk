@@ -1,5 +1,17 @@
 # changelog
 
+### Wednesday, 09/11/2016
+- Finished ability to reset data. Looks at your current template to determine the resulting data structure
+- Added the ability to prune your data. Gets rid of all data fields that aren't defined within your template structure. Very handy.
+-
+
+### Saturday, 09/5/2016 - v0.4.0
+- Added new Text element. Can be used as a title, or label
+- Changed The default sheet flow from left-to-right to top-to-bottom. Organizing sheets is much more reliable now. Can switch back by adding `flow='horizontal' to the Sheet element
+- Added in text alignment prop to textbased elements
+- Added in a border* (borderTop, borderLeft, etc.) prop to box-based elements
+
+
 ### Thursday, 27/10/2016 - v0.3.0
 - Added guides to help with spacing, use by typeing `guides` as a prop
 - Added a table element
