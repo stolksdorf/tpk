@@ -13,42 +13,29 @@ const EditorBar = React.createClass({
 		};
 	},
 
-	export : function(){
-		console.log(this.props.sheet);
-
-		window.open('data:application/json;' +JSON.stringify(this.props.sheet, null, '  '));
-	},
-	import : function(){
-
-		const temp = window.prompt("sometext","defaultText");
-		if(temp){
-			alert(temp);
+	resetData : function(){
+		if(window.confirm('Are you sure you want to reset the data? \nEverything entered into this sheet will be lost')){
+			Actions.resetData();
 		}
 	},
-	resetData : function(){
-		Actions.resetData();
-	},
-
-
-
 
 	renderOptionsMenu : function(){
 		const opts = {
-			"reset data" : {
-				icon : 'fa-exclamation-triangle',
-				action : this.resetData
+			export : {
+				icon : 'fa-upload',
+				action : Actions.exportSheet
+			},
+			import : {
+				icon : 'fa-download',
+				action : Actions.importSheet
 			},
 			"prune data" : {
 				icon : 'fa-user-times',
 				action : Actions.pruneData
 			},
-			export : {
-				icon : 'fa-upload',
-				action : this.export
-			},
-			import : {
-				icon : 'fa-download',
-				action : this.import
+			"reset data" : {
+				icon : 'fa-exclamation-triangle',
+				action : this.resetData
 			},
 		}
 

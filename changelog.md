@@ -3,7 +3,7 @@
 ### Wednesday, 09/11/2016
 - Finished ability to reset data. Looks at your current template to determine the resulting data structure
 - Added the ability to prune your data. Gets rid of all data fields that aren't defined within your template structure. Very handy.
--
+- Added in exporting and importing of sheets
 
 ### Saturday, 09/5/2016 - v0.4.0
 - Added new Text element. Can be used as a title, or label
