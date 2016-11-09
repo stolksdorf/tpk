@@ -1,8 +1,10 @@
-var React = require('react');
-var _     = require('lodash');
-var cx    = require('classnames');
+const React = require('react');
+const _     = require('lodash');
+const cx    = require('classnames');
 
-var EditorBar = React.createClass({
+const Actions = require('tpk/sheet.actions.js');
+
+const EditorBar = React.createClass({
 	getDefaultProps: function() {
 		return {
 			selectedEditor : '',
@@ -18,7 +20,7 @@ var EditorBar = React.createClass({
 	},
 	import : function(){
 
-		var temp = window.prompt("sometext","defaultText");
+		const temp = window.prompt("sometext","defaultText");
 		if(temp){
 			alert(temp);
 		}

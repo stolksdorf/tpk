@@ -70,36 +70,25 @@ const ProcessSheet = {
 	},
 
 
-
-	//TODO: Needs a lot of work
 	getDefaultData : function(template){
-		var getDefaultNodeData  = function(node){
-			console.log(node.tag, !!Parts[node.tag]);
+		const getDefaultNodeData  = function(node){
+			if(!node.children.length) return Parts[node.tag].defaultProps.data;
 
-			console.log(Parts[node.tag].defaultProps.data, node.tag);
-
-			//return {};
-
-			var res = {};
-
-			//TODO: Fix for falsey default values
-			//var res = JSON.parse(JSON.stringify(Parts[node.tag].defaultProps.defaultData || {})) ;
-			_.each(node.children, (child)=>{
-				var childId = get.id(child.props);
-				console.log(childId);
-				res[childId] = getDefaultNodeData(child);
-
-				//var name = Parts[child.tag].defaultProps.name
-				//var id = _.snakeCase(child.props.id || child.props.title || child.props.label || name);
-				//res[id] = getDefaultNodeData(child);
-			})
-			return res;
+			return _.reduce(node.children, (r, child, idx)=>{
+				const childId = get.id(_.merge({}, child.props, Parts[child.tag].defaultProps), idx);
+				if(!childId) return _.merge(r, getDefaultNodeData(child));
+				r[childId] = getDefaultNodeData(child);
+				return r;
+			}, {})
 		};
-		var sheets = jsx2json(template);
-
+		const sheets = jsx2json(template);
 		return _.reduce(sheets, (r, sheet)=>{
 			return _.merge(r, getDefaultNodeData(sheet));
 		}, {});
+	},
+
+	getNodeMapObject : function(template){
+
 
 	},
 

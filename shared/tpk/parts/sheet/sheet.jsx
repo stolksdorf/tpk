@@ -9,6 +9,7 @@ var Pack = require('../pack/pack.jsx');
 var Sheet = React.createClass({
 	getDefaultProps: function() {
 		return {
+			data : {},
 			landscape : false,
 			iso : false,
 
