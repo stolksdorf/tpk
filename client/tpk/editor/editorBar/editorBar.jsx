@@ -1,8 +1,10 @@
-var React = require('react');
-var _     = require('lodash');
-var cx    = require('classnames');
+const React = require('react');
+const _     = require('lodash');
+const cx    = require('classnames');
 
-var EditorBar = React.createClass({
+const Actions = require('tpk/sheet.actions.js');
+
+const EditorBar = React.createClass({
 	getDefaultProps: function() {
 		return {
 			selectedEditor : '',
@@ -11,38 +13,29 @@ var EditorBar = React.createClass({
 		};
 	},
 
-	export : function(){
-		console.log(this.props.sheet);
-
-		window.open('data:application/json;' +JSON.stringify(this.props.sheet, null, '  '));
-	},
-	import : function(){
-
-		var temp = window.prompt("sometext","defaultText");
-		if(temp){
-			alert(temp);
+	resetData : function(){
+		if(window.confirm('Are you sure you want to reset the data? \nEverything entered into this sheet will be lost')){
+			Actions.resetData();
 		}
 	},
-	resetData : function(){
-		//console.log(ProcessSheet.getDefaultData(this.props.sheet.template));
-		Actions.resetData();
-	},
-
-
 
 	renderOptionsMenu : function(){
 		const opts = {
-			"reset data" : {
-				icon : 'fa-user-times',
-				action : this.resetData
-			},
 			export : {
 				icon : 'fa-upload',
-				action : this.export
+				action : Actions.exportSheet
 			},
 			import : {
 				icon : 'fa-download',
-				action : this.import
+				action : Actions.importSheet
+			},
+			"prune data" : {
+				icon : 'fa-user-times',
+				action : Actions.pruneData
+			},
+			"reset data" : {
+				icon : 'fa-exclamation-triangle',
+				action : this.resetData
 			},
 		}
 

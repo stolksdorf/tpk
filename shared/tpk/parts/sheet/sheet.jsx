@@ -9,6 +9,7 @@ var Pack = require('../pack/pack.jsx');
 var Sheet = React.createClass({
 	getDefaultProps: function() {
 		return {
+			data : {},
 			landscape : false,
 			iso : false,
 
@@ -16,20 +17,6 @@ var Sheet = React.createClass({
 		};
 	},
 
-/*
-	render : function(){
-		return <div className={cx('sheet', {
-				landscape : this.props.landscape,
-				iso : this.props.iso,
-				letter : !this.props.iso,
-				guides : this.props.guides
-			})}>
-			<Box {...this.props}>
-				{this.props.children}
-			</Box>
-		</div>
-	}
-*/
 	render : function(){
 		return <div className={cx('sheet', {
 				landscape : this.props.landscape,

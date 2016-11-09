@@ -41,7 +41,7 @@ let LocalKey = false;
 const saveSheetToLocal = (_key)=>{
 	let key = _key || LocalKey;
 	if(!key) return;
-	console.log('saving to local', key);
+	//console.log('saving to local', key);
 	localStorage.setItem(key, JSON.stringify(State.sheet));
 };
 

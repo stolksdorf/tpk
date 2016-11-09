@@ -41,16 +41,33 @@ const Actions = {
 
 		localStorage.setItem('CLONE', JSON.stringify(clonedData));
 		window.open(`/new?local=CLONE`, '_blank').focus();
+	},
 
+	exportSheet : function(){
+		const sheetString = JSON.stringify(Store.getSheet(), null, '    ');
+		window.open(`data:text/json,${encodeURIComponent(sheetString)}`, '_blank').focus();
+	},
+
+	importSheet : function(){
+		const sheetString = prompt("Paste all of your sheet's JSON below", "{ info : { ...");
+		if(!sheetString) return;
+		try{
+			const sheet = JSON.parse(sheetString);
+			Actions.setSheet(sheet);
+		}catch(e){
+			alert('There was an error parsing the exported sheet. Make sure you copied and pasted everything from the export');
+		}
 	},
 
 	resetData : function(){
-		console.log('yo');
-		console.log(ProcessSheet.getDefaultData(Store.getTemplate()));
-
-		return;
 		Actions.updateSheet({
 			data : ProcessSheet.getDefaultData(Store.getTemplate())
+		});
+	},
+
+	pruneData : function(){
+		Actions.updateSheet({
+			data : ProcessSheet.getPrunedData(Store.getTemplate(), Store.getData())
 		});
 	},
 

@@ -1,13 +1,21 @@
-var _ = require('lodash');
-var jsx2json = require('tpk/jsx-parser');
-var Parts = require('tpk/parts');
-var get = require('tpk/parts/utils.js').get;
-//var md5 = require('md5');
+const _ = require('lodash');
+const jsx2json = require('tpk/jsx-parser');
+const Parts = require('tpk/parts');
+const get = require('tpk/parts/utils.js').get;
 
-var tpkLib = _.reduce(require('tpk/tpk.lib.js'), (r, func, key) => {
+const tpkLib = _.reduce(require('tpk/tpk.lib.js'), (r, func, key) => {
 	return `${r}${key}:${func.toString()},`;
 }, '{') + '}';
 
+
+
+const prune = (obj, map) => {
+	if(!_.isObject(map)) return obj;
+	return _.reduce(map, (r, val, key) => {
+		if(!_.isUndefined(obj[key])) r[key] = prune(obj[key], val);
+		return r;
+	}, {})
+};
 
 
 
@@ -22,11 +30,12 @@ var last = {
 };
 
 
+
 const ProcessSheet = {
 
 	getSheetStucture : function(template){
 		if(template == last.template) return last.nodes;
-		var nodes = jsx2json(template);
+		const nodes = jsx2json(template);
 		last.template = template;
 		last.nodes = nodes;
 		return nodes;
@@ -45,14 +54,14 @@ const ProcessSheet = {
 		}
 
 		try{
-			var code = `(function(){
+			const code = `(function(){
 				'use strict';
 				var data = ${JSON.stringify(data)};
 				var tpk = ${tpkLib}
 				${logic};
 				return data;
 			})();`;
-			var processedData = _.merge({}, data, eval(code));
+			const processedData = _.merge({}, data, eval(code));
 
 			last.logic = logic;
 			last.data = processedData;
@@ -70,40 +79,33 @@ const ProcessSheet = {
 	},
 
 
+	getDefaultData : function(template, defaultVal){
+		const getDefaultNodeData  = (node) => {
+			if(!node.children.length) return defaultVal || Parts[node.tag].defaultProps.data;
 
-	//TODO: Needs a lot of work
-	getDefaultData : function(template){
-		var getDefaultNodeData  = function(node){
-			console.log(node.tag, !!Parts[node.tag]);
-
-			console.log(Parts[node.tag].defaultProps.data, node.tag);
-
-			//return {};
-
-			var res = {};
-
-			//TODO: Fix for falsey default values
-			//var res = JSON.parse(JSON.stringify(Parts[node.tag].defaultProps.defaultData || {})) ;
-			_.each(node.children, (child)=>{
-				var childId = get.id(child.props);
-				console.log(childId);
-				res[childId] = getDefaultNodeData(child);
-
-				//var name = Parts[child.tag].defaultProps.name
-				//var id = _.snakeCase(child.props.id || child.props.title || child.props.label || name);
-				//res[id] = getDefaultNodeData(child);
-			})
-			return res;
+			return _.reduce(node.children, (r, child, idx)=>{
+				const childId = get.id(_.merge({}, Parts[child.tag].defaultProps, child.props), idx);
+				if(!childId) return _.merge(r, getDefaultNodeData(child));
+				r[childId] = getDefaultNodeData(child);
+				return r;
+			}, {})
 		};
-		var sheets = jsx2json(template);
-
+		const sheets = jsx2json(template);
 		return _.reduce(sheets, (r, sheet)=>{
 			return _.merge(r, getDefaultNodeData(sheet));
 		}, {});
-
 	},
 
+	getNodeMapObject : function(template){
+		return ProcessSheet.getDefaultData(template, true);
+	},
+
+	getPrunedData : function(template, data){
+		console.log('map', ProcessSheet.getNodeMapObject(template), data);
+		return prune(data, ProcessSheet.getNodeMapObject(template));
+	}
 
 }
+
 
 module.exports = ProcessSheet;
