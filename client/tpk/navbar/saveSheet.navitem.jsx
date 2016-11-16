@@ -34,6 +34,7 @@ const SaveSheetNavItem = React.createClass({
 			this.debounceSave();
 			this.sheetHash = Store.getSheetHash();
 		}else{
+			console.log('DEBOUNCE', this.debounceSave);
 			if(this.debounceSave && this.debounceSave.cancel) this.debounceSave.cancel();
 		}
 	},
